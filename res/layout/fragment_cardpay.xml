@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_marginBottom="40dp"
+         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+           
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="用 户 名" />
+
+                <TextView
+                    android:id="@+id/username_fragment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="sadasdasd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="订单金额" />
+
+                <TextView
+                    android:id="@+id/paymoney_fragment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="25 元" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="兑换比例" />
+
+                <TextView
+                    android:id="@+id/changeBili_fragment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="1 元 = 1 元宝" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="支付名称" />
+
+                <TextView
+                    android:id="@+id/payname_table_fragment_card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="充值卡支付" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="40dp"
+                android:text="请填写充值卡密"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinner_cardpay_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                />
+            <EditText 
+                android:id="@+id/edit_cardnum_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:hint="请填写卡号"
+                android:textSize="20sp"
+                />
+            <EditText 
+                android:id="@+id/edit_cardpass_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:hint="请填写密码"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="温馨提示"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:ellipsize="end"
+                android:text="温馨提示"
+                android:textSize="14sp" />
+            <TextView android:layout_width="match_parent"
+                android:layout_height="50dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/pay_fragment_ali_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="支付" />
+
+</RelativeLayout>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
+        
+        >
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+            
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="用 户 名" />
+
+                <TextView 
+                    android:id="@+id/username_fragment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="sadasdasd"
+                    
+                    />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="订单金额" />
+
+                <TextView
+                    android:id="@+id/paymoney_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="25 元" />
+
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="兑换比例" />
+
+                <TextView
+                    android:id="@+id/changeBili_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="1 元 = 1 元宝" />
+
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="支付名称" />
+
+                <TextView
+                    android:id="@+id/payname_table_fragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/fy_short_input"
+                    android:gravity="center"
+                    android:text="支付宝快捷支付" />
+
+            </LinearLayout>
+             <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_gravity="left"
+                
+                android:text="温馨提示"
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="left"
+                android:ellipsize="end"
+                
+                android:text="温馨提示"
+                />
+           
+         
+        </LinearLayout>
+        
+        
+        
+    </ScrollView>
+     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付"
+        android:id="@+id/pay_fragment_ali"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+     <TextView
+         android:id="@+id/pay_name_fragment"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+         android:textSize="24sp"
+         android:text="支付宝支付" />
+
+</RelativeLayout>
