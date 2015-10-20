@@ -25,9 +25,10 @@ public class MyXQTPay {
 	public static String _money = "";
 	public static PayChannel payChannel_weixin;
 
-	public static void XQTWXPay(final String money, final String serverId,
-			final String productName, final String productDes,
-			final PayChannel payChannel, final Handler handler) {
+	public static void XQTWXPay(final String orderid_cp, final String money,
+			final String serverId, final String productName,
+			final String productDes, final PayChannel payChannel,
+			final Handler handler) {
 
 		ExecutorService singleThread = Executors.newSingleThreadExecutor();
 		singleThread.execute(new Runnable() {
@@ -35,16 +36,16 @@ public class MyXQTPay {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				getOrderId(money, Double.parseDouble(money) + "", serverId,
-						productName, productDes, payChannel, handler);
+				getOrderId(orderid_cp, money, Double.parseDouble(money) + "",
+						serverId, productName, productDes, payChannel, handler);
 			}
 		});
 
 	}
 
-	private static void getOrderId(String money, String gameMoney,
-			String serverID, String productName, String productDes,
-			PayChannel payChannel, Handler handler) {
+	private static void getOrderId(String orderid_cp, String money,
+			String gameMoney, String serverID, String productName,
+			String productDes, PayChannel payChannel, Handler handler) {
 		// TODO Auto-generated method stub
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		NameValuePair nameValuePair1 = new BasicNameValuePair("appid",

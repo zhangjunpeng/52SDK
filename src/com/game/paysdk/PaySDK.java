@@ -11,8 +11,9 @@ import com.game.gamesdk.GameSDK;
 public class PaySDK {
 	public static GamePayCallback mcallback;
 
-	public static void startPay(Context context, GamePayCallback callback,
-			double money, String serverID, String productName, String productDes) {
+	public static void startPay(Context context, String orderid_cp,
+			GamePayCallback callback, double money, String serverID,
+			String productName, String productDes) {
 
 		if (!GameSDK.isLogin) {
 			Toast.makeText(context, "请重新登录。", Toast.LENGTH_LONG).show();
@@ -23,6 +24,7 @@ public class PaySDK {
 		PayCofing.productName = productName;
 		PayCofing.productDes = productDes;
 		PayCofing.serverID = serverID;
+		PayCofing.orderid_cp = orderid_cp;
 
 		Intent intent = new Intent(context, PayActivity.class);
 

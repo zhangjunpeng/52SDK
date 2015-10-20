@@ -10,6 +10,7 @@ public class PayCofing {
 	// 支付参数名称
 	public static String getOrderIdUrl = "http://m.52game.com/sdkpay/genorder";
 	public static String serverID = "1";
+	public static String orderid_cp = "";
 
 	// 卡类充值
 	public static String cardPayUrl = "http://www.zhifuka.net/gateway/zfgateway.asp";

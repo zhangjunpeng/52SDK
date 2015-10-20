@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class FxService extends Service {
 
@@ -111,8 +110,7 @@ public class FxService extends Service {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(FxService.this, "onClick", Toast.LENGTH_SHORT)
-						.show();
+
 			}
 		});
 	}

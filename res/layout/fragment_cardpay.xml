@@ -116,9 +116,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:text="请填写充值卡密"
-                android:textSize="22sp" />
+                android:textSize="15dp" />
 
             <Spinner
                 android:id="@+id/spinner_cardpay_fragment"
@@ -148,14 +148,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:text="温馨提示"
-                android:textSize="22sp" />
+                android:textColor="#FE9226"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:ellipsize="end"
-                android:text="温馨提示"
+                android:text="客服qq：800066814"
+                android:textColor="#a4a4a4"
                 android:textSize="14sp" />
             <TextView android:layout_width="match_parent"
                 android:layout_height="50dp"

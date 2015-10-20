@@ -1,8 +1,13 @@
 package com.game.gamesdk;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.callback.LoginGameCallback;
+import com.game.http.GameHttpClient;
+import com.game.tools.MD5Test;
 
 /**
  * Created by Administrator on 2015/9/15.
@@ -49,6 +56,8 @@ public class ShowDialog {
 	public static Context mcontext;
 
 	static Dialog dialog;
+	static Button getproving;
+	static String phoneNum;
 
 	static ProgressDialog loading = null;
 	final static Handler handler = new Handler() {
@@ -59,26 +68,35 @@ public class ShowDialog {
 			switch (msg.what) {
 			case 0:
 				// 注册成功
-				dialog.dismiss();
-				Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG).show();
-				loginGamePayCallback.registerEndCallback(msg.obj.toString());
+
 				if (loading != null) {
 					loading.dismiss();
 				}
 				String data = msg.obj.toString();
-				if (data.contains("200")) {
-					GameSDK.isLogin = true;
-					try {
-						JSONObject jsonObject = new JSONObject(data);
+
+				GameSDK.isLogin = true;
+				try {
+					JSONObject jsonObject = new JSONObject(data);
+					String errorcode = jsonObject.getString("errorCode");
+					if (errorcode.equals("200")) {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
+								.show();
+						loginGamePayCallback.registerEndCallback(data);
+						dialog.dismiss();
+					} else if (errorcode.equals("1008")) {
+						Toast.makeText(mcontext, "用户名已存在", Toast.LENGTH_LONG)
+								.show();
 
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+
 				break;
 			case 1:
 				// 登录成功
@@ -90,13 +108,16 @@ public class ShowDialog {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
-
+						dialog.dismiss();
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				} else if (data1.contains("2004") || data1.contains("2005")) {
+					Toast.makeText(mcontext, "用户名或密码错误", Toast.LENGTH_LONG)
+							.show();
 				}
-				dialog.dismiss();
+
 				Log.i("ZJP", "loginEND====" + msg.obj.toString());
 				Toast.makeText(mcontext, "登录成功", Toast.LENGTH_LONG).show();
 				loginGamePayCallback.loginEndCallback(msg.obj.toString());
@@ -110,13 +131,119 @@ public class ShowDialog {
 			}
 		}
 	};
+	static Handler handler2 = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				String data = msg.obj.toString();
+				Log.i("ZJP", data);
+				try {
+					JSONObject jsonObject = new JSONObject(data);
+
+					String errorcode = jsonObject.getString("errorCode");
+					if (errorcode.equals("200")) {
+						Toast.makeText(mcontext, "验证码已发送", Toast.LENGTH_LONG)
+								.show();
+						setButton(getproving);
+
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+
+			default:
+				break;
+			}
+		}
+
+	};
+	static Handler handler3 = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				dialog.dismiss();
+				String data = msg.obj.toString();
+				try {
+					JSONObject jsonObject = new JSONObject(data);
+					String errorcode = jsonObject.getString("errorCode");
+					if (errorcode.equals("1008")) {
+						Toast.makeText(mcontext, "手机号已注册", Toast.LENGTH_LONG)
+								.show();
+						return;
+					} else if (errorcode.equals("1011")) {
+						Toast.makeText(mcontext, "验证码错误", Toast.LENGTH_LONG)
+								.show();
+						return;
+					} else if (errorcode.equals("200")) {
+						JSONObject jsonObject2 = jsonObject
+								.getJSONObject("data");
+						UserInfo.userID = jsonObject2.getString("uid");
+						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
+								.show();
+						loginGamePayCallback.registerEndCallback(data);
+						dialog.dismiss();
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
+	private static void setButton(final Button button) {
+		// TODO Auto-generated method stub
+
+		final Handler handler3 = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
+				switch (msg.what) {
+				case 0:
+					button.setClickable(false);
+					button.setText(msg.obj.toString() + "秒");
+					break;
+
+				case 1:
+					button.setClickable(true);
+					button.setText(R.string.getproving);
+					break;
+				}
+			}
+		};
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				for (int i = 60; i > 0; i--) {
+					handler3.obtainMessage(0, i).sendToTarget();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				handler3.sendEmptyMessage(1);
+			}
+		}).start();
+
+	}
 
 	public static void showPhoneRegisterDialog(final Context paramContext) {
 
 		localView = LayoutInflater.from(paramContext).inflate(
 				R.layout.dialog_showmobleregist, null);
 		// localView.setPadding(30, 30, 30, 30);
-		Dialog dialog = new Dialog(paramContext);
+		dialog = new Dialog(paramContext);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(localView);
 
@@ -152,13 +279,25 @@ public class ShowDialog {
 					@Override
 					public void onClick(View v) {
 						if (isagree) {
-							String phonenum = edit_phonenum.getText()
-									.toString();
+
 							String pwd = edit_pwd.getText().toString();
 							String prov = edit_prov.getText().toString();
-							if (!"".equals(phonenum) && !"".equals(pwd)
-									&& !"".equals(prov)) {
-
+							if (TextUtils.isEmpty(phoneNum)) {
+								Toast.makeText(paramContext, "请输入手机号码",
+										Toast.LENGTH_LONG).show();
+								return;
+							} else if (TextUtils.isEmpty(prov)) {
+								Toast.makeText(paramContext, "请输入验证码",
+										Toast.LENGTH_LONG).show();
+								return;
+							} else if (TextUtils.isEmpty(pwd)) {
+								Toast.makeText(paramContext, "请输入密码",
+										Toast.LENGTH_LONG).show();
+								return;
+							} else {
+								NameRegLogin nameRegLogin = new NameRegLogin();
+								nameRegLogin.phoneRegister(phoneNum, pwd, prov,
+										handler3);
 							}
 
 						} else {
@@ -167,15 +306,62 @@ public class ShowDialog {
 						}
 					}
 				});
-		localView.findViewById(R.id.button_getproving_phoneRegister)
-				.setOnClickListener(new View.OnClickListener() {
+		getproving = (Button) localView
+				.findViewById(R.id.button_getproving_phoneRegister);
+		getproving.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i("ZJP", "验证码开始");
+				phoneNum = edit_phonenum.getEditableText().toString();
+				if (phoneNum.length() != 11) {
+					Toast.makeText(paramContext, "手机号格式不正确", Toast.LENGTH_LONG)
+							.show();
+					return;
+				}
+				singleThreadExecutors.execute(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						NameValuePair nameValuePair = new BasicNameValuePair(
+								"phone", phoneNum);
+						String time = new Date().getTime() + "";
+						NameValuePair nameValuePair2 = new BasicNameValuePair(
+								"time", time);
+						String unsign = "phone=" + phoneNum + "&time=" + time
+								+ "|" + GameSDK.AppKey;
+						Log.i("ZJP", unsign);
+						String sign = MD5Test.getMD5(unsign);
+						NameValuePair nameValuePair3 = new BasicNameValuePair(
+								"sign", sign);
+						nameValuePairs.add(nameValuePair);
+						nameValuePairs.add(nameValuePair2);
+						nameValuePairs.add(nameValuePair3);
+						GameHttpClient gameHttpClient = new GameHttpClient(
+								handler2);
+
+						gameHttpClient.startClient(RegisterConfig.smsUrl,
+								nameValuePairs);
+
+						Log.i("ZJP", nameValuePairs.toString());
+						Log.i("ZJP", "验证码开始2");
+					}
+				});
+			}
+		});
+		localView.findViewById(R.id.login_phoneregister).setOnClickListener(
+				new OnClickListener() {
+
 					@Override
 					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+						showLoginDialog(paramContext);
 
 					}
 				});
 
-		initNameRegisterDialogClickListener(paramContext, localView, dialog);
 		dialog.show();
 	}
 
@@ -289,8 +475,9 @@ public class ShowDialog {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				showNameRegisterDialog(paramContext);
 				dialog.dismiss();
+				showNameRegisterDialog(paramContext);
+
 			}
 		});
 		login.setOnClickListener(new OnClickListener() {
@@ -338,7 +525,7 @@ public class ShowDialog {
 				.findViewById(R.id.register_nameregister);
 		CheckBox checkBox = (CheckBox) localView
 				.findViewById(R.id.checkBox_nameregister);
-		TextView findbackpwd = (TextView) localView
+		TextView haveAcount = (TextView) localView
 				.findViewById(R.id.haveAcount_nameregister);
 
 		// 每次改变自动登录的选中状态，系统都会记录
@@ -351,6 +538,16 @@ public class ShowDialog {
 			}
 		});
 
+		localView.findViewById(R.id.phone_nameregister).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+						showPhoneRegisterDialog(paramContext);
+					}
+				});
 		button_pwd_isvisible.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -386,15 +583,17 @@ public class ShowDialog {
 				GameSDK.saveInfo("name", name);
 				GameSDK.saveInfo("pwd", pwd);
 				NameRegLogin nameRegister = new NameRegLogin();
-				nameRegister.nameRegister("1", name, "1", pwd, handler);
+				nameRegister.nameRegister(name, "1", pwd, handler);
 				loading = showLoadingDialog(paramContext, "正在登录");
 			}
 		});
-		findbackpwd.setOnClickListener(new OnClickListener() {
+		haveAcount.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				dialog.dismiss();
+				showLoginDialog(paramContext);
 
 			}
 		});
@@ -405,8 +604,8 @@ public class ShowDialog {
 		progressDialog.setTitle("提示：");
 		progressDialog.setMessage(mes);
 		progressDialog.setCancelable(false);
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		progressDialog.show();
+
 		return progressDialog;
 	}
+
 }

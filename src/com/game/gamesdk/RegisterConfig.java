@@ -4,6 +4,7 @@ public class RegisterConfig {
 
 	public static String registerURL = "http://m.52game.com/sdkaccount/reg";
 	public static String loginURL = "http://m.52game.com/sdkaccount/login";
+	public static String smsUrl = "http://m.52game.com/sdkaccount/sms";
 	public static String imei = "reg_imei";
 	public static String channel = "reg_channel_id";
 	public static String platform = "reg_platform";

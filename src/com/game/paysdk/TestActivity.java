@@ -93,7 +93,8 @@ public class TestActivity extends Activity {
 	private static void prePayMessage() {
 		XqtPay.consumerId = MyXQTPay.consumerId;
 		XqtPay.mhtOrderName = PayCofing.productName;
-		XqtPay.mhtOrderAmt = (money * 100) + "";
+		XqtPay.mhtOrderAmt = ((int) (money * 100)) + "";
+		Log.i("ZJP", "XqtPay.mhtOrderAmt===" + XqtPay.mhtOrderAmt);
 		XqtPay.mhtOrderDetail = PayCofing.productDes;
 		XqtPay.notifyUrl = payChannel.getNotify_pay_url();
 		XqtPay.superid = "100000";
@@ -117,7 +118,8 @@ public class TestActivity extends Activity {
 			payChannel = PayCofing.list.get(position);
 			money = bundle.getDouble("money");
 
-			MyXQTPay.XQTWXPay(money + "", "1", PayCofing.productName,
+			MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "",
+					PayCofing.serverID, PayCofing.productName,
 					PayCofing.productDes, payChannel, handler);
 			num++;
 

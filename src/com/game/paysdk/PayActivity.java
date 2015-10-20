@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -159,6 +160,11 @@ public class PayActivity extends FragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				for (int i = 0; i < listView.getChildCount(); i++) {
+					listView.getChildAt(i).setBackgroundColor(
+							Color.rgb(254, 146, 38));
+				}
+				view.setBackgroundColor(Color.rgb(255, 186, 117));
 				PayChannel payChannel = PayCofing.list.get(position);
 				String data = payChannel.getPay_nums();
 				if (TextUtils.isEmpty(data)) {

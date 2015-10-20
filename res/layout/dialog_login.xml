@@ -184,15 +184,17 @@
                 android:textSize="18sp"
                 android:textColor="#0b51d2"
                 android:id="@+id/checkBox_login" />
-            <TextView
+            <com.game.tools.MyTextView
                 android:id="@+id/find_pwd_login"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:gravity="right"
                 android:textSize="18sp"
-                android:textColor="#0b51d2"
-                android:text="找回密码"
+                
+                android:text="如果忘记密码。请联系客服qq：800066814 "
                 />
         </LinearLayout>
     </LinearLayout>

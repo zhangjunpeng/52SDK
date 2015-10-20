@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="40dp"
         
         >
         <LinearLayout 
@@ -119,9 +118,9 @@
              <TextView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="15dp"
                 android:layout_gravity="left"
-                
+                android:textColor="#FE9226"
                 android:text="温馨提示"
                 />
             <TextView 
@@ -130,8 +129,8 @@
                 android:textSize="14sp"
                 android:layout_gravity="left"
                 android:ellipsize="end"
-                
-                android:text="温馨提示"
+                android:textColor="#a4a4a4"
+                android:text="客服qq：800066814 "
                 />
            
          
@@ -148,13 +147,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-     <TextView
-         android:id="@+id/pay_name_fragment"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_centerHorizontal="true"
-         android:textSize="24sp"
-         android:text="支付宝支付" />
 
 </RelativeLayout>

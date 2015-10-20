@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -256,6 +257,7 @@ public class CardPayFragment extends Fragment {
 		});
 		TextView textView = (TextView) view
 				.findViewById(R.id.payname_table_fragment_card);
+		textView.setTextColor(Color.rgb(254, 146, 38));
 		textView.setText(PayCofing.list.get(position).getChannel_name());
 		TextView money_text = (TextView) view
 				.findViewById(R.id.paymoney_fragment_card);
