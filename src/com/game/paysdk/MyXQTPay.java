@@ -76,6 +76,8 @@ public class MyXQTPay {
 				+ time + "|" + GameSDK.AppKey;
 		String sign = MD5Test.getMD5(unsign);
 		NameValuePair nameValuePair11 = new BasicNameValuePair("sign", sign);
+		NameValuePair nameValuePair12 = new BasicNameValuePair("game_pay_id",
+				orderid_cp);
 
 		nameValuePairs.add(nameValuePair1);
 		nameValuePairs.add(nameValuePair2);
@@ -88,6 +90,7 @@ public class MyXQTPay {
 		nameValuePairs.add(nameValuePair9);
 		nameValuePairs.add(nameValuePair10);
 		nameValuePairs.add(nameValuePair11);
+		nameValuePairs.add(nameValuePair12);
 		Log.i("namevalue", nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(PayCofing.getOrderIdUrl, nameValuePairs);
