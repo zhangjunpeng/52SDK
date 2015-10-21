@@ -53,7 +53,8 @@ public class NameRegLogin {
 				RegisterConfig.sign, sign);
 		Log.i("ZJP", unsign);
 		Log.i("ZJP", sign);
-
+		NameValuePair nameValuePair10 = new BasicNameValuePair("appid",
+				GameSDK.AppID);
 		nameValuePairs.add(nameValuePair1);
 		nameValuePairs.add(nameValuePair2);
 		nameValuePairs.add(nameValuePair3);
@@ -63,6 +64,7 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair7);
 		nameValuePairs.add(nameValuePair8);
 		nameValuePairs.add(nameValuePair9);
+		nameValuePairs.add(nameValuePair10);
 
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {
@@ -152,6 +154,8 @@ public class NameRegLogin {
 				RegisterConfig.sign, sign);
 		Log.i("ZJP", unsign);
 		Log.i("ZJP", sign);
+		NameValuePair nameValuePair11 = new BasicNameValuePair("appid",
+				GameSDK.AppID);
 
 		nameValuePairs.add(nameValuePair1);
 		nameValuePairs.add(nameValuePair2);
@@ -163,6 +167,7 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair8);
 		nameValuePairs.add(nameValuePair9);
 		nameValuePairs.add(nameValuePair10);
+		nameValuePairs.add(nameValuePair11);
 
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {

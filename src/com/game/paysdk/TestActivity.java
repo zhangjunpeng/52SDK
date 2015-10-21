@@ -93,7 +93,8 @@ public class TestActivity extends Activity {
 	private static void prePayMessage() {
 		XqtPay.consumerId = MyXQTPay.consumerId;
 		XqtPay.mhtOrderName = PayCofing.productName;
-		XqtPay.mhtOrderAmt = ((int) (money * 100)) + "";
+		int count = (int) (money * 100);
+		XqtPay.mhtOrderAmt = count + "";
 		Log.i("ZJP", "XqtPay.mhtOrderAmt===" + XqtPay.mhtOrderAmt);
 		XqtPay.mhtOrderDetail = PayCofing.productDes;
 		XqtPay.notifyUrl = payChannel.getNotify_pay_url();

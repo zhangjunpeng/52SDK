@@ -23,16 +23,19 @@ public class FxService extends Service {
 	WindowManager.LayoutParams wmParams;
 	// 创建浮动窗口设置布局参数的对象
 	WindowManager mWindowManager;
+	LinearLayout linearLayout;
 
 	Button mFloatView;
+	boolean isshow = false;
 
 	private static final String TAG = "FxService";
+	private static boolean isClick = false;
 
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		Log.i(TAG, "oncreat");
+		// Log.i(TAG, "oncreat");
 		createFloatView();
 	}
 
@@ -72,47 +75,97 @@ public class FxService extends Service {
 		// 获取浮动窗口视图所在布局
 		mFloatLayout = (LinearLayout) inflater.inflate(R.layout.float_layout,
 				null);
+		linearLayout = (LinearLayout) mFloatLayout.findViewById(R.id.show_fx);
+		initLinearout();
 		// 添加mFloatLayout
 		mWindowManager.addView(mFloatLayout, wmParams);
 		// 浮动窗口按钮
 		mFloatView = (Button) mFloatLayout.findViewById(R.id.float_id);
+		mFloatView.setBackgroundResource(R.drawable.fx);
 
 		mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
 				View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
 				.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-		Log.i(TAG, "Width/2--->" + mFloatView.getMeasuredWidth() / 2);
-		Log.i(TAG, "Height/2--->" + mFloatView.getMeasuredHeight() / 2);
+		// Log.i(TAG, "Width/2--->" + mFloatView.getMeasuredWidth() / 2);
+		// Log.i(TAG, "Height/2--->" + mFloatView.getMeasuredHeight() / 2);
 		// 设置监听浮动窗口的触摸移动
 		mFloatView.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				// getRawX是触摸位置相对于屏幕的坐标，getX是相对于按钮的坐标
-				wmParams.x = (int) event.getRawX()
-						- mFloatView.getMeasuredWidth() / 2;
-				Log.i(TAG, "RawX" + event.getRawX());
-				Log.i(TAG, "X" + event.getX());
-				// 减25为状态栏的高度
-				wmParams.y = (int) event.getRawY()
-						- mFloatView.getMeasuredHeight() / 2 - 25;
-				Log.i(TAG, "RawY" + event.getRawY());
-				Log.i(TAG, "Y" + event.getY());
-				// 刷新
-				mWindowManager.updateViewLayout(mFloatLayout, wmParams);
 
-				return false; // 此处必须返回false，否则OnClickListener获取不到监听
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					isClick = true;
+					break;
+
+				case MotionEvent.ACTION_MOVE:
+					isClick = false;
+					// getRawX是触摸位置相对于屏幕的坐标，getX是相对于按钮的坐标
+					wmParams.x = (int) event.getRawX()
+							- mFloatView.getMeasuredWidth() / 2;
+
+					// Log.i(TAG, "RawX" + event.getRawX());
+					// Log.i(TAG, "X" + event.getX());
+					// 减25为状态栏的高度
+					wmParams.y = (int) event.getRawY()
+							- mFloatView.getMeasuredHeight() / 2 - 25;
+					// Log.i(TAG, "RawY" + event.getRawY());
+					// Log.i(TAG, "Y" + event.getY());
+					// 刷新
+					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
+					break;
+
+				case MotionEvent.ACTION_UP:
+
+					wmParams.x = -mFloatView.getMeasuredWidth() / 2;
+					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
+					if (isClick) {
+						isshow = !isshow;
+						showView();
+					}
+
+					break;
+				}
+
+				return true; // 此处必须返回false，否则OnClickListener获取不到监听
 			}
+
 		});
 
-		mFloatView.setOnClickListener(new OnClickListener() {
+	}
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+	private void initLinearout() {
+		// TODO Auto-generated method stub
+		mFloatLayout.findViewById(R.id.geren_show).setOnClickListener(
+				new OnClickListener() {
 
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+
+						Intent intent1 = new Intent(FxService.this
+								.getBaseContext(), UserInfoActivity.class);
+						intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+						FxService.this.getBaseContext().startActivity(intent1);
+						isshow = !isshow;
+						showView();
+					}
+				});
+		mFloatLayout.findViewById(R.id.gamebbs_show);
+		mFloatLayout.findViewById(R.id.connect_show);
+		mFloatLayout.findViewById(R.id.switch_show);
+
+	}
+
+	public void showView() {
+		if (isshow) {
+
+			linearLayout.setVisibility(View.VISIBLE);
+		} else {
+			linearLayout.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

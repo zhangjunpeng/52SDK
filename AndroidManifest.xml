@@ -41,8 +41,9 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name=".UserInfoActivity"
-            android:label="@string/title_activity_user_info" >
+            android:name="com.game.gamesdk.UserInfoActivity"
+            android:theme="@style/dialog"
+             >
         </activity>
     </application>
 

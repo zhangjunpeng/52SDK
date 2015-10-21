@@ -29,7 +29,7 @@ public class GameSDK {
 	// APP参数
 
 	public static String AppID = "52452712";
-	public static String AppKey = "a52game2015@168!";
+	public static String AppKey = "52game20153965981616";
 	private static Context mcontext;
 
 	private static ExecutorService singleThreadExecutorService;
@@ -96,7 +96,7 @@ public class GameSDK {
 										Toast.LENGTH_LONG).show();
 								Intent intent = new Intent(mcontext,
 										FxService.class);
-								mcontext.startService(intent);
+								// mcontext.startService(intent);
 							}
 						});
 
@@ -127,10 +127,11 @@ public class GameSDK {
 		}
 	};
 
-	public static void init(Context context, String appid, String appkey,
+	public static void init(Context context, String appid, String App_key,
 			String channelId) {
 		AppID = appid;
-		AppKey = appkey;
+		AppKey = App_key;
+
 		UserInfo.channel = channelId;
 		SharedPreferences sharedPreferences = context.getSharedPreferences(
 				"gameInfo", Context.MODE_PRIVATE);
@@ -230,7 +231,7 @@ public class GameSDK {
 		saveInfo("pwd", "");
 	}
 
-	public static void stop() {
-		mcontext.stopService(new Intent(mcontext, FxService.class));
+	public static void stop(Context context) {
+		context.stopService(new Intent(context, FxService.class));
 	}
 }
