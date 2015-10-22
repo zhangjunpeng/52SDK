@@ -121,8 +121,9 @@ public final class R {
         public static int swi=0x7f02005c;
     }
     public static final class id {
-        public static int action_settings=0x7f0a0040;
+        public static int action_settings=0x7f0a0041;
         public static int back_frag_change=0x7f0a0033;
+        public static int back_frag_userinfo=0x7f0a0038;
         public static int button_getproving_phoneRegister=0x7f0a001c;
         public static int button_qiuckRegister_login=0x7f0a000e;
         public static int changeBili_fragment=0x7f0a0028;
@@ -151,13 +152,13 @@ public final class R {
         public static int geren_show=0x7f0a0022;
         public static int haveAcount_nameregister=0x7f0a0018;
         public static int id_tv_loadingmsg=0x7f0a000a;
-        public static int imageView1=0x7f0a003b;
+        public static int imageView1=0x7f0a003c;
         public static int listView_pay=0x7f0a0001;
-        public static int list_usfrag=0x7f0a0039;
+        public static int list_usfrag=0x7f0a003a;
         public static int loadingImageView=0x7f0a0009;
         public static int login_login=0x7f0a000f;
         public static int login_phoneregister=0x7f0a001e;
-        public static int msg=0x7f0a003e;
+        public static int msg=0x7f0a003f;
         public static int pay_fragment_ali=0x7f0a002a;
         public static int pay_fragment_ali_card=0x7f0a0032;
         public static int paymoney_fragment=0x7f0a0027;
@@ -165,7 +166,7 @@ public final class R {
         public static int payname_table_fragment=0x7f0a0029;
         public static int payname_table_fragment_card=0x7f0a002e;
         public static int phone_nameregister=0x7f0a0016;
-        public static int progressBar=0x7f0a003f;
+        public static int progressBar=0x7f0a0040;
         public static int progressBar1=0x7f0a0003;
         public static int pwd_isvisiable_login=0x7f0a000d;
         public static int pwd_isvisiable_nameregister=0x7f0a0014;
@@ -176,16 +177,16 @@ public final class R {
         public static int submit_changepwd=0x7f0a0037;
         public static int switch_show=0x7f0a0025;
         public static int textView1=0x7f0a0004;
-        public static int textView1_item_list_usfrag=0x7f0a003a;
+        public static int textView1_item_list_usfrag=0x7f0a003b;
         public static int textView2=0x7f0a0005;
         public static int textView3=0x7f0a0006;
         public static int textView4=0x7f0a0007;
-        public static int textView_itemList_pay=0x7f0a003c;
-        public static int textView_item_spinner=0x7f0a003d;
+        public static int textView_itemList_pay=0x7f0a003d;
+        public static int textView_item_spinner=0x7f0a003e;
         public static int username_fragment=0x7f0a0026;
         public static int username_fragment_card=0x7f0a002b;
         public static int webView1=0x7f0a0000;
-        public static int zhanghao_userfrag=0x7f0a0038;
+        public static int zhanghao_userfrag=0x7f0a0039;
     }
     public static final class layout {
         public static int activity_ali=0x7f030000;

@@ -69,6 +69,19 @@ public class ChangePwdFragment extends Fragment {
 		editText_cofirm = (EditText) view
 				.findViewById(R.id.edit_confirmpwd_change);
 		submit = (Button) view.findViewById(R.id.submit_changepwd);
+		view.findViewById(R.id.back_frag_change).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						getActivity()
+								.getSupportFragmentManager()
+								.beginTransaction()
+								.replace(R.id.container_userinfo,
+										new UserInfoFragment()).commit();
+					}
+				});
 		initView();
 		return view;
 	}

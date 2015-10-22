@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,6 +26,15 @@ public class UserInfoFragment extends Fragment {
 				.findViewById(R.id.zhanghao_userfrag);
 		textView.setText(UserInfo.userName);
 		listView = (ListView) view.findViewById(R.id.list_usfrag);
+		view.findViewById(R.id.back_frag_userinfo).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						getActivity().finish();
+					}
+				});
 		initList();
 
 		return view;
