@@ -2,9 +2,15 @@ package com.game.gamesdk;
 
 public class RegisterConfig {
 
+	// 注册接口
 	public static String registerURL = "http://m.52game.com/sdkaccount/reg";
+	// 登录接口
 	public static String loginURL = "http://m.52game.com/sdkaccount/login";
+	// 获取短信验证码接口
 	public static String smsUrl = "http://m.52game.com/sdkaccount/sms";
+	// 修改密码接口
+	public static String changepwd = "http://m.52game.com/sdkaccount/changepwd";
+
 	public static String imei = "reg_imei";
 	public static String channel = "reg_channel_id";
 	public static String platform = "reg_platform";

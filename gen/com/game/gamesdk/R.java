@@ -10,6 +10,7 @@ package com.game.gamesdk;
 public final class R {
     public static final class anim {
         public static int progress_round=0x7f040000;
+        public static int smc_progress=0x7f040001;
     }
     public static final class attr {
     }
@@ -21,8 +22,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static int activity_horizontal_margin=0x7f050000;
-        public static int activity_vertical_margin=0x7f050001;
+        public static int activity_horizontal_margin=0x7f070000;
+        public static int activity_vertical_margin=0x7f070001;
     }
     public static final class drawable {
         public static int data=0x7f020000;
@@ -110,67 +111,81 @@ public final class R {
         public static int geren=0x7f020052;
         public static int getproving_selector=0x7f020053;
         public static int ic_launcher=0x7f020054;
-        public static int mess=0x7f020055;
-        public static int phone=0x7f020056;
-        public static int register_selector=0x7f020057;
-        public static int shape=0x7f020058;
-        public static int swi=0x7f020059;
+        public static int icon=0x7f020055;
+        public static int mess=0x7f020056;
+        public static int phone=0x7f020057;
+        public static int register_selector=0x7f020058;
+        public static int shape=0x7f020059;
+        public static int smc_loading=0x7f02005a;
+        public static int smc_splash=0x7f02005b;
+        public static int swi=0x7f02005c;
     }
     public static final class id {
-        public static int action_settings=0x7f090035;
-        public static int button_getproving_phoneRegister=0x7f09001c;
-        public static int button_qiuckRegister_login=0x7f09000e;
-        public static int changeBili_fragment=0x7f090028;
-        public static int changeBili_fragment_card=0x7f09002d;
-        public static int checkBox_login=0x7f090010;
-        public static int checkBox_nameregister=0x7f090017;
-        public static int checkBox_phoneregister=0x7f09001d;
-        public static int connect_show=0x7f090024;
-        public static int container_userinfo=0x7f090008;
-        public static int contioner_pay=0x7f090002;
-        public static int edit_cardnum_fragment=0x7f090030;
-        public static int edit_cardpass_fragment=0x7f090031;
-        public static int edit_phonenum_phoneregister=0x7f090019;
-        public static int edit_pronum_phoneregister=0x7f09001b;
-        public static int edit_pwd_login=0x7f09000c;
-        public static int edit_pwd_nameregister=0x7f090013;
-        public static int edit_pwd_phoneregister=0x7f09001a;
-        public static int edit_username_login=0x7f09000b;
-        public static int edit_username_nameregister=0x7f090012;
-        public static int find_pwd_login=0x7f090011;
-        public static int float_id=0x7f090020;
-        public static int gamebbs_show=0x7f090023;
-        public static int geren_show=0x7f090022;
-        public static int haveAcount_nameregister=0x7f090018;
-        public static int id_tv_loadingmsg=0x7f09000a;
-        public static int listView_pay=0x7f090001;
-        public static int loadingImageView=0x7f090009;
-        public static int login_login=0x7f09000f;
-        public static int login_phoneregister=0x7f09001e;
-        public static int pay_fragment_ali=0x7f09002a;
-        public static int pay_fragment_ali_card=0x7f090032;
-        public static int paymoney_fragment=0x7f090027;
-        public static int paymoney_fragment_card=0x7f09002c;
-        public static int payname_table_fragment=0x7f090029;
-        public static int payname_table_fragment_card=0x7f09002e;
-        public static int phone_nameregister=0x7f090016;
-        public static int progressBar1=0x7f090003;
-        public static int pwd_isvisiable_login=0x7f09000d;
-        public static int pwd_isvisiable_nameregister=0x7f090014;
-        public static int register_nameregister=0x7f090015;
-        public static int register_register=0x7f09001f;
-        public static int show_fx=0x7f090021;
-        public static int spinner_cardpay_fragment=0x7f09002f;
-        public static int switch_show=0x7f090025;
-        public static int textView1=0x7f090004;
-        public static int textView2=0x7f090005;
-        public static int textView3=0x7f090006;
-        public static int textView4=0x7f090007;
-        public static int textView_itemList_pay=0x7f090033;
-        public static int textView_item_spinner=0x7f090034;
-        public static int username_fragment=0x7f090026;
-        public static int username_fragment_card=0x7f09002b;
-        public static int webView1=0x7f090000;
+        public static int action_settings=0x7f0a0040;
+        public static int back_frag_change=0x7f0a0033;
+        public static int button_getproving_phoneRegister=0x7f0a001c;
+        public static int button_qiuckRegister_login=0x7f0a000e;
+        public static int changeBili_fragment=0x7f0a0028;
+        public static int changeBili_fragment_card=0x7f0a002d;
+        public static int checkBox_login=0x7f0a0010;
+        public static int checkBox_nameregister=0x7f0a0017;
+        public static int checkBox_phoneregister=0x7f0a001d;
+        public static int connect_show=0x7f0a0024;
+        public static int container_userinfo=0x7f0a0008;
+        public static int contioner_pay=0x7f0a0002;
+        public static int edit_cardnum_fragment=0x7f0a0030;
+        public static int edit_cardpass_fragment=0x7f0a0031;
+        public static int edit_confirmpwd_change=0x7f0a0036;
+        public static int edit_newpwd_change=0x7f0a0035;
+        public static int edit_oldpwd_change=0x7f0a0034;
+        public static int edit_phonenum_phoneregister=0x7f0a0019;
+        public static int edit_pronum_phoneregister=0x7f0a001b;
+        public static int edit_pwd_login=0x7f0a000c;
+        public static int edit_pwd_nameregister=0x7f0a0013;
+        public static int edit_pwd_phoneregister=0x7f0a001a;
+        public static int edit_username_login=0x7f0a000b;
+        public static int edit_username_nameregister=0x7f0a0012;
+        public static int find_pwd_login=0x7f0a0011;
+        public static int float_id=0x7f0a0020;
+        public static int gamebbs_show=0x7f0a0023;
+        public static int geren_show=0x7f0a0022;
+        public static int haveAcount_nameregister=0x7f0a0018;
+        public static int id_tv_loadingmsg=0x7f0a000a;
+        public static int imageView1=0x7f0a003b;
+        public static int listView_pay=0x7f0a0001;
+        public static int list_usfrag=0x7f0a0039;
+        public static int loadingImageView=0x7f0a0009;
+        public static int login_login=0x7f0a000f;
+        public static int login_phoneregister=0x7f0a001e;
+        public static int msg=0x7f0a003e;
+        public static int pay_fragment_ali=0x7f0a002a;
+        public static int pay_fragment_ali_card=0x7f0a0032;
+        public static int paymoney_fragment=0x7f0a0027;
+        public static int paymoney_fragment_card=0x7f0a002c;
+        public static int payname_table_fragment=0x7f0a0029;
+        public static int payname_table_fragment_card=0x7f0a002e;
+        public static int phone_nameregister=0x7f0a0016;
+        public static int progressBar=0x7f0a003f;
+        public static int progressBar1=0x7f0a0003;
+        public static int pwd_isvisiable_login=0x7f0a000d;
+        public static int pwd_isvisiable_nameregister=0x7f0a0014;
+        public static int register_nameregister=0x7f0a0015;
+        public static int register_register=0x7f0a001f;
+        public static int show_fx=0x7f0a0021;
+        public static int spinner_cardpay_fragment=0x7f0a002f;
+        public static int submit_changepwd=0x7f0a0037;
+        public static int switch_show=0x7f0a0025;
+        public static int textView1=0x7f0a0004;
+        public static int textView1_item_list_usfrag=0x7f0a003a;
+        public static int textView2=0x7f0a0005;
+        public static int textView3=0x7f0a0006;
+        public static int textView4=0x7f0a0007;
+        public static int textView_itemList_pay=0x7f0a003c;
+        public static int textView_item_spinner=0x7f0a003d;
+        public static int username_fragment=0x7f0a0026;
+        public static int username_fragment_card=0x7f0a002b;
+        public static int webView1=0x7f0a0000;
+        public static int zhanghao_userfrag=0x7f0a0038;
     }
     public static final class layout {
         public static int activity_ali=0x7f030000;
@@ -186,20 +201,32 @@ public final class R {
         public static int float_layout=0x7f03000a;
         public static int fragment_alipay=0x7f03000b;
         public static int fragment_cardpay=0x7f03000c;
-        public static int item_listview_pay=0x7f03000d;
-        public static int item_spinner=0x7f03000e;
+        public static int fragment_changepwd=0x7f03000d;
+        public static int fragment_userinfo=0x7f03000e;
+        public static int item_list_usfrag=0x7f03000f;
+        public static int item_listview_pay=0x7f030010;
+        public static int item_spinner=0x7f030011;
+        public static int smc_loading=0x7f030012;
     }
     public static final class menu {
-        public static int main=0x7f080000;
+        public static int main=0x7f090000;
     }
     public static final class string {
-        public static int action_settings=0x7f060002;
-        public static int app_name=0x7f060000;
-        public static int getproving=0x7f060003;
-        public static int goback=0x7f060006;
-        public static int hello_world=0x7f060001;
-        public static int title_activity_ali=0x7f060004;
-        public static int title_activity_user_info=0x7f060005;
+        public static int action_settings=0x7f06000a;
+        public static int app_name=0x7f060004;
+        public static int confirm=0x7f060007;
+        public static int getproving=0x7f06000b;
+        public static int goback=0x7f06000e;
+        public static int hello_world=0x7f060009;
+        public static int network_confirm=0x7f060003;
+        public static int no=0x7f060008;
+        public static int notice=0x7f060005;
+        public static int smc_tip_1=0x7f060000;
+        public static int smc_tip_2=0x7f060001;
+        public static int smc_tip_3=0x7f060002;
+        public static int title_activity_ali=0x7f06000c;
+        public static int title_activity_user_info=0x7f06000d;
+        public static int yes=0x7f060006;
     }
     public static final class style {
         /** 
@@ -208,6 +235,9 @@ public final class R {
     
  Application theme. 
          */
-        public static int dialog=0x7f070000;
+        public static int dialog=0x7f080000;
+    }
+    public static final class xml {
+        public static int config=0x7f050000;
     }
 }

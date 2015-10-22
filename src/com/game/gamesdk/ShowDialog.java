@@ -330,7 +330,7 @@ public class ShowDialog {
 						NameValuePair nameValuePair2 = new BasicNameValuePair(
 								"time", time);
 						String unsign = "phone=" + phoneNum + "&time=" + time
-								+ "|" + GameSDK.AppKey;
+								+ "|" + GameSDK.Key;
 						Log.i("ZJP", unsign);
 						String sign = MD5Test.getMD5(unsign);
 						NameValuePair nameValuePair3 = new BasicNameValuePair(

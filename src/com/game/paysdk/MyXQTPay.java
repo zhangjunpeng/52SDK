@@ -73,7 +73,7 @@ public class MyXQTPay {
 		String unsign = "appid=" + GameSDK.AppID + "&user_id="
 				+ UserInfo.userID + "&pay_amount=" + money + "&channel_id="
 				+ payChannel.getId() + "&server_id=" + serverID + "&time="
-				+ time + "|" + GameSDK.AppKey;
+				+ time + "|" + GameSDK.Key;
 		String sign = MD5Test.getMD5(unsign);
 		NameValuePair nameValuePair11 = new BasicNameValuePair("sign", sign);
 		NameValuePair nameValuePair12 = new BasicNameValuePair("game_pay_id",
@@ -157,7 +157,7 @@ public class MyXQTPay {
 		String unsign = "appid=" + GameSDK.AppID + "&user_id="
 				+ UserInfo.userID + "&pay_amount=" + money + "&channel_id="
 				+ payChannel.getId() + "&server_id=" + serverId + "&time="
-				+ time + "|" + GameSDK.AppKey;
+				+ time + "|" + GameSDK.Key;
 		String sign = MD5Test.getMD5(unsign);
 		NameValuePair nameValuePair11 = new BasicNameValuePair("sign", sign);
 		NameValuePair nameValuePair12 = new BasicNameValuePair("card_no",

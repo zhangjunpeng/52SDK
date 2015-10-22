@@ -45,8 +45,7 @@ public class NameRegLogin {
 		NameValuePair nameValuePair8 = new BasicNameValuePair(
 				RegisterConfig.time, time + "");
 		String unsign = "login_name=" + name + "&reg_type=" + type
-				+ "&password=" + password + "&time=" + time + "|"
-				+ GameSDK.AppKey;
+				+ "&password=" + password + "&time=" + time + "|" + GameSDK.Key;
 		String sign = MD5Test.getMD5(unsign);
 
 		NameValuePair nameValuePair9 = new BasicNameValuePair(
@@ -95,7 +94,7 @@ public class NameRegLogin {
 				RegisterConfig.time, time + "");
 
 		String unsign = "login_from=1&login_name=" + name + "&password=" + pwd
-				+ "|" + GameSDK.AppKey;
+				+ "|" + GameSDK.Key;
 		Log.i("ZJP", "unsign=====" + unsign);
 		String sign = MD5Test.getMD5(unsign);
 		Log.i("ZJP", "sign=====" + sign);
@@ -147,7 +146,7 @@ public class NameRegLogin {
 		NameValuePair nameValuePair8 = new BasicNameValuePair(
 				RegisterConfig.time, time + "");
 		String unsign = "login_name=" + name + "&reg_type=2" + "&password="
-				+ password + "&time=" + time + "|" + GameSDK.AppKey;
+				+ password + "&time=" + time + "|" + GameSDK.Key;
 		String sign = MD5Test.getMD5(unsign);
 
 		NameValuePair nameValuePair9 = new BasicNameValuePair(
@@ -180,5 +179,34 @@ public class NameRegLogin {
 						nameValuePairs);
 			}
 		});
+	}
+
+	public static void changepwd(String old, String newpwd, String re_new,
+			Handler handler) {
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		NameValuePair nameValuePair1 = new BasicNameValuePair("user_id",
+				UserInfo.userID);
+		NameValuePair nameValuePair2 = new BasicNameValuePair("old_password",
+				old);
+		NameValuePair nameValuePair3 = new BasicNameValuePair("new_pasword",
+				newpwd);
+		NameValuePair nameValuePair4 = new BasicNameValuePair(
+				"re_new_password", re_new);
+		String unsign = "user_id=" + UserInfo.userID + "&old_password=" + old
+				+ "&new_pasword=" + newpwd + "&re_new_password=" + re_new + "|"
+				+ GameSDK.Key;
+		String sign = MD5Test.getMD5(unsign);
+		NameValuePair nameValuePair5 = new BasicNameValuePair("sign", sign);
+
+		nameValuePairs.add(nameValuePair1);
+		nameValuePairs.add(nameValuePair2);
+		nameValuePairs.add(nameValuePair3);
+		nameValuePairs.add(nameValuePair4);
+		nameValuePairs.add(nameValuePair5);
+		Log.i("ZJP", unsign);
+		Log.i("ZJP", nameValuePairs.toString());
+		GameHttpClient gameHttpClient = new GameHttpClient(handler);
+		gameHttpClient.startClient(RegisterConfig.changepwd, nameValuePairs);
+
 	}
 }

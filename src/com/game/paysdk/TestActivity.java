@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Window;
+import android.widget.ProgressBar;
 
 import com.game.gamesdk.R;
 import com.game.tools.MD5Test;
@@ -31,7 +32,7 @@ public class TestActivity extends Activity {
 	public ProgressDialog progressDialog;
 	int position;
 	static PayChannel payChannel;
-	static int num = 0;
+
 	static double money;
 
 	private Handler handler = new Handler() {
@@ -105,26 +106,22 @@ public class TestActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setFinishOnTouchOutside(false);
 		setContentView(R.layout.activity_test);
 
 		instance = this;
 		show();
 
-		if (PayCofing.list != null) {
-			if (num != 0) {
-				return;
-			}
-			Bundle bundle = getIntent().getExtras();
-			position = bundle.getInt("position_list");
-			payChannel = PayCofing.list.get(position);
-			money = bundle.getDouble("money");
+		Bundle bundle = getIntent().getExtras();
+		position = bundle.getInt("position_list");
+		payChannel = PayCofing.list.get(position);
+		money = bundle.getDouble("money");
+		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
-			MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "",
-					PayCofing.serverID, PayCofing.productName,
-					PayCofing.productDes, payChannel, handler);
-			num++;
+		MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "", PayCofing.serverID,
+				PayCofing.productName, PayCofing.productDes, payChannel,
+				handler);
 
-		}
 	}
 
 	private void show() {

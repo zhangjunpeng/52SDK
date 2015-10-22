@@ -29,7 +29,7 @@ public class GameSDK {
 	// APP参数
 
 	public static String AppID = "52452712";
-	public static String AppKey = "52game20153965981616";
+	public static String Key = "52game20153965981616";
 	private static Context mcontext;
 
 	private static ExecutorService singleThreadExecutorService;
@@ -130,7 +130,7 @@ public class GameSDK {
 	public static void init(Context context, String appid, String App_key,
 			String channelId) {
 		AppID = appid;
-		AppKey = App_key;
+		Key = App_key;
 
 		UserInfo.channel = channelId;
 		SharedPreferences sharedPreferences = context.getSharedPreferences(

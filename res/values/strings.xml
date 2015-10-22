@@ -7,6 +7,6 @@
     <string name="getproving">获取验证码</string>
     <string name="title_activity_ali">ALiActivity</string>
     <string name="title_activity_user_info">UserInfoActivity</string>
-    <string name="goback">&lt;&lt;返回</string>
+    <string name="goback">   &lt;&lt;返回      </string>
 
 </resources>
