@@ -65,7 +65,7 @@
         />
     <LinearLayout 
         android:id="@+id/container_userinfo"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >

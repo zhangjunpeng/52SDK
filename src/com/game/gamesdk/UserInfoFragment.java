@@ -40,11 +40,14 @@ public class UserInfoFragment extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				if (list_name[position].equals("修改密码")) {
+
 					ChangePwdFragment changePwd = new ChangePwdFragment();
-					getActivity().getSupportFragmentManager()
+
+					UserInfoFragment.this.getFragmentManager()
 							.beginTransaction()
 							.replace(R.id.container_userinfo, changePwd)
 							.commit();
+
 				}
 			}
 		});

@@ -69,7 +69,18 @@ public class GameSDK {
 				break;
 
 			case 1:
+				String data1 = msg.obj.toString();
+				if (data1.contains("2004") || data1.contains("2005")) {
+					Toast.makeText(mcontext, "用户名或密码错误，请重新登录",
+							Toast.LENGTH_LONG).show();
+					progressDialog.dismiss();
+					ShowDialog.autoLogin = false;
+					ShowDialog.showLoginDialog(mcontext);
+					return;
+				}
+
 				// 自动登录成功：
+
 				new Thread(new Runnable() {
 
 					@Override
@@ -103,7 +114,6 @@ public class GameSDK {
 					}
 				}).start();
 
-				String data1 = msg.obj.toString();
 				if (data1.contains("200")) {
 					isLogin = true;
 					Log.i("ZJP", StringTools.decodeUnicode(data1));
@@ -115,7 +125,7 @@ public class GameSDK {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
-
+						UserInfo.userName = getInfoFromSP("name");
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -190,8 +200,8 @@ public class GameSDK {
 			final String name = getInfoFromSP("name");
 			final String pwd = getInfoFromSP("pwd");
 
-			Log.i("ZJP", "sp~~~name====" + name);
-			Log.i("ZJP", "sp~~~pwd=====" + pwd);
+			// Log.i("ZJP", "sp~~~name====" + name);
+			// Log.i("ZJP", "sp~~~pwd=====" + pwd);
 			if (TextUtils.isEmpty(name)) {
 				ShowDialog.showLoginDialog(mcontext);
 				return;
@@ -213,7 +223,6 @@ public class GameSDK {
 
 			NameRegLogin nameRegister = new NameRegLogin();
 			nameRegister.nameLogin(name, pwd, "1", handler);
-			UserInfo.userName = name;
 
 		} else {
 			ShowDialog.showLoginDialog(mcontext);
@@ -227,6 +236,7 @@ public class GameSDK {
 	}
 
 	public static void loginOut() {
+		isLogin = false;
 		saveInfo("name", "");
 		saveInfo("pwd", "");
 	}

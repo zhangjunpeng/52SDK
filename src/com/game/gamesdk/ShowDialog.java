@@ -74,7 +74,6 @@ public class ShowDialog {
 				}
 				String data = msg.obj.toString();
 
-				GameSDK.isLogin = true;
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					String errorcode = jsonObject.getString("errorCode");
@@ -85,10 +84,11 @@ public class ShowDialog {
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
 						loginGamePayCallback.registerEndCallback(data);
+						GameSDK.isLogin = true;
 						dialog.dismiss();
 					} else if (errorcode.equals("1008")) {
-						Toast.makeText(mcontext, "用户名已存在", Toast.LENGTH_LONG)
-								.show();
+						Toast.makeText(mcontext, "用户名已存在,请重新注册",
+								Toast.LENGTH_LONG).show();
 
 					}
 
@@ -292,6 +292,10 @@ public class ShowDialog {
 								return;
 							} else if (TextUtils.isEmpty(pwd)) {
 								Toast.makeText(paramContext, "请输入密码",
+										Toast.LENGTH_LONG).show();
+								return;
+							} else if (pwd.length() <= 6 || pwd.length() > 20) {
+								Toast.makeText(paramContext, "密码长度必须大于6或小于20",
 										Toast.LENGTH_LONG).show();
 								return;
 							} else {
@@ -576,6 +580,16 @@ public class ShowDialog {
 				String pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
 					Toast.makeText(paramContext, "用户名或密码不能为空",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (name.length() > 20 || name.length() < 6) {
+					Toast.makeText(paramContext, "用户名长度不能小于6大于20",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+				if (pwd.length() <= 6 || pwd.length() >= 20) {
+					Toast.makeText(paramContext, "密码长度必须大于6小于20",
 							Toast.LENGTH_LONG).show();
 					return;
 				}
