@@ -1,4 +1,4 @@
-package com.game.gamesdk;
+package com.game.fragment;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.game.gamesdk.NameRegLogin;
+import com.game.gamesdk.R;
+import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 
 public class ChangePwdFragment extends Fragment {
@@ -33,7 +35,7 @@ public class ChangePwdFragment extends Fragment {
 			switch (msg.what) {
 			case 0:
 				String data = msg.obj.toString();
-				Log.i("ZJP", "changepwd~~~~" + StringTools.decodeUnicode(data));
+				MyLog.i("changepwd~~~~" + StringTools.decodeUnicode(data));
 
 				try {
 					JSONObject jsonObject = new JSONObject(data);
@@ -42,6 +44,12 @@ public class ChangePwdFragment extends Fragment {
 						Toast.makeText(getActivity(), "修改密码成功",
 								Toast.LENGTH_SHORT).show();
 						getActivity().finish();
+					} else if (errorcode.equals("5007")) {
+						Toast.makeText(getActivity(), "旧密码错误",
+								Toast.LENGTH_SHORT).show();
+					} else if (errorcode.equals("5008")) {
+						Toast.makeText(getActivity(), "新旧密码不能一致",
+								Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(getActivity(), "修改密码失败",
 								Toast.LENGTH_SHORT).show();

@@ -17,16 +17,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.game.fragment.AliPayFragment;
+import com.game.fragment.CardPayFragment;
 import com.game.gamesdk.R;
 import com.game.http.GameHttpClient;
+import com.game.tools.MyLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -53,7 +56,15 @@ public class PayActivity extends FragmentActivity {
 		Bundle bundle = intent.getExtras();
 		money = bundle.getDouble("paymoney");
 
-		comitFragment("ali", money);
+		comitFragment("weixin", money);
+		findViewById(R.id.back_pay).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 
 	}
 
@@ -66,7 +77,8 @@ public class PayActivity extends FragmentActivity {
 				// TODO Auto-generated method stub
 				switch (msg.what) {
 				case 0:
-					Log.i("ZJP", "channel=====" + msg.obj.toString());
+
+					MyLog.i("channel=====" + msg.obj.toString());
 
 					Gson gson = new Gson();
 					PayCofing.list = gson.fromJson(msg.obj.toString(),
@@ -185,6 +197,7 @@ public class PayActivity extends FragmentActivity {
 		if (PayCofing.list == null) {
 			return;
 		}
+		listView.setItemChecked(0, false);
 		listView.setAdapter(new Myadapter());
 	}
 

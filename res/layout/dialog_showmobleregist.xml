@@ -1,230 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="330dp"
+    android:layout_height="330dp"
     android:layout_gravity="center_horizontal"
-    >
+    android:orientation="vertical" >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        >
-        <Button
-            android:layout_gravity="center_vertical"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/fy_back"
-            />
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        
 
         <TextView
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/fy_phone_register_logo"
-
-            />
-
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="手机号注册"
+            android:textSize="20dp" />
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/fy_input"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal" >
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="0.1"
                 android:background="#FFF"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/fy_uesr"/>
+                android:src="@drawable/fy_uesr" />
+
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="|"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/edit_phonenum_phoneregister"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:inputType="number"
-                android:hint="请输入手机号"
+                android:layout_weight="1"
                 android:background="@null"
-                />
+                android:hint="请输入手机号"
+                android:inputType="number" />
+
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:background="#FFF"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/fy_history_down"
-                />
+                android:background="#FFF"
+                 />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/fy_input"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal" >
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="0.1"
                 android:background="#FFF"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/fy_pwd"/>
+                android:src="@drawable/fy_pwd" />
+
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="|"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/edit_pwd_phoneregister"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:password="true"
-                android:hint="请输入密码"
+                android:layout_weight="1"
                 android:background="@null"
-                />
+                android:hint="请输入4-20位密码"
+                android:password="true" />
+
             <ImageButton
+                android:id="@+id/eye_phoneregister"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:background="#FFF"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/fy_history_down"
-                />
+                android:background="#FFF"
+                android:src="@drawable/eye_close" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@drawable/fy_input"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal" >
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="0.1"
                 android:background="#FFF"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/fy_pwd"/>
+                android:src="@drawable/fy_pwd" />
+
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="|"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/edit_pronum_phoneregister"
                 android:layout_width="0dp"
-                android:layout_weight="0.7"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:password="true"
-                android:hint="请输入验证码"
+                android:layout_weight="0.7"
                 android:background="@null"
-                />
+                android:hint="请输入验证码"
+                android:password="true" />
         </LinearLayout>
+
         <Button
             android:id="@+id/button_getproving_phoneRegister"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_weight="0.4"
             android:background="@drawable/getproving_selector"
             android:text="@string/getproving"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"
-            android:layout_height="match_parent" />
+            android:textSize="14sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        >
-
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我已阅读并同意"
-            android:checked="true"
-            android:id="@+id/checkBox_phoneregister" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#f40d0d"
-            android:text="《52游戏服务条款》"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_margin="10dp"
-        android:orientation="horizontal"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button 
-            android:id="@+id/login_phoneregister"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:text="已有账号"
-            android:background="@drawable/getproving_selector"
-            />
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
         <Button
             android:id="@+id/register_register"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:text="立即注册"
+            android:layout_weight="1"
             android:background="@drawable/register_selector"
-            />
+            android:textColor="#FFF"
+            android:text="立即注册" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/login_phoneregister"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="已有账号"
+            android:textColor="#0b51d2"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/namereg_phoneregister"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="用户名注册"
+            android:layout_marginRight="10dp"
+            android:textColor="#0b51d2"
+            android:textSize="17dp" />
+    </LinearLayout>
+
 </LinearLayout>

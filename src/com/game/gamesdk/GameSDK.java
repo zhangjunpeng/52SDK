@@ -1,8 +1,5 @@
 package com.game.gamesdk;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,10 +12,10 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.game.callback.LoginGameCallback;
+import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 
 /**
@@ -30,9 +27,7 @@ public class GameSDK {
 
 	public static String AppID = "52452712";
 	public static String Key = "52game20153965981616";
-	private static Context mcontext;
-
-	private static ExecutorService singleThreadExecutorService;
+	public static Context mcontext;
 
 	private static SharedPreferences sharedPreferences;
 	private static ProgressDialog progressDialog;
@@ -40,6 +35,8 @@ public class GameSDK {
 	private static LoginGameCallback loginGCallback;
 	public static boolean isLogin = false;
 	static boolean isshow = true;
+	// debug模式。出版本之前改为false
+	public static boolean isDebug = false;
 
 	static Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -116,7 +113,7 @@ public class GameSDK {
 
 				if (data1.contains("200")) {
 					isLogin = true;
-					Log.i("ZJP", StringTools.decodeUnicode(data1));
+					MyLog.i("登录返回==" + StringTools.decodeUnicode(data1));
 
 					loginGCallback.loginEndCallback(data1);
 
@@ -148,7 +145,6 @@ public class GameSDK {
 
 		ShowDialog.autoLogin = sharedPreferences.getBoolean("autoLogin", true);
 
-		singleThreadExecutorService = Executors.newSingleThreadExecutor();
 		TelephonyManager telephonyManager = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -192,7 +188,7 @@ public class GameSDK {
 		loginGCallback = loginGameCallback;
 
 		ShowDialog.mcontext = scontext;
-		Log.i("ZJP", "autoLogin===" + ShowDialog.autoLogin);
+		MyLog.i("autoLogin===" + ShowDialog.autoLogin);
 
 		if (ShowDialog.autoLogin) {
 			// 自动登录
@@ -200,8 +196,8 @@ public class GameSDK {
 			final String name = getInfoFromSP("name");
 			final String pwd = getInfoFromSP("pwd");
 
-			// Log.i("ZJP", "sp~~~name====" + name);
-			// Log.i("ZJP", "sp~~~pwd=====" + pwd);
+			MyLog.i("sp~~~name====" + name);
+			MyLog.i("sp~~~pwd=====" + pwd);
 			if (TextUtils.isEmpty(name)) {
 				ShowDialog.showLoginDialog(mcontext);
 				return;

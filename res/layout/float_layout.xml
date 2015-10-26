@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-    <Button
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <ImageButton
         android:id="@+id/float_id"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitStart"
+        />
 
     <LinearLayout
         android:id="@+id/show_fx"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="27dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone" >
 
@@ -20,18 +31,19 @@
             android:id="@+id/geren_show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/geren" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10dp"
                 android:text="个人中心" />
         </LinearLayout>
 
@@ -39,18 +51,19 @@
             android:id="@+id/gamebbs_show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/mess" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10dp"
                 android:text="游戏论坛" />
         </LinearLayout>
 
@@ -58,18 +71,19 @@
             android:id="@+id/connect_show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/phone" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10dp"
                 android:text="联系客服" />
         </LinearLayout>
 
@@ -77,20 +91,22 @@
             android:id="@+id/switch_show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@drawable/swi" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="10dp"
                 android:text="切换帐号" />
         </LinearLayout>
     </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

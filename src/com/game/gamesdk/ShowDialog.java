@@ -24,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -37,6 +36,7 @@ import android.widget.Toast;
 import com.game.callback.LoginGameCallback;
 import com.game.http.GameHttpClient;
 import com.game.tools.MD5Test;
+import com.game.tools.MyLog;
 
 /**
  * Created by Administrator on 2015/9/15.
@@ -59,6 +59,9 @@ public class ShowDialog {
 	static Button getproving;
 	static String phoneNum;
 
+	static ProgressDialog progressDialog;
+	static String token;
+
 	static ProgressDialog loading = null;
 	final static Handler handler = new Handler() {
 		@Override
@@ -73,7 +76,7 @@ public class ShowDialog {
 					loading.dismiss();
 				}
 				String data = msg.obj.toString();
-
+				MyLog.i("注册返回：" + data);
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					String errorcode = jsonObject.getString("errorCode");
@@ -101,26 +104,31 @@ public class ShowDialog {
 			case 1:
 				// 登录成功
 				String data1 = msg.obj.toString();
-				if (data1.contains("200")) {
-					GameSDK.isLogin = true;
-					try {
-						JSONObject jsonObject = new JSONObject(data1);
+				MyLog.i("登录返回：" + data1);
+				try {
+					JSONObject jsonObject = new JSONObject(data1);
+					String errorCode = jsonObject.getString("errorCode");
+					if (errorCode.equals("200")) {
+						GameSDK.isLogin = true;
+
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						Toast.makeText(mcontext, "登录成功", Toast.LENGTH_LONG)
+								.show();
+						loginGamePayCallback.loginEndCallback(msg.obj
+								.toString());
 						dialog.dismiss();
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					} else if (errorCode.equals("2004")
+							|| errorCode.equals("2005")) {
+						Toast.makeText(mcontext, "用户名或密码错误", Toast.LENGTH_LONG)
+								.show();
 					}
-				} else if (data1.contains("2004") || data1.contains("2005")) {
-					Toast.makeText(mcontext, "用户名或密码错误", Toast.LENGTH_LONG)
-							.show();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
-				Log.i("ZJP", "loginEND====" + msg.obj.toString());
-				Toast.makeText(mcontext, "登录成功", Toast.LENGTH_LONG).show();
-				loginGamePayCallback.loginEndCallback(msg.obj.toString());
 				if (loading != null) {
 					loading.dismiss();
 				}
@@ -136,19 +144,29 @@ public class ShowDialog {
 			switch (msg.what) {
 			case 0:
 				String data = msg.obj.toString();
-				Log.i("ZJP", data);
+				MyLog.i("验证码返回：" + data);
+
+				if (data.startsWith("\ufeff")) {
+					data = data.substring(1);
+				}
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 
 					String errorcode = jsonObject.getString("errorCode");
+					Log.i("ZJP", errorcode + "");
 					if (errorcode.equals("200")) {
-						Toast.makeText(mcontext, "验证码已发送", Toast.LENGTH_LONG)
+						Toast.makeText(mcontext, "验证码已发送", Toast.LENGTH_SHORT)
 								.show();
-						setButton(getproving);
+						JSONObject jsonObject2 = jsonObject
+								.getJSONObject("data");
+						token = jsonObject2.getString("token");
+						Log.i("ZJP", token);
 
 					}
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
+					Log.i("ZJP", "解析错误");
 					e.printStackTrace();
 				}
 
@@ -166,6 +184,7 @@ public class ShowDialog {
 			case 0:
 				dialog.dismiss();
 				String data = msg.obj.toString();
+				MyLog.i("手机注册返回：" + data);
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					String errorcode = jsonObject.getString("errorCode");
@@ -247,21 +266,22 @@ public class ShowDialog {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(localView);
 
-		WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-
-		WindowManager wm = (WindowManager) paramContext
-				.getSystemService(Context.WINDOW_SERVICE);
-
-		int width = wm.getDefaultDisplay().getWidth();
-		int height = wm.getDefaultDisplay().getHeight();
-		if (width > height) {
-			params.width = (int) (width * 0.65);
-			params.height = (int) (height * 0.8);
-		} else {
-			params.width = (int) (height * 0.5);
-			params.height = (int) (width * 0.7);
-		}
-		dialog.getWindow().setAttributes(params);
+		// WindowManager.LayoutParams params =
+		// dialog.getWindow().getAttributes();
+		//
+		// WindowManager wm = (WindowManager) paramContext
+		// .getSystemService(Context.WINDOW_SERVICE);
+		//
+		// int width = wm.getDefaultDisplay().getWidth();
+		// int height = wm.getDefaultDisplay().getHeight();
+		// if (width > height) {
+		// params.width = (int) (width * 0.65);
+		// params.height = (int) (height * 0.8);
+		// } else {
+		// params.width = (int) (height * 0.5);
+		// params.height = (int) (width * 0.7);
+		// }
+		// dialog.getWindow().setAttributes(params);
 
 		final EditText edit_phonenum = (EditText) localView
 				.findViewById(R.id.edit_phonenum_phoneregister);
@@ -270,44 +290,37 @@ public class ShowDialog {
 		final EditText edit_prov = (EditText) localView
 				.findViewById(R.id.edit_pronum_phoneregister);
 
-		CheckBox checkbox = (CheckBox) localView
-				.findViewById(R.id.checkBox_phoneregister);
-		final boolean isagree = checkbox.isChecked();
-
 		localView.findViewById(R.id.register_register).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (isagree) {
 
-							String pwd = edit_pwd.getText().toString();
-							String prov = edit_prov.getText().toString();
-							if (TextUtils.isEmpty(phoneNum)) {
-								Toast.makeText(paramContext, "请输入手机号码",
-										Toast.LENGTH_LONG).show();
-								return;
-							} else if (TextUtils.isEmpty(prov)) {
-								Toast.makeText(paramContext, "请输入验证码",
-										Toast.LENGTH_LONG).show();
-								return;
-							} else if (TextUtils.isEmpty(pwd)) {
-								Toast.makeText(paramContext, "请输入密码",
-										Toast.LENGTH_LONG).show();
-								return;
-							} else if (pwd.length() <= 6 || pwd.length() > 20) {
-								Toast.makeText(paramContext, "密码长度必须大于6或小于20",
-										Toast.LENGTH_LONG).show();
-								return;
-							} else {
-								NameRegLogin nameRegLogin = new NameRegLogin();
-								nameRegLogin.phoneRegister(phoneNum, pwd, prov,
-										handler3);
-							}
-
-						} else {
-							Toast.makeText(paramContext, "需要同意《52游戏条款》",
+						String pwd = edit_pwd.getText().toString();
+						String prov = edit_prov.getText().toString();
+						if (TextUtils.isEmpty(phoneNum)) {
+							Toast.makeText(paramContext, "请输入手机号码",
 									Toast.LENGTH_LONG).show();
+							return;
+						} else if (TextUtils.isEmpty(prov)) {
+							Toast.makeText(paramContext, "请输入验证码",
+									Toast.LENGTH_LONG).show();
+							return;
+						} else if (TextUtils.isEmpty(pwd)) {
+							Toast.makeText(paramContext, "请输入密码",
+									Toast.LENGTH_LONG).show();
+							return;
+						} else if (pwd.length() < 4 || pwd.length() > 20) {
+							Toast.makeText(paramContext, "密码长度必须4-20位",
+									Toast.LENGTH_LONG).show();
+							return;
 						}
+						NameRegLogin nameRegLogin = new NameRegLogin();
+						nameRegLogin.phoneRegister(phoneNum, pwd, prov,
+								handler3);
+						// Toast.makeText(paramContext, "开始注册",
+						// Toast.LENGTH_SHORT)
+						// .show();
+
 					}
 				});
 		getproving = (Button) localView
@@ -350,8 +363,10 @@ public class ShowDialog {
 
 						Log.i("ZJP", nameValuePairs.toString());
 						Log.i("ZJP", "验证码开始2");
+
 					}
 				});
+				setButton(getproving);
 			}
 		});
 		localView.findViewById(R.id.login_phoneregister).setOnClickListener(
@@ -366,7 +381,38 @@ public class ShowDialog {
 					}
 				});
 
+		localView.findViewById(R.id.namereg_phoneregister).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+						showNameRegisterDialog(paramContext);
+					}
+				});
+		final ImageButton eye = (ImageButton) localView
+				.findViewById(R.id.eye_phoneregister);
+		eye.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (pwd_isvisiable) {
+					pwd_isvisiable = false;
+					eye.setImageResource(R.drawable.eye_close);
+					edit_pwd.setTransformationMethod(PasswordTransformationMethod
+							.getInstance());
+				} else {
+					pwd_isvisiable = true;
+					eye.setImageResource(R.drawable.eye_open);
+					edit_pwd.setTransformationMethod(HideReturnsTransformationMethod
+							.getInstance());
+				}
+			}
+		});
 		dialog.show();
+
 	}
 
 	public static void showLoginDialog(final Context paramContext) {
@@ -376,22 +422,23 @@ public class ShowDialog {
 		// localView.setPadding(30, 30, 30, 30);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(localView);
-		WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+		// WindowManager.LayoutParams params =
+		// dialog.getWindow().getAttributes();
+		//
+		// WindowManager wm = (WindowManager) paramContext
+		// .getSystemService(Context.WINDOW_SERVICE);
+		//
+		// int width = wm.getDefaultDisplay().getWidth();
+		// int height = wm.getDefaultDisplay().getHeight();
+		// if (width > height) {
+		// params.width = (int) (width * 0.65);
+		// params.height = (int) (height * 0.65);
+		// } else {
+		// params.width = (int) (height * 0.5);
+		// params.height = (int) (width * 0.7);
+		// }
 
-		WindowManager wm = (WindowManager) paramContext
-				.getSystemService(Context.WINDOW_SERVICE);
-
-		int width = wm.getDefaultDisplay().getWidth();
-		int height = wm.getDefaultDisplay().getHeight();
-		if (width > height) {
-			params.width = (int) (width * 0.65);
-			params.height = (int) (height * 0.65);
-		} else {
-			params.width = (int) (height * 0.5);
-			params.height = (int) (width * 0.7);
-		}
-
-		dialog.getWindow().setAttributes(params);
+		// dialog.getWindow().setAttributes(params);
 		initLoginDialogClickListener(paramContext, localView, dialog);
 
 		dialog.show();
@@ -405,22 +452,23 @@ public class ShowDialog {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(localView);
 
-		WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+		// WindowManager.LayoutParams params =
+		// dialog.getWindow().getAttributes();
+		//
+		// WindowManager wm = (WindowManager) paramContext
+		// .getSystemService(Context.WINDOW_SERVICE);
+		//
+		// int width = wm.getDefaultDisplay().getWidth();
+		// int height = wm.getDefaultDisplay().getHeight();
+		// if (width > height) {
+		// params.width = (int) (width * 0.65);
+		// params.height = (int) (height * 0.65);
+		// } else {
+		// params.width = (int) (height * 0.5);
+		// params.height = (int) (width * 0.7);
+		// }
 
-		WindowManager wm = (WindowManager) paramContext
-				.getSystemService(Context.WINDOW_SERVICE);
-
-		int width = wm.getDefaultDisplay().getWidth();
-		int height = wm.getDefaultDisplay().getHeight();
-		if (width > height) {
-			params.width = (int) (width * 0.65);
-			params.height = (int) (height * 0.65);
-		} else {
-			params.width = (int) (height * 0.5);
-			params.height = (int) (width * 0.7);
-		}
-
-		dialog.getWindow().setAttributes(params);
+		// dialog.getWindow().setAttributes(params);
 		initNameRegisterDialogClickListener(paramContext, localView, dialog);
 		dialog.show();
 	}
@@ -462,12 +510,12 @@ public class ShowDialog {
 				// TODO Auto-generated method stub
 				if (pwd_isvisiable) {
 					pwd_isvisiable = false;
-					button_pwd_isvisible.setImageResource(R.drawable.fy_pwd);
+					button_pwd_isvisible.setImageResource(R.drawable.eye_close);
 					edit_pwd.setTransformationMethod(PasswordTransformationMethod
 							.getInstance());
 				} else {
 					pwd_isvisiable = true;
-					button_pwd_isvisible.setImageResource(R.drawable.fy_d_pwd);
+					button_pwd_isvisible.setImageResource(R.drawable.eye_open);
 					edit_pwd.setTransformationMethod(HideReturnsTransformationMethod
 							.getInstance());
 				}
@@ -523,24 +571,12 @@ public class ShowDialog {
 				.findViewById(R.id.edit_username_nameregister);
 		final EditText edit_pwd = (EditText) localView
 				.findViewById(R.id.edit_pwd_nameregister);
-		final ImageButton button_pwd_isvisible = (ImageButton) localView
-				.findViewById(R.id.pwd_isvisiable_nameregister);
+
 		Button login = (Button) localView
 				.findViewById(R.id.register_nameregister);
-		CheckBox checkBox = (CheckBox) localView
-				.findViewById(R.id.checkBox_nameregister);
+
 		TextView haveAcount = (TextView) localView
 				.findViewById(R.id.haveAcount_nameregister);
-
-		// 每次改变自动登录的选中状态，系统都会记录
-		checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				autoLogin = isChecked;
-				GameSDK.saveInfo("autoLogin", autoLogin);
-			}
-		});
 
 		localView.findViewById(R.id.phone_nameregister).setOnClickListener(
 				new OnClickListener() {
@@ -552,25 +588,7 @@ public class ShowDialog {
 						showPhoneRegisterDialog(paramContext);
 					}
 				});
-		button_pwd_isvisible.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (pwd_isvisiable) {
-					pwd_isvisiable = false;
-					// 不显示密码
-					button_pwd_isvisible.setImageResource(R.drawable.fy_pwd);
-					edit_pwd.setTransformationMethod(PasswordTransformationMethod
-							.getInstance());
-				} else {
-					pwd_isvisiable = true;
-					button_pwd_isvisible.setImageResource(R.drawable.fy_d_pwd);
-					edit_pwd.setTransformationMethod(HideReturnsTransformationMethod
-							.getInstance());
-				}
-			}
-		});
 		login.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -588,8 +606,8 @@ public class ShowDialog {
 							Toast.LENGTH_LONG).show();
 					return;
 				}
-				if (pwd.length() <= 6 || pwd.length() >= 20) {
-					Toast.makeText(paramContext, "密码长度必须大于6小于20",
+				if (pwd.length() < 4 || pwd.length() > 20) {
+					Toast.makeText(paramContext, "密码长度必须4-20位",
 							Toast.LENGTH_LONG).show();
 					return;
 				}

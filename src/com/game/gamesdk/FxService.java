@@ -3,7 +3,9 @@ package com.game.gamesdk;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,8 +15,9 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class FxService extends Service {
 
@@ -25,11 +28,29 @@ public class FxService extends Service {
 	WindowManager mWindowManager;
 	LinearLayout linearLayout;
 
-	Button mFloatView;
+	ImageButton mFloatView;
 	boolean isshow = false;
 
 	private static final String TAG = "FxService";
 	private static boolean isClick = false;
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case 1:
+				if (isshow) {
+					return;
+				}
+				mFloatView.setBackgroundResource(R.drawable.fx_mini);
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
 
 	@Override
 	public void onCreate() {
@@ -80,15 +101,22 @@ public class FxService extends Service {
 		// 添加mFloatLayout
 		mWindowManager.addView(mFloatLayout, wmParams);
 		// 浮动窗口按钮
-		mFloatView = (Button) mFloatLayout.findViewById(R.id.float_id);
-		mFloatView.setBackgroundResource(R.drawable.fx);
+		mFloatView = (ImageButton) mFloatLayout.findViewById(R.id.float_id);
+		mFloatView.setBackgroundResource(R.drawable.fx_mini);
+		mFloatView.setScaleX(0.5f);
+		mFloatView.setScaleY(0.5f);
+		// mFloatView.setScaleType(ScaleType.FIT_START);
+		mFloatView.setPivotX(0);
+		mFloatView.setPivotY(0);
 
-		mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
-				View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
-				.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+		// mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
+		// View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
+		// .makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 		// Log.i(TAG, "Width/2--->" + mFloatView.getMeasuredWidth() / 2);
 		// Log.i(TAG, "Height/2--->" + mFloatView.getMeasuredHeight() / 2);
+
 		// 设置监听浮动窗口的触摸移动
+
 		mFloatView.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -97,33 +125,41 @@ public class FxService extends Service {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					isClick = true;
+					mFloatView.setFocusable(true);
+					mFloatView.setBackgroundResource(R.drawable.fx);
 					break;
 
 				case MotionEvent.ACTION_MOVE:
 					isClick = false;
 					// getRawX是触摸位置相对于屏幕的坐标，getX是相对于按钮的坐标
-					wmParams.x = (int) event.getRawX()
-							- mFloatView.getMeasuredWidth() / 2;
+					wmParams.x = 0 - mFloatView.getMeasuredWidth();
 
 					// Log.i(TAG, "RawX" + event.getRawX());
 					// Log.i(TAG, "X" + event.getX());
 					// 减25为状态栏的高度
 					wmParams.y = (int) event.getRawY()
-							- mFloatView.getMeasuredHeight() / 2 - 25;
+							- mFloatView.getMeasuredHeight() - 25;
 					// Log.i(TAG, "RawY" + event.getRawY());
 					// Log.i(TAG, "Y" + event.getY());
 					// 刷新
+					// RelativeLayout.LayoutParams layoutParams =
+					// (android.widget.RelativeLayout.LayoutParams) mFloatView
+					// .getLayoutParams();
+					// layoutParams.setMargins(0, 0, 1, 1);
+					// mFloatView.setLayoutParams(layoutParams);
 					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
+					showView();
 					break;
 
 				case MotionEvent.ACTION_UP:
 
-					wmParams.x = -mFloatView.getMeasuredWidth() / 2;
+					wmParams.x = 0;
 					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
 					if (isClick) {
 						isshow = !isshow;
 						showView();
 					}
+					mFloatView.setFocusable(false);
 
 					break;
 				}
@@ -144,8 +180,14 @@ public class FxService extends Service {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 
+						if (!GameSDK.isLogin) {
+							Toast.makeText(getBaseContext(), "请先登录",
+									Toast.LENGTH_SHORT).show();
+							return;
+						}
 						Intent intent1 = new Intent(FxService.this
 								.getBaseContext(), UserInfoActivity.class);
+						intent1.putExtra("tag", 1);
 						intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 						FxService.this.getBaseContext().startActivity(intent1);
@@ -154,18 +196,76 @@ public class FxService extends Service {
 					}
 				});
 		mFloatLayout.findViewById(R.id.gamebbs_show);
-		mFloatLayout.findViewById(R.id.connect_show);
-		mFloatLayout.findViewById(R.id.switch_show);
+		mFloatLayout.findViewById(R.id.connect_show).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent1 = new Intent(FxService.this
+								.getBaseContext(), UserInfoActivity.class);
+						intent1.putExtra("tag", 2);
+						intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+						FxService.this.getBaseContext().startActivity(intent1);
+						isshow = !isshow;
+						showView();
+					}
+				});
+		mFloatLayout.findViewById(R.id.switch_show).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if (!GameSDK.isLogin) {
+							return;
+						}
+						GameSDK.isLogin = false;
+						ShowDialog.showLoginDialog(GameSDK.mcontext);
+						isshow = !isshow;
+						showView();
+					}
+				});
 
 	}
 
 	public void showView() {
+
 		if (isshow) {
 
 			linearLayout.setVisibility(View.VISIBLE);
 		} else {
 			linearLayout.setVisibility(View.GONE);
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(1000);
+
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					handler.sendEmptyMessage(1);
+
+				}
+
+			}).start();
 		}
+	}
+
+	public void setButtonWidth(boolean ismini) {
+		if (mFloatView == null) {
+			return;
+		}
+		if (ismini) {
+			ImageButton imageButton;
+
+		}
+
 	}
 
 	@Override

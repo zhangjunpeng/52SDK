@@ -1,4 +1,9 @@
-package com.game.gamesdk;
+package com.game.fragment;
+
+import com.game.gamesdk.R;
+import com.game.gamesdk.UserInfo;
+import com.game.gamesdk.R.id;
+import com.game.gamesdk.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.game.paysdk;
+package com.game.fragment;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +33,11 @@ import android.widget.Toast;
 
 import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
+import com.game.paysdk.MyXQTPay;
+import com.game.paysdk.PayChannel;
+import com.game.paysdk.PayCofing;
+import com.game.paysdk.PaySDK;
+import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 
 public class CardPayFragment extends Fragment {
@@ -64,7 +68,7 @@ public class CardPayFragment extends Fragment {
 			switch (msg.what) {
 			case 0:
 				String data = StringTools.decodeUnicode(msg.obj.toString());
-				Log.i("ZJP", data);
+				MyLog.i("cardPayGetOrder返回：==" + data);
 				if (!data.contains("200")) {
 					return;
 				}
@@ -93,7 +97,7 @@ public class CardPayFragment extends Fragment {
 			switch (msg.what) {
 			case 0:
 				String data = msg.obj.toString();
-				Log.i("ZJP", data);
+				MyLog.i("CardPay结果返回==" + data);
 				StringReader stringReader = new StringReader(data);
 
 				try {
@@ -168,7 +172,7 @@ public class CardPayFragment extends Fragment {
 		// TODO Auto-generated method stub
 		String facen = "000" + cardMon2;
 		String face = facen.substring(facen.length() - 3, facen.length());
-		Log.i("FACENO", face);
+		// Log.i("FACENO", face);
 		return face;
 
 	}

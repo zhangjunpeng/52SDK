@@ -10,12 +10,12 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
 import com.game.tools.MD5Test;
+import com.game.tools.MyLog;
 
 public class MyXQTPay {
 
@@ -91,7 +91,7 @@ public class MyXQTPay {
 		nameValuePairs.add(nameValuePair10);
 		nameValuePairs.add(nameValuePair11);
 		nameValuePairs.add(nameValuePair12);
-		Log.i("namevalue", nameValuePairs.toString());
+		MyLog.i("getorderID~~namevalue===" + nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(PayCofing.getOrderIdUrl, nameValuePairs);
 
@@ -178,7 +178,7 @@ public class MyXQTPay {
 		nameValuePairs.add(nameValuePair11);
 		nameValuePairs.add(nameValuePair12);
 		nameValuePairs.add(nameValuePair13);
-		Log.i("namevalue", nameValuePairs.toString());
+		MyLog.i("XqtCard~~getordernamevalue==" + nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(PayCofing.getOrderIdUrl, nameValuePairs);
 	}
@@ -240,7 +240,7 @@ public class MyXQTPay {
 		nameValuePairs.add(nameValuePair9);
 		nameValuePairs.add(nameValuePair10);
 		nameValuePairs.add(nameValuePair11);
-
+		MyLog.i("cardpay~~namevalue==" + nameValuePairs.toString());
 		// 线程池
 
 		ExecutorService singleThread = Executors.newSingleThreadExecutor();

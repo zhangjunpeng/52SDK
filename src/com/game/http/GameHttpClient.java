@@ -19,7 +19,6 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.os.Handler;
-import android.util.Log;
 
 public class GameHttpClient {
 	private Handler handler;
@@ -78,7 +77,7 @@ public class GameHttpClient {
 
 				String strResult = EntityUtils.toString(entity);
 				// 得到服务气端发回的响应的内容（都在一个字符串里面）
-				Log.i("ZJP", "请求成功");
+				// Log.i("ZJP", "请求成功");
 				handler.obtainMessage(1, strResult).sendToTarget();
 			}
 		} catch (UnsupportedEncodingException e) {

@@ -9,6 +9,15 @@ public class PayChannel {
 	private String channel_pay_rate;
 	private String pay_nums;
 	private String channel_name_en;
+	private String return_pay_url;
+
+	public String getReturn_pay_url() {
+		return return_pay_url;
+	}
+
+	public void setReturn_pay_url(String return_pay_url) {
+		this.return_pay_url = return_pay_url;
+	}
 
 	public String getId() {
 		return id;

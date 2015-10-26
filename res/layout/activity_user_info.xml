@@ -7,16 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
-       
+       android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <ImageView
+            android:id="@+id/ImageView1_acinfo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
-            android:gravity="center"
-            android:text="用户资料" />
+            android:src="@drawable/logo52"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="5dp"
+             />
 
         <TextView
             android:layout_width="1px"

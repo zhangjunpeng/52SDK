@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.game.gamesdk.R;
 import com.game.tools.MD5Test;
+import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 import com.ipaynow.plugin.api.IpaynowPlugin;
 import com.xqt.now.paysdk.XqtPay;
@@ -40,11 +41,14 @@ public class TestActivity extends Activity {
 			switch (msg.what) {
 			case 0:
 				String data = StringTools.decodeUnicode(msg.obj.toString());
+
 				try {
-					JSONObject jsonObject = new JSONObject(data);
-					JSONObject jsonObject2 = jsonObject.getJSONObject("data");
-					String orderID = jsonObject2.getString("order_id");
+
 					if (data.contains("200")) {
+						JSONObject jsonObject = new JSONObject(data);
+						JSONObject jsonObject2 = jsonObject
+								.getJSONObject("data");
+						String orderID = jsonObject2.getString("order_id");
 						prePayMessage();
 						// 支付订单号
 						XqtPay.mhtOrderNo = orderID;
@@ -57,21 +61,21 @@ public class TestActivity extends Activity {
 										+ "&orderAmount=" + XqtPay.mhtOrderAmt
 										+ MyXQTPay.WXPAYkey).toUpperCase();
 
-						Log.i("ZJP", "获取微信支付参数");
+						MyLog.i("获取微信支付参数");
 						XqtPay.Transit(TestActivity.this, new XqtPayListener() {
 
 							@Override
 							public void success(String arg0) {
 								// TODO Auto-generated method stub
 								progressDialog.dismiss();
-								Log.i("ZJP", "开启微信支付");
+								MyLog.i("开启微信支付");
 								IpaynowPlugin.pay(TestActivity.this, arg0);
 							}
 
 							@Override
 							public void error(String arg0) {
 								// TODO Auto-generated method stub
-								Log.i("ZJP", arg0);
+								MyLog.i("微信支付异常：==" + arg0);
 							}
 						});
 					}
@@ -80,7 +84,7 @@ public class TestActivity extends Activity {
 					e.printStackTrace();
 				}
 
-				Log.i("ZJP", data);
+				MyLog.i(data);
 
 				break;
 
@@ -139,7 +143,7 @@ public class TestActivity extends Activity {
 			progressDialog.show();
 
 		} else {
-			Log.i("52Game", "网络异常");
+			MyLog.i("网络异常");
 		}
 	}
 
@@ -149,6 +153,7 @@ public class TestActivity extends Activity {
 		if (data == null) {
 			return;
 		}
+		MyLog.i("微信支付结果：" + data);
 		String respCode = data.getExtras().getString("respCode");
 		String respMsg = data.getExtras().getString("respMsg");
 		PaySDK.mcallback.wxPayCallback(respCode, respMsg);

@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/fy_short_input"
                     android:gravity="center"
-                    android:text="sadasdasd"
+                    android:text=""
                     
                     />
             </LinearLayout>

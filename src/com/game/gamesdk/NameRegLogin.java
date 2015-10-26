@@ -10,10 +10,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.game.http.GameHttpClient;
 import com.game.tools.MD5Test;
+import com.game.tools.MyLog;
 
 public class NameRegLogin {
 
@@ -50,8 +50,7 @@ public class NameRegLogin {
 
 		NameValuePair nameValuePair9 = new BasicNameValuePair(
 				RegisterConfig.sign, sign);
-		Log.i("ZJP", unsign);
-		Log.i("ZJP", sign);
+
 		NameValuePair nameValuePair10 = new BasicNameValuePair("appid",
 				GameSDK.AppID);
 		nameValuePairs.add(nameValuePair1);
@@ -65,6 +64,7 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair9);
 		nameValuePairs.add(nameValuePair10);
 
+		MyLog.i(nameValuePairs.toString());
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {
 
@@ -95,9 +95,9 @@ public class NameRegLogin {
 
 		String unsign = "login_from=1&login_name=" + name + "&password=" + pwd
 				+ "|" + GameSDK.Key;
-		Log.i("ZJP", "unsign=====" + unsign);
+
 		String sign = MD5Test.getMD5(unsign);
-		Log.i("ZJP", "sign=====" + sign);
+
 		NameValuePair nameValuePair5 = new BasicNameValuePair(
 				RegisterConfig.sign, sign);
 		nameValuePairs.add(nameValuePair1);
@@ -105,6 +105,7 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair3);
 		nameValuePairs.add(nameValuePair4);
 		nameValuePairs.add(nameValuePair5);
+		MyLog.i("nameLogin==" + nameValuePairs);
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {
 
@@ -151,10 +152,11 @@ public class NameRegLogin {
 
 		NameValuePair nameValuePair9 = new BasicNameValuePair(
 				RegisterConfig.sign, sign);
-		Log.i("ZJP", unsign);
-		Log.i("ZJP", sign);
+
 		NameValuePair nameValuePair11 = new BasicNameValuePair("appid",
 				GameSDK.AppID);
+		NameValuePair nameValuePair12 = new BasicNameValuePair("token",
+				ShowDialog.token);
 
 		nameValuePairs.add(nameValuePair1);
 		nameValuePairs.add(nameValuePair2);
@@ -167,7 +169,8 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair9);
 		nameValuePairs.add(nameValuePair10);
 		nameValuePairs.add(nameValuePair11);
-
+		nameValuePairs.add(nameValuePair12);
+		MyLog.i("phoneRe==" + nameValuePairs.toString());
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {
 
@@ -203,8 +206,8 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair3);
 		nameValuePairs.add(nameValuePair4);
 		nameValuePairs.add(nameValuePair5);
-		Log.i("ZJP", unsign);
-		Log.i("ZJP", nameValuePairs.toString());
+
+		MyLog.i("changepwd.namevalue==" + nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(RegisterConfig.changepwd, nameValuePairs);
 

@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     style="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-    >
+    android:layout_width="330dp"
+    android:layout_height="330dp"
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        >
+        android:layout_weight="1" >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:text="52Game用户登录"
-            android:textSize="23sp"
             android:gravity="center"
-
+            android:text="用户登录"
             android:textColor="#232020"
-            />
-
+            android:textSize="23sp" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,51 +34,52 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/fy_input"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal" >
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="1dp"
+                android:layout_weight="0.1"
                 android:background="#FFF"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/fy_pwd"/>
+                android:src="@drawable/fy_uesr" />
+
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="|"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/edit_username_login"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:hint="请输入用户名/手机号"
+                android:layout_weight="1"
                 android:background="@null"
-                />
+                android:hint="请输入用户名/手机号" />
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
                 android:layout_gravity="center_vertical"
-                android:background="#FFF"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/fy_history_down"
-                />
+                android:layout_weight="0.1"
+                android:background="#FFF"
+                android:src="@drawable/fy_history_down" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,115 +87,107 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/fy_input"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal" >
+
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="1dp"
+                android:layout_weight="0.1"
                 android:background="#FFF"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/fy_pwd"/>
+                android:src="@drawable/fy_pwd" />
+
             <TextView
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="|"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
+
             <EditText
                 android:id="@+id/edit_pwd_login"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:password="true"
-                android:hint="请输入密码"
+                android:layout_weight="1"
                 android:background="@null"
-                />
+                android:hint="请输入密码"
+                android:password="true" />
+
             <ImageButton
                 android:id="@+id/pwd_isvisiable_login"
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
                 android:layout_gravity="center_vertical"
-                android:background="#FFF"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/fy_pwd"
-                />
+                android:layout_weight="0.1"
+                android:background="#FFF"
+                android:src="@drawable/eye_close" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp" >
+
             <Button
                 android:id="@+id/button_qiuckRegister_login"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textColor="#FFF"
+                android:layout_weight="1"
                 android:background="@drawable/getproving_selector"
                 android:text="快速注册"
-                />
+                android:textColor="#FFF" />
+
             <Button
                 android:id="@+id/login_login"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
+                android:layout_weight="1"
                 android:background="@drawable/register_selector"
-                android:textColor="#FFF"
                 android:text="登入游戏"
-                />
-
+                android:textColor="#FFF" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical"
-            >
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical" >
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="自动登录"
-                android:checked="true"
-                android:textSize="18sp"
-                android:textColor="#0b51d2"
-                android:id="@+id/checkBox_login" />
-            <com.game.tools.MyTextView
-                android:id="@+id/find_pwd_login"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:gravity="right"
-                android:textSize="18sp"
-                
-                android:text="如果忘记密码。请联系客服qq：800066814 "
-                />
-        </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkBox_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="自动登录"
+            android:textColor="#0b51d2"
+            android:textSize="18sp" />
+
+        <com.game.tools.MyTextView
+            android:id="@+id/find_pwd_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="如果忘记密码。请联系客服qq：800066814 "
+            android:textSize="18sp" />
     </LinearLayout>
+
 </LinearLayout>
