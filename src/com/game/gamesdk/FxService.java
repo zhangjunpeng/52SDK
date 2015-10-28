@@ -195,7 +195,14 @@ public class FxService extends Service {
 						showView();
 					}
 				});
-		mFloatLayout.findViewById(R.id.gamebbs_show);
+		mFloatLayout.findViewById(R.id.gamebbs_show).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 		mFloatLayout.findViewById(R.id.connect_show).setOnClickListener(
 				new OnClickListener() {
 
@@ -208,6 +215,7 @@ public class FxService extends Service {
 						intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 						FxService.this.getBaseContext().startActivity(intent1);
+
 						isshow = !isshow;
 						showView();
 					}
@@ -235,6 +243,7 @@ public class FxService extends Service {
 		if (isshow) {
 
 			linearLayout.setVisibility(View.VISIBLE);
+			mFloatView.bringToFront();
 		} else {
 			linearLayout.setVisibility(View.GONE);
 			new Thread(new Runnable() {
@@ -255,17 +264,6 @@ public class FxService extends Service {
 
 			}).start();
 		}
-	}
-
-	public void setButtonWidth(boolean ismini) {
-		if (mFloatView == null) {
-			return;
-		}
-		if (ismini) {
-			ImageButton imageButton;
-
-		}
-
 	}
 
 	@Override

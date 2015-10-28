@@ -8,9 +8,9 @@ package com.game.callback;
 public interface LoginGameCallback {
 
 	// 登录成功后的回调
-	public void loginEndCallback(String msg);
+	public void loginEndCallback(String uid, String sid);
 
 	// 注册后的回调接口
-	public void registerEndCallback(String msg);
+	public void registerEndCallback(String uid, String sid);
 
 }

@@ -41,9 +41,13 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.game.gamesdk.UserInfoActivity"
-            android:theme="@style/dialog"
-             >
+            android:name=".UserInfoActivity"
+            android:theme="@style/dialog" >
+        </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@android:style/Theme.Holo.NoActionBar"
+            >
         </activity>
     </application>
 

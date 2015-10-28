@@ -60,6 +60,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
+                android:singleLine="true"
+                
                 android:hint="请输入手机号"
                 android:inputType="number" />
 

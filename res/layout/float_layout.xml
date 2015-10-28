@@ -13,25 +13,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:layout_alignParentLeft="true"
+        
         android:scaleType="fitStart"
         />
 
     <LinearLayout
         android:id="@+id/show_fx"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
+        android:layout_width="230dp"
+        android:layout_height="38dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginTop="1px"
+        
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone"
+        android:background="@drawable/fx_background"
+         >
 
         <LinearLayout
             android:id="@+id/geren_show"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="40dp"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -44,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
+                android:textColor="#000"
                 android:text="个人中心" />
         </LinearLayout>
 
@@ -64,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
+                 android:textColor="#000"
                 android:text="游戏论坛" />
         </LinearLayout>
 
@@ -84,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
+                 android:textColor="#000"
                 android:text="联系客服" />
         </LinearLayout>
 
@@ -104,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
+                 android:textColor="#000"
                 android:text="切换帐号" />
         </LinearLayout>
     </LinearLayout>

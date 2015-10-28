@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
-    android:layout_width="330dp"
+    
+    android:layout_width="400dp"
     android:layout_height="330dp"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="match_parent"
+        >
+    <LinearLayout
+        android:id="@+id/linearLayout1_dialogin"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:gravity="center"
+         >
 
         <TextView
             android:layout_width="match_parent"
@@ -21,13 +27,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2_dialogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="66dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="1"
+
+        android:layout_below="@+id/linearLayout1_dialogin"
         android:orientation="horizontal" >
 
+        
         <LinearLayout
+            android:id="@+id/linearLayout1_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -59,25 +69,34 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="请输入用户名/手机号" />
+                android:hint="请输入用户名" />
+
+            <ImageView
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#DDDDDD" />
 
             <ImageButton
+                android:id="@+id/more_name_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="0.1"
                 android:background="#FFF"
                 android:src="@drawable/fy_history_down" />
         </LinearLayout>
+      
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3_dialogin"
+        android:layout_below="@+id/linearLayout2_dialogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="66dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="1"
+ 
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -115,13 +134,18 @@
                 android:hint="请输入密码"
                 android:password="true" />
 
+            <ImageView
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#DDDDDD" />
+
             <ImageButton
                 android:id="@+id/pwd_isvisiable_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="0.1"
                 android:background="#FFF"
                 android:src="@drawable/eye_close" />
@@ -129,9 +153,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4_dialogin"
+        android:layout_below="@+id/linearLayout3_dialogin"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="66dp"
+     
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -163,6 +189,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout5_dialogin"
+        android:layout_below="@+id/linearLayout4_dialogin"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
@@ -189,5 +217,14 @@
             android:text="如果忘记密码。请联系客服qq：800066814 "
             android:textSize="18sp" />
     </LinearLayout>
-
+    <ListView 
+        android:id="@+id/listview_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:layout_below="@+id/linearLayout2_dialogin"
+        ></ListView>
+</RelativeLayout>
 </LinearLayout>

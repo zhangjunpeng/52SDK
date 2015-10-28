@@ -24,19 +24,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.callback.LoginGameCallback;
 import com.game.http.GameHttpClient;
+import com.game.http.NameRegLogin;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.tools.NetWorkState;
 
 /**
  * Created by Administrator on 2015/9/15.
@@ -60,7 +65,7 @@ public class ShowDialog {
 	static String phoneNum;
 
 	static ProgressDialog progressDialog;
-	static String token;
+	public static String token;
 
 	static ProgressDialog loading = null;
 	final static Handler handler = new Handler() {
@@ -84,11 +89,20 @@ public class ShowDialog {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
-						loginGamePayCallback.registerEndCallback(data);
+						loginGamePayCallback.registerEndCallback(
+								UserInfo.userID, sid);
 						GameSDK.isLogin = true;
 						dialog.dismiss();
+						// 保存登陆过的用户
+						String nameUsed = GameSDK.getNameUsedSP();
+						if (!nameUsed.contains(UserInfo.userName)) {
+							nameUsed = nameUsed + UserInfo.userName + ";";
+							GameSDK.saveNameUsedSP(nameUsed);
+						}
+
 					} else if (errorcode.equals("1008")) {
 						Toast.makeText(mcontext, "用户名已存在,请重新注册",
 								Toast.LENGTH_LONG).show();
@@ -114,11 +128,22 @@ public class ShowDialog {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "登录成功", Toast.LENGTH_LONG)
 								.show();
-						loginGamePayCallback.loginEndCallback(msg.obj
-								.toString());
+						loginGamePayCallback.loginEndCallback(UserInfo.userID,
+								sid);
 						dialog.dismiss();
+						// 保存登陆过的用户
+						String nameUsed = GameSDK.getNameUsedSP();
+
+						if (!nameUsed.contains(UserInfo.userName)) {
+							nameUsed = nameUsed + UserInfo.userName + ";";
+							GameSDK.saveNameUsedSP(nameUsed);
+							MyLog.i("保存用户：" + nameUsed);
+							return;
+						}
+
 					} else if (errorCode.equals("2004")
 							|| errorCode.equals("2005")) {
 						Toast.makeText(mcontext, "用户名或密码错误", Toast.LENGTH_LONG)
@@ -145,7 +170,7 @@ public class ShowDialog {
 			case 0:
 				String data = msg.obj.toString();
 				MyLog.i("验证码返回：" + data);
-
+				// json格式转
 				if (data.startsWith("\ufeff")) {
 					data = data.substring(1);
 				}
@@ -200,9 +225,11 @@ public class ShowDialog {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
-						loginGamePayCallback.registerEndCallback(data);
+						loginGamePayCallback.registerEndCallback(
+								UserInfo.userID, sid);
 						dialog.dismiss();
 					}
 				} catch (JSONException e) {
@@ -294,6 +321,11 @@ public class ShowDialog {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						if (!NetWorkState.getNetState(paramContext)) {
+							Toast.makeText(mcontext, "网络连接错误，请检查网络",
+									Toast.LENGTH_SHORT).show();
+							return;
+						}
 
 						String pwd = edit_pwd.getText().toString();
 						String prov = edit_prov.getText().toString();
@@ -422,23 +454,7 @@ public class ShowDialog {
 		// localView.setPadding(30, 30, 30, 30);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(localView);
-		// WindowManager.LayoutParams params =
-		// dialog.getWindow().getAttributes();
-		//
-		// WindowManager wm = (WindowManager) paramContext
-		// .getSystemService(Context.WINDOW_SERVICE);
-		//
-		// int width = wm.getDefaultDisplay().getWidth();
-		// int height = wm.getDefaultDisplay().getHeight();
-		// if (width > height) {
-		// params.width = (int) (width * 0.65);
-		// params.height = (int) (height * 0.65);
-		// } else {
-		// params.width = (int) (height * 0.5);
-		// params.height = (int) (width * 0.7);
-		// }
 
-		// dialog.getWindow().setAttributes(params);
 		initLoginDialogClickListener(paramContext, localView, dialog);
 
 		dialog.show();
@@ -475,20 +491,21 @@ public class ShowDialog {
 
 	public static void initLoginDialogClickListener(final Context paramContext,
 			View localView, final Dialog dialog) {
-		Log.i("52Game", localView.toString());
-		Log.i("52Game", (localView == null) + "");
+
 		final EditText edit_name = (EditText) localView
 				.findViewById(R.id.edit_username_login);
 		final EditText edit_pwd = (EditText) localView
 				.findViewById(R.id.edit_pwd_login);
 		final ImageButton button_pwd_isvisible = (ImageButton) localView
 				.findViewById(R.id.pwd_isvisiable_login);
+		button_pwd_isvisible.setScaleX(1.4f);
+		button_pwd_isvisible.setScaleY(1.4f);
 		Button quickRegisiter = (Button) localView
 				.findViewById(R.id.button_qiuckRegister_login);
 		Button login = (Button) localView.findViewById(R.id.login_login);
 		CheckBox checkBox = (CheckBox) localView
 				.findViewById(R.id.checkBox_login);
-		Log.i("52Game", (checkBox == null) + "");
+		MyLog.i((checkBox == null) + "");
 		TextView findbackpwd = (TextView) localView
 				.findViewById(R.id.find_pwd_login);
 
@@ -538,6 +555,11 @@ public class ShowDialog {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// 登录
+				if (!NetWorkState.getNetState(paramContext)) {
+					Toast.makeText(mcontext, "网络连接错误，请检查网络", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
 				String name = edit_name.getText().toString();
 				UserInfo.userName = name;
 				String pwd = edit_pwd.getText().toString();
@@ -562,6 +584,43 @@ public class ShowDialog {
 
 			}
 		});
+		// 点击向下箭头，显示输入过用户名
+		ImageButton imageButton = (ImageButton) localView
+				.findViewById(R.id.more_name_login);
+		final ListView listView = (ListView) localView
+				.findViewById(R.id.listview_login);
+
+		GameSDK.getUsedName();
+
+		if (UserInfo.Name_used.size() > 0) {
+
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					String name = UserInfo.Name_used.get(position);
+					edit_name.setText(name);
+					listView.setVisibility(View.GONE);
+				}
+			});
+			imageButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (listView.getVisibility() == View.GONE) {
+						InitListView initListView = new InitListView();
+						initListView.initloginList(paramContext, listView);
+					} else {
+						listView.setVisibility(View.GONE);
+					}
+
+				}
+			});
+
+		}
 
 	}
 
@@ -594,6 +653,12 @@ public class ShowDialog {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				// 检查网络
+				if (!NetWorkState.getNetState(paramContext)) {
+					Toast.makeText(mcontext, "网络连接错误，请检查网络", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
 				String name = edit_name.getText().toString();
 				String pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {

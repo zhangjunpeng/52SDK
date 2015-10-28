@@ -1,4 +1,4 @@
-package com.game.gamesdk;
+package com.game.http;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +11,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.Handler;
 
-import com.game.http.GameHttpClient;
+import com.game.gamesdk.GameSDK;
+import com.game.gamesdk.RegisterConfig;
+import com.game.gamesdk.ShowDialog;
+import com.game.gamesdk.UserInfo;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 
@@ -93,6 +96,8 @@ public class NameRegLogin {
 		NameValuePair nameValuePair4 = new BasicNameValuePair(
 				RegisterConfig.time, time + "");
 
+		NameValuePair nameValuePair6 = new BasicNameValuePair("appid",
+				GameSDK.AppID);
 		String unsign = "login_from=1&login_name=" + name + "&password=" + pwd
 				+ "|" + GameSDK.Key;
 
@@ -105,6 +110,7 @@ public class NameRegLogin {
 		nameValuePairs.add(nameValuePair3);
 		nameValuePairs.add(nameValuePair4);
 		nameValuePairs.add(nameValuePair5);
+		nameValuePairs.add(nameValuePair6);
 		MyLog.i("nameLogin==" + nameValuePairs);
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		single.execute(new Runnable() {
@@ -210,6 +216,15 @@ public class NameRegLogin {
 		MyLog.i("changepwd.namevalue==" + nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(RegisterConfig.changepwd, nameValuePairs);
+
+	}
+
+	public static void getkey(String appid, Handler handler) {
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		NameValuePair nameValuePair1 = new BasicNameValuePair("appid", appid);
+		nameValuePairs.add(nameValuePair1);
+		GameHttpClient gameHttpClient = new GameHttpClient(handler);
+		gameHttpClient.startClient(RegisterConfig.getKey, nameValuePairs);
 
 	}
 }

@@ -25,39 +25,43 @@
             android:layout_height="match_parent"
             android:background="#DDDDDD" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="游戏官网" />
+            android:visibility="gone"
+            android:src="@drawable/gameweb" />
 
         <TextView
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="#DDDDDD" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             android:gravity="center"
-            android:text="游戏论坛" />
+            android:src="@drawable/gamebbs"
+            android:scaleType="fitCenter"
+             />
 
         <TextView
             android:layout_width="1px"
             android:layout_height="match_parent"
             android:background="#DDDDDD" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="开服列表" />
+            android:src="@drawable/kaifu" />
     </LinearLayout>
 
     <TextView 

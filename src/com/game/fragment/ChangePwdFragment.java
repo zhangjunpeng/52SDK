@@ -18,8 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.game.gamesdk.NameRegLogin;
 import com.game.gamesdk.R;
+import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 

@@ -10,6 +10,8 @@ public class RegisterConfig {
 	public static String smsUrl = "http://m.52game.com/sdkaccount/sms";
 	// 修改密码接口
 	public static String changepwd = "http://m.52game.com/sdkaccount/changepwd";
+	// 获取加密key接口
+	public static String getKey = "http://m.52game.com/sdkaccount/getkey";
 
 	public static String imei = "reg_imei";
 	public static String channel = "reg_channel_id";

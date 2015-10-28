@@ -1,5 +1,9 @@
 package com.game.gamesdk;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +19,9 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.game.callback.LoginGameCallback;
+import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
+import com.game.tools.NetWorkState;
 import com.game.tools.StringTools;
 
 /**
@@ -36,34 +42,11 @@ public class GameSDK {
 	public static boolean isLogin = false;
 	static boolean isshow = true;
 	// debug模式。出版本之前改为false
-	public static boolean isDebug = false;
+	public static boolean isDebug = true;
 
 	static Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case 0:
-				// 登录成功：
-
-				progressDialog.dismiss();
-				String data = msg.obj.toString();
-				if (data.contains("200")) {
-					isLogin = true;
-					try {
-						JSONObject jsonObject = new JSONObject(data);
-						JSONObject jsonObject2 = jsonObject
-								.getJSONObject("data");
-						UserInfo.userID = jsonObject2.getString("uid");
-						GameSDK.isLogin = true;
-
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				loginGCallback.loginEndCallback(data);
-
-				break;
 
 			case 1:
 				String data1 = msg.obj.toString();
@@ -102,8 +85,8 @@ public class GameSDK {
 								// TODO Auto-generated method stub
 								Toast.makeText(mcontext, "自动登录成功",
 										Toast.LENGTH_LONG).show();
-								Intent intent = new Intent(mcontext,
-										FxService.class);
+								// Intent intent = new Intent(mcontext,
+								// FxService.class);
 								// mcontext.startService(intent);
 							}
 						});
@@ -115,14 +98,21 @@ public class GameSDK {
 					isLogin = true;
 					MyLog.i("登录返回==" + StringTools.decodeUnicode(data1));
 
-					loginGCallback.loginEndCallback(data1);
-
 					try {
 						JSONObject jsonObject = new JSONObject(data1);
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						String sid = jsonObject2.getString("sid");
+						loginGCallback.loginEndCallback(UserInfo.userID, sid);
 						UserInfo.userName = getInfoFromSP("name");
+						// 保存登陆过的用户
+						String nameUsed = GameSDK.getNameUsedSP();
+						if (nameUsed.contains(UserInfo.userName)) {
+							return;
+						}
+						nameUsed = nameUsed + UserInfo.userName + ";";
+						GameSDK.saveNameUsedSP(nameUsed);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -133,11 +123,62 @@ public class GameSDK {
 			}
 		}
 	};
+	static Handler handler2 = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				String data = msg.obj.toString();
+				MyLog.i("getkey返回：：" + data);
+				JSONObject jsonObject;
+				try {
+					jsonObject = new JSONObject(data);
+					String errorCode = jsonObject.getString("errorCode");
+					if ("200".equals(errorCode)) {
+						JSONObject jsonObject2 = jsonObject
+								.getJSONObject("data");
+						GameSDK.Key = jsonObject2.getString("key");
+						Toast.makeText(mcontext, "初始化完成", Toast.LENGTH_SHORT)
+								.show();
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-	public static void init(Context context, String appid, String App_key,
-			String channelId) {
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
+	public static void init(Context context, final String appid,
+			String App_key, String channelId) {
 		AppID = appid;
-		Key = App_key;
+
+		mcontext = context;
+		Activity activity = (Activity) context;
+		// View view = LayoutInflater.from(context)
+		// .inflate(R.layout.welcome, null);
+		// activity.setContentView(view);
+		activity.startActivity(new Intent(context, WelcomeActivity.class));
+		MyLog.i("设置ContentView");
+
+		if (!NetWorkState.getNetState(mcontext)) {
+			Toast.makeText(mcontext, "网络连接错误，请检查网络", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		ExecutorService single = Executors.newSingleThreadExecutor();
+		single.execute(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				NameRegLogin.getkey(appid, handler2);
+			}
+		});
 
 		UserInfo.channel = channelId;
 		SharedPreferences sharedPreferences = context.getSharedPreferences(
@@ -145,12 +186,43 @@ public class GameSDK {
 
 		ShowDialog.autoLogin = sharedPreferences.getBoolean("autoLogin", true);
 
+		// 获取imei
 		TelephonyManager telephonyManager = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
-
 		UserInfo.imei = telephonyManager.getDeviceId();
+		// 获取输入过的用户名
+		getUsedName();
 
-		mcontext = context;
+	}
+
+	public static void getUsedName() {
+		String namestring = getNameUsedSP();
+		MyLog.i("UsedName===" + namestring);
+		if (TextUtils.isEmpty(namestring)) {
+			return;
+		}
+		String[] named = namestring.split(";");
+		if (named != null && named.length > 0) {
+			UserInfo.Name_used = new ArrayList<String>();
+			for (int i = 0; i < named.length; i++) {
+				UserInfo.Name_used.add(named[i]);
+			}
+		}
+	}
+
+	public static String getNameUsedSP() {
+		sharedPreferences = mcontext.getSharedPreferences("gameInfo",
+				Context.MODE_PRIVATE);
+		String data = sharedPreferences.getString("NameUsed", "");
+		return data;
+	}
+
+	public static void saveNameUsedSP(String named) {
+		sharedPreferences = mcontext.getSharedPreferences("gameInfo",
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString("NameUsed", named);
+		editor.commit();
 	}
 
 	public static void saveInfo(String name, String value) {
@@ -189,6 +261,11 @@ public class GameSDK {
 
 		ShowDialog.mcontext = scontext;
 		MyLog.i("autoLogin===" + ShowDialog.autoLogin);
+		if (!NetWorkState.getNetState(mcontext)) {
+			Toast.makeText(mcontext, "网络连接错误，请检查网络", Toast.LENGTH_SHORT).show();
+			ShowDialog.showLoginDialog(mcontext);
+			return;
+		}
 
 		if (ShowDialog.autoLogin) {
 			// 自动登录

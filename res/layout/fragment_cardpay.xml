@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="20dp"
-                android:text="请填写充值卡密"
+                android:text="请选择充值金额"
                 android:textSize="15dp" />
 
             <Spinner
