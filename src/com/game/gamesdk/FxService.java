@@ -3,6 +3,7 @@ package com.game.gamesdk;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -200,6 +201,14 @@ public class FxService extends Service {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						Intent intent2 = new Intent(FxService.this
+								.getBaseContext(), ALiActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("tag", "bbs");
+						bundle.putString("data", "http://bbs.m.52game.com");
+						intent2.putExtras(bundle);
+						intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getBaseContext().startActivity(intent2);
 
 					}
 				});
@@ -226,9 +235,9 @@ public class FxService extends Service {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						if (!GameSDK.isLogin) {
-							return;
-						}
+						// if (!GameSDK.isLogin) {
+						// return;
+						// }
 						GameSDK.isLogin = false;
 						ShowDialog.showLoginDialog(GameSDK.mcontext);
 						isshow = !isshow;

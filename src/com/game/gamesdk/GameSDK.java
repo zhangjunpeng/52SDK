@@ -58,6 +58,19 @@ public class GameSDK {
 					ShowDialog.showLoginDialog(mcontext);
 					return;
 				}
+				JSONObject jsonObject3;
+				try {
+					jsonObject3 = new JSONObject(data1);
+					String errorCode = jsonObject3.getString("errorCode");
+					if (!"200".equals(errorCode)) {
+						Toast.makeText(mcontext, "自动登录失败", Toast.LENGTH_LONG)
+								.show();
+						return;
+					}
+				} catch (JSONException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 
 				// 自动登录成功：
 

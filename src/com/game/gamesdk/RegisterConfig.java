@@ -12,6 +12,8 @@ public class RegisterConfig {
 	public static String changepwd = "http://m.52game.com/sdkaccount/changepwd";
 	// 获取加密key接口
 	public static String getKey = "http://m.52game.com/sdkaccount/getkey";
+	// 获取开服列表接口
+	public static String getFu = "http://m.52game.com/sdkgame/index";
 
 	public static String imei = "reg_imei";
 	public static String channel = "reg_channel_id";

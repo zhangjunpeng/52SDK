@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.game.callback.GamePayCallback;
 import com.game.gamesdk.GameSDK;
+import com.game.sdkclass.PayChannel;
 import com.shengpay.smc.HybridClientActivity;
 import com.shengpay.smc.enums.Stage;
 import com.shengpay.smc.vo.OrderInfo;

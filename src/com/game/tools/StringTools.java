@@ -1,5 +1,8 @@
 package com.game.tools;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringTools {
 	public static String decodeUnicode(String theString) {
 		char aChar;
@@ -65,5 +68,15 @@ public class StringTools {
 				outBuffer.append(aChar);
 		}
 		return outBuffer.toString();
+	}
+
+	public static boolean isHaveChinese(String mes) {
+		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		Matcher m = p.matcher(mes);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+
 	}
 }

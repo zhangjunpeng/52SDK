@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.ProgressBar;
 
 import com.game.gamesdk.R;
+import com.game.sdkclass.PayChannel;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.tools.StringTools;

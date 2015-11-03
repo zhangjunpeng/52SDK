@@ -1,10 +1,5 @@
 package com.game.fragment;
 
-import com.game.gamesdk.R;
-import com.game.gamesdk.UserInfo;
-import com.game.gamesdk.R.id;
-import com.game.gamesdk.R.layout;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,9 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.game.gamesdk.R;
+import com.game.gamesdk.UserInfo;
+
 public class UserInfoFragment extends Fragment {
 
-	public static String[] list_name = { "修改密码" };
+	public static String[] list_name = { "我的钱包", "修改密码" };
 	private ListView listView;
 
 	@Override
@@ -62,6 +60,8 @@ public class UserInfoFragment extends Fragment {
 							.beginTransaction()
 							.replace(R.id.container_userinfo, changePwd)
 							.commit();
+
+				} else if (position == 0) {
 
 				}
 			}

@@ -34,9 +34,9 @@ import android.widget.Toast;
 import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
 import com.game.paysdk.MyXQTPay;
-import com.game.paysdk.PayChannel;
 import com.game.paysdk.PayCofing;
 import com.game.paysdk.PaySDK;
+import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 

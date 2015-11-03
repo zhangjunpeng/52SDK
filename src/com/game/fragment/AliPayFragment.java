@@ -19,10 +19,10 @@ import com.game.gamesdk.ALiActivity;
 import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
 import com.game.paysdk.MyXQTPay;
-import com.game.paysdk.PayChannel;
 import com.game.paysdk.PayCofing;
 import com.game.paysdk.PaySDK;
 import com.game.paysdk.TestActivity;
+import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
 
 /**
@@ -43,6 +43,7 @@ public class AliPayFragment extends Fragment {
 				MyLog.i("ali~~~getorder==" + data);
 				Intent intent1 = new Intent(getActivity(), ALiActivity.class);
 				Bundle bundle1 = new Bundle();
+				bundle1.putString("tag", "ali");
 				bundle1.putString("data", data);
 				intent1.putExtras(bundle1);
 				startActivity(intent1);

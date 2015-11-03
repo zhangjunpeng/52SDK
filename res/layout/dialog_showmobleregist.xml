@@ -71,6 +71,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
                 android:background="#FFF"
+                android:visibility="invisible"
                  />
         </LinearLayout>
     </LinearLayout>
@@ -113,8 +114,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
+                android:singleLine="true"
                 android:hint="请输入4-20位密码"
-                android:password="true" />
+                 />
 
             <ImageButton
                 android:id="@+id/eye_phoneregister"
@@ -123,6 +125,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
                 android:background="#FFF"
+                android:visibility="invisible"
                 android:src="@drawable/eye_close" />
         </LinearLayout>
     </LinearLayout>
@@ -167,7 +170,7 @@
                 android:layout_weight="0.7"
                 android:background="@null"
                 android:hint="请输入验证码"
-                android:password="true" />
+                 />
         </LinearLayout>
 
         <Button

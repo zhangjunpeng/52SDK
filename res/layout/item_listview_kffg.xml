@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/imageView_item_kaifulist"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/fy_d_auto_logo7" />
+
+    <TextView
+        android:id="@+id/textView1_kf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView_item_kaifulist"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/imageView_item_kaifulist"
+        android:visibility="invisible"
+        android:textColor="#AAAAAA"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView2_kf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1_kf"
+        android:layout_centerVertical="true"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3_kf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView_item_kaifulist"
+        android:layout_alignRight="@+id/textView1_kf"
+        android:textColor="#AAAAAA"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/button_item_kflist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="#408ED6"
+        android:textColor="#FFF"
+        android:text="下载" />
+
+
+
+</RelativeLayout>

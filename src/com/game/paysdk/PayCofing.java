@@ -2,6 +2,8 @@ package com.game.paysdk;
 
 import java.util.ArrayList;
 
+import com.game.sdkclass.PayChannel;
+
 public class PayCofing {
 	// 获取充值渠道参数
 	public static String payChannelUrl = "http://m.52game.com/sdkpay/paychannel";

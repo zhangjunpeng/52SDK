@@ -134,11 +134,12 @@ public final class R {
     }
     public static final class id {
         public static int ImageView1_acinfo=0x7f0a0005;
-        public static int action_settings=0x7f0a004c;
+        public static int action_settings=0x7f0a0052;
         public static int back_frag_change=0x7f0a003b;
-        public static int back_frag_userinfo=0x7f0a0041;
+        public static int back_frag_userinfo=0x7f0a0042;
         public static int back_pay=0x7f0a0001;
         public static int button_getproving_phoneRegister=0x7f0a0024;
+        public static int button_item_kflist=0x7f0a004b;
         public static int button_qiuckRegister_login=0x7f0a0015;
         public static int changeBili_fragment=0x7f0a0030;
         public static int changeBili_fragment_card=0x7f0a0035;
@@ -165,8 +166,9 @@ public final class R {
         public static int geren_show=0x7f0a002a;
         public static int haveAcount_nameregister=0x7f0a001e;
         public static int id_tv_loadingmsg=0x7f0a000b;
-        public static int imageView1=0x7f0a0045;
-        public static int imageView_item_list_login=0x7f0a0047;
+        public static int imageView1=0x7f0a0046;
+        public static int imageView_item_kaifulist=0x7f0a0047;
+        public static int imageView_item_list_login=0x7f0a004d;
         public static int linearLayout1_dialogin=0x7f0a000c;
         public static int linearLayout1_login=0x7f0a000e;
         public static int linearLayout2_dialogin=0x7f0a000d;
@@ -174,13 +176,14 @@ public final class R {
         public static int linearLayout4_dialogin=0x7f0a0014;
         public static int linearLayout5_dialogin=0x7f0a0017;
         public static int listView_pay=0x7f0a0002;
-        public static int list_usfrag=0x7f0a0043;
+        public static int list_kaifu_fragment=0x7f0a0040;
+        public static int list_usfrag=0x7f0a0044;
         public static int listview_login=0x7f0a001a;
         public static int loadingImageView=0x7f0a000a;
         public static int login_login=0x7f0a0016;
         public static int login_phoneregister=0x7f0a0026;
         public static int more_name_login=0x7f0a0010;
-        public static int msg=0x7f0a004a;
+        public static int msg=0x7f0a0050;
         public static int namereg_phoneregister=0x7f0a0027;
         public static int pay_fragment_ali=0x7f0a0032;
         public static int pay_fragment_ali_card=0x7f0a003a;
@@ -189,7 +192,7 @@ public final class R {
         public static int payname_table_fragment=0x7f0a0031;
         public static int payname_table_fragment_card=0x7f0a0036;
         public static int phone_nameregister=0x7f0a001f;
-        public static int progressBar=0x7f0a004b;
+        public static int progressBar=0x7f0a0051;
         public static int progressBar1=0x7f0a0004;
         public static int pwd_isvisiable_login=0x7f0a0013;
         public static int register_nameregister=0x7f0a001d;
@@ -198,18 +201,21 @@ public final class R {
         public static int spinner_cardpay_fragment=0x7f0a0037;
         public static int submit_changepwd=0x7f0a003f;
         public static int switch_show=0x7f0a002d;
-        public static int textView1=0x7f0a0040;
-        public static int textView1_item_list_usfrag=0x7f0a0044;
+        public static int textView1=0x7f0a0041;
+        public static int textView1_item_list_usfrag=0x7f0a0045;
+        public static int textView1_kf=0x7f0a0048;
         public static int textView2=0x7f0a0006;
+        public static int textView2_kf=0x7f0a0049;
         public static int textView3=0x7f0a0007;
-        public static int textView4=0x7f0a0008;
-        public static int textView_itemList_pay=0x7f0a0048;
-        public static int textView_item_list_login=0x7f0a0046;
-        public static int textView_item_spinner=0x7f0a0049;
+        public static int textView3_kf=0x7f0a004a;
+        public static int textView4_uiac=0x7f0a0008;
+        public static int textView_itemList_pay=0x7f0a004e;
+        public static int textView_item_list_login=0x7f0a004c;
+        public static int textView_item_spinner=0x7f0a004f;
         public static int username_fragment=0x7f0a002e;
         public static int username_fragment_card=0x7f0a0033;
         public static int webView1=0x7f0a0000;
-        public static int zhanghao_userfrag=0x7f0a0042;
+        public static int zhanghao_userfrag=0x7f0a0043;
     }
     public static final class layout {
         public static int activity_ali=0x7f030000;
@@ -228,13 +234,15 @@ public final class R {
         public static int fragment_cardpay=0x7f03000d;
         public static int fragment_changepwd=0x7f03000e;
         public static int fragment_connect=0x7f03000f;
-        public static int fragment_userinfo=0x7f030010;
-        public static int item_list_usfrag=0x7f030011;
-        public static int item_listview_login=0x7f030012;
-        public static int item_listview_pay=0x7f030013;
-        public static int item_spinner=0x7f030014;
-        public static int smc_loading=0x7f030015;
-        public static int welcome=0x7f030016;
+        public static int fragment_kaifu=0x7f030010;
+        public static int fragment_userinfo=0x7f030011;
+        public static int item_list_usfrag=0x7f030012;
+        public static int item_listview_kffg=0x7f030013;
+        public static int item_listview_login=0x7f030014;
+        public static int item_listview_pay=0x7f030015;
+        public static int item_spinner=0x7f030016;
+        public static int smc_loading=0x7f030017;
+        public static int welcome=0x7f030018;
     }
     public static final class menu {
         public static int main=0x7f090000;

@@ -58,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:background="@null"
                 android:hint="请输入6-20位用户名" />
 
@@ -103,9 +104,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:background="@null"
                 android:hint="请输入4-20位密码"
-                android:password="true" />
+                 />
 
             
         </LinearLayout>

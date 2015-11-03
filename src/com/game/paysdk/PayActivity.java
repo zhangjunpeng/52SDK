@@ -29,6 +29,7 @@ import com.game.fragment.AliPayFragment;
 import com.game.fragment.CardPayFragment;
 import com.game.gamesdk.R;
 import com.game.http.GameHttpClient;
+import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

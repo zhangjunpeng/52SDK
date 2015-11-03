@@ -44,39 +44,28 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        
         android:background="#DDDDDD"
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7" >
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.7"
+            android:gravity="left|center_vertical"
+            android:text="旧密码："
+            android:textSize="18dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_alignParentRight="true"
-                android:text="旧密码："
-                android:textSize="18dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <EditText
+            android:id="@+id/edit_oldpwd_change"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <EditText
-                android:id="@+id/edit_oldpwd_change"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请输入旧密码"
-                android:textSize="18dp" />
-        </RelativeLayout>
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入旧密码"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,39 +74,28 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-       
         android:background="#DDDDDD"
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7" >
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.7"
+            android:gravity="left|center_vertical"
+            android:text="新密码："
+            android:textSize="18dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:text="新密码："
-                android:textSize="18dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <EditText
+            android:id="@+id/edit_newpwd_change"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <EditText
-                android:id="@+id/edit_newpwd_change"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请输入新密码"
-                android:textSize="18dp" />
-        </RelativeLayout>
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入新密码"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -126,39 +104,28 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-       
         android:background="#DDDDDD"
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7" >
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.7"
+            android:gravity="left|center_vertical"
+            android:text="确认新密码："
+            android:textSize="18dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:text="确认新密码："
-                android:textSize="18dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <EditText
+            android:id="@+id/edit_confirmpwd_change"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <EditText
-                android:id="@+id/edit_confirmpwd_change"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请确认新密码"
-                android:textSize="18dp" />
-        </RelativeLayout>
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请确认新密码"
+            android:textSize="18dp" />
     </LinearLayout>
 
     <Button
@@ -169,7 +136,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        
         android:background="#408ED6"
         android:orientation="horizontal"
         android:text="提交"

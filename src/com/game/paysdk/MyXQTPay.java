@@ -14,6 +14,7 @@ import android.os.Handler;
 import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
+import com.game.sdkclass.PayChannel;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 

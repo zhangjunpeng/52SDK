@@ -42,6 +42,7 @@ import com.game.http.NameRegLogin;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.tools.NetWorkState;
+import com.game.tools.StringTools;
 
 /**
  * Created by Administrator on 2015/9/15.
@@ -207,7 +208,7 @@ public class ShowDialog {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				dialog.dismiss();
+
 				String data = msg.obj.toString();
 				MyLog.i("手机注册返回：" + data);
 				try {
@@ -231,6 +232,9 @@ public class ShowDialog {
 						loginGamePayCallback.registerEndCallback(
 								UserInfo.userID, sid);
 						dialog.dismiss();
+					} else {
+						Toast.makeText(mcontext, "注册错误", Toast.LENGTH_LONG)
+								.show();
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -329,21 +333,31 @@ public class ShowDialog {
 
 						String pwd = edit_pwd.getText().toString();
 						String prov = edit_prov.getText().toString();
-						if (TextUtils.isEmpty(phoneNum)) {
+						String phone = edit_phonenum.getEditableText()
+								.toString();
+						if (TextUtils.isEmpty(phone)) {
 							Toast.makeText(paramContext, "请输入手机号码",
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
+							return;
+						} else if (phone.length() != 11) {
+							Toast.makeText(paramContext, "请输入正确格式的手机号码",
+									Toast.LENGTH_SHORT).show();
+							return;
+						} else if (StringTools.isHaveChinese(pwd)) {
+							Toast.makeText(paramContext, "密码不能包含中文",
+									Toast.LENGTH_SHORT).show();
 							return;
 						} else if (TextUtils.isEmpty(prov)) {
 							Toast.makeText(paramContext, "请输入验证码",
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						} else if (TextUtils.isEmpty(pwd)) {
 							Toast.makeText(paramContext, "请输入密码",
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						} else if (pwd.length() < 4 || pwd.length() > 20) {
 							Toast.makeText(paramContext, "密码长度必须4-20位",
-									Toast.LENGTH_LONG).show();
+									Toast.LENGTH_SHORT).show();
 							return;
 						}
 						NameRegLogin nameRegLogin = new NameRegLogin();
@@ -498,8 +512,7 @@ public class ShowDialog {
 				.findViewById(R.id.edit_pwd_login);
 		final ImageButton button_pwd_isvisible = (ImageButton) localView
 				.findViewById(R.id.pwd_isvisiable_login);
-		button_pwd_isvisible.setScaleX(1.4f);
-		button_pwd_isvisible.setScaleY(1.4f);
+
 		Button quickRegisiter = (Button) localView
 				.findViewById(R.id.button_qiuckRegister_login);
 		Button login = (Button) localView.findViewById(R.id.login_login);
@@ -509,6 +522,7 @@ public class ShowDialog {
 		TextView findbackpwd = (TextView) localView
 				.findViewById(R.id.find_pwd_login);
 
+		checkBox.setChecked(autoLogin);
 		// 每次改变自动登录的选中状态，系统都会记录
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
@@ -666,6 +680,12 @@ public class ShowDialog {
 							Toast.LENGTH_LONG).show();
 					return;
 				}
+				if (StringTools.isHaveChinese(name)
+						|| StringTools.isHaveChinese(pwd)) {
+					Toast.makeText(paramContext, "用户名或密码不能包含中文",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
 				if (name.length() > 20 || name.length() < 6) {
 					Toast.makeText(paramContext, "用户名长度不能小于6大于20",
 							Toast.LENGTH_LONG).show();
@@ -705,4 +725,7 @@ public class ShowDialog {
 		return progressDialog;
 	}
 
+	public static boolean isContianChineseWords(String mes) {
+		return false;
+	}
 }

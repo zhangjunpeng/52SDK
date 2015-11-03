@@ -1,4 +1,4 @@
-package com.game.paysdk;
+package com.game.sdkclass;
 
 import android.text.TextUtils;
 
