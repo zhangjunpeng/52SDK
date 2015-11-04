@@ -1,5 +1,6 @@
 package com.game.gamesdk;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +33,7 @@ public class GameSDK {
 	// APP参数
 
 	public static String AppID = "52452712";
-	public static String Key = "52game20153965981616";
+	public static String Key = "";
 	public static Context mcontext;
 
 	private static SharedPreferences sharedPreferences;
@@ -203,6 +204,16 @@ public class GameSDK {
 		TelephonyManager telephonyManager = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		UserInfo.imei = telephonyManager.getDeviceId();
+		if (TextUtils.isEmpty(UserInfo.imei)) {
+			String serialnum = null;
+			try {
+				Class<?> c = Class.forName("android.os.SystemProperties");
+				Method get = c.getMethod("get", String.class, String.class);
+				serialnum = (String) (get.invoke(c, "ro.serialno", "unknown"));
+			} catch (Exception ignored) {
+			}
+			UserInfo.imei = serialnum;
+		}
 		// 获取输入过的用户名
 		getUsedName();
 

@@ -45,7 +45,7 @@ public class PaySDK {
 		PayCofing.orderid_cp = orderid_cp;
 
 		Intent intent = new Intent(context, PayActivity.class);
-
+		intent.putExtra("tag", "sdk");
 		Bundle bundle = new Bundle();
 		bundle.putDouble("paymoney", money);
 		intent.putExtras(bundle);

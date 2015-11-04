@@ -10,6 +10,6 @@ public class MyLog {
 		if (!GameSDK.isDebug) {
 			return;
 		}
-		Log.i("52Game", mes);
+		Log.i("52Game", StringTools.decodeUnicode(mes));
 	}
 }

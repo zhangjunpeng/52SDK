@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.game.fragment.AliPayFragment;
 import com.game.fragment.CardPayFragment;
+import com.game.gamesdk.ALiActivity;
 import com.game.gamesdk.R;
 import com.game.http.GameHttpClient;
 import com.game.sdkclass.PayChannel;
@@ -48,22 +49,41 @@ public class PayActivity extends FragmentActivity {
 
 		setContentView(R.layout.activity_pay);
 		instance = this;
+		String tag = getIntent().getStringExtra("tag");
+		if ("wallet".equals(tag)) {
 
-		getChannel();
-		fragmentManager = getSupportFragmentManager();
-		// initView();
+		} else if ("sdk".equals(tag)) {
+			getChannel();
+			fragmentManager = getSupportFragmentManager();
+			// initView();
 
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		money = bundle.getDouble("paymoney");
+			Intent intent = getIntent();
+			Bundle bundle = intent.getExtras();
+			money = bundle.getDouble("paymoney");
 
-		comitFragment("weixin", money);
+			comitFragment("weixin", money);
+		}
+
 		findViewById(R.id.back_pay).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
+			}
+		});
+		findViewById(R.id.kefu_pay).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent2 = new Intent(PayActivity.this, ALiActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("tag", "bbs");
+				bundle.putString("data", "http://m.52game.com/wap/service");
+				intent2.putExtras(bundle);
+				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				getBaseContext().startActivity(intent2);
 			}
 		});
 

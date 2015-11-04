@@ -53,7 +53,7 @@ public class ShowDialog {
 	static boolean autoLogin = false;// 是否自动登录
 	private static ExecutorService singleThreadExecutors = Executors
 			.newSingleThreadExecutor();
-
+	String name_m;
 	// 密码可见的属性为 pwd_isvisiable 默认为false
 	static boolean pwd_isvisiable = false;
 
@@ -186,13 +186,13 @@ public class ShowDialog {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						token = jsonObject2.getString("token");
-						Log.i("ZJP", token);
+						MyLog.i("token::" + token);
 
 					}
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
-					Log.i("ZJP", "解析错误");
+
 					e.printStackTrace();
 				}
 
@@ -248,7 +248,7 @@ public class ShowDialog {
 		}
 	};
 
-	private static void setButton(final Button button) {
+	public static void setButton(final Button button) {
 		// TODO Auto-generated method stub
 
 		final Handler handler3 = new Handler() {
@@ -360,6 +360,7 @@ public class ShowDialog {
 									Toast.LENGTH_SHORT).show();
 							return;
 						}
+						UserInfo.userName = phoneNum;
 						NameRegLogin nameRegLogin = new NameRegLogin();
 						nameRegLogin.phoneRegister(phoneNum, pwd, prov,
 								handler3);
@@ -462,6 +463,9 @@ public class ShowDialog {
 	}
 
 	public static void showLoginDialog(final Context paramContext) {
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
 		localView = LayoutInflater.from(paramContext).inflate(
 				R.layout.dialog_login, null);
 		dialog = new Dialog(paramContext);
@@ -696,7 +700,7 @@ public class ShowDialog {
 							Toast.LENGTH_LONG).show();
 					return;
 				}
-
+				UserInfo.userName = name;
 				GameSDK.saveInfo("name", name);
 				GameSDK.saveInfo("pwd", pwd);
 				NameRegLogin nameRegister = new NameRegLogin();

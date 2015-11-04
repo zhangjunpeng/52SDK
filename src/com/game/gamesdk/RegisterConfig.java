@@ -14,6 +14,8 @@ public class RegisterConfig {
 	public static String getKey = "http://m.52game.com/sdkaccount/getkey";
 	// 获取开服列表接口
 	public static String getFu = "http://m.52game.com/sdkgame/index";
+	// 账号绑定手机号接口
+	public static String bindPhone = "http://m.52game.com/sdkaccount/bindPhone";
 
 	public static String imei = "reg_imei";
 	public static String channel = "reg_channel_id";

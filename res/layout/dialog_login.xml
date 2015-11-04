@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    
+    android:background="#FFF"
     android:layout_width="400dp"
     android:layout_height="330dp"
     android:orientation="vertical" >
@@ -68,6 +68,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:textColor="#000"
                 android:background="@null"
                 android:hint="请输入用户名" />
 
@@ -130,6 +131,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:textColor="#000"
                 android:background="@null"
                 android:hint="请输入密码"
                 android:password="true" />

@@ -194,6 +194,7 @@ public class FxService extends Service {
 						FxService.this.getBaseContext().startActivity(intent1);
 						isshow = !isshow;
 						showView();
+						stopSelf();
 					}
 				});
 		mFloatLayout.findViewById(R.id.gamebbs_show).setOnClickListener(
@@ -227,6 +228,7 @@ public class FxService extends Service {
 
 						isshow = !isshow;
 						showView();
+						stopSelf();
 					}
 				});
 		mFloatLayout.findViewById(R.id.switch_show).setOnClickListener(
@@ -238,10 +240,11 @@ public class FxService extends Service {
 						// if (!GameSDK.isLogin) {
 						// return;
 						// }
-						GameSDK.isLogin = false;
+						// GameSDK.isLogin = false;
 						ShowDialog.showLoginDialog(GameSDK.mcontext);
 						isshow = !isshow;
 						showView();
+						// stopSelf();
 					}
 				});
 

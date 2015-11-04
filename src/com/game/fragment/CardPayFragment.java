@@ -116,7 +116,7 @@ public class CardPayFragment extends Fragment {
 										.getAttributeValue(0))) {
 
 									state = pullParser.getAttributeValue(1);
-									// Log.i("ZJP", "state==1" + state);
+									MyLog.i("state==" + state);
 									PaySDK.mcallback.cardPayCallback(state);
 								}
 
@@ -138,6 +138,15 @@ public class CardPayFragment extends Fragment {
 					e.printStackTrace();
 				}
 				// Log.i("ZJP", "state==2" + state);
+				if (state.equals("0")) {
+					Toast.makeText(getActivity(), "订单错误，请重新输入账号密码",
+							Toast.LENGTH_SHORT).show();
+				} else if (state.equals("1")) {
+					Toast.makeText(getActivity(), "订单提交成功", Toast.LENGTH_SHORT)
+							.show();
+					getActivity().finish();
+				}
+
 				break;
 
 			default:

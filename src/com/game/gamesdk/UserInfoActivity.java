@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -124,6 +125,21 @@ public class UserInfoActivity extends FragmentActivity {
 						});
 					}
 				});
+		findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent2 = new Intent(UserInfoActivity.this,
+						ALiActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("tag", "bbs");
+				bundle.putString("data", "http://bbs.m.52game.com");
+				intent2.putExtras(bundle);
+				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				getBaseContext().startActivity(intent2);
+			}
+		});
 	}
 
 	private void comitFragment(int tag) {

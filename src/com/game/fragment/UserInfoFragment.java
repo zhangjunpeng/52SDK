@@ -18,6 +18,7 @@ import com.game.gamesdk.UserInfo;
 public class UserInfoFragment extends Fragment {
 
 	public static String[] list_name = { "我的钱包", "修改密码" };
+	public int[] id_draw = { R.drawable.wallet, R.drawable.changepwd };
 	private ListView listView;
 
 	@Override
@@ -61,8 +62,12 @@ public class UserInfoFragment extends Fragment {
 							.replace(R.id.container_userinfo, changePwd)
 							.commit();
 
-				} else if (position == 0) {
-
+				} else if (list_name[position].equals("我的钱包")) {
+					UserInfoFragment.this
+							.getFragmentManager()
+							.beginTransaction()
+							.replace(R.id.container_userinfo,
+									new MyWalletFragment()).commit();
 				}
 			}
 		});

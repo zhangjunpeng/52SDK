@@ -40,7 +40,7 @@
                     android:layout_weight="1.5"
                     android:background="@drawable/fy_short_input"
                     android:gravity="center"
-                    android:text="sadasdasd" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +130,7 @@
                 android:id="@+id/edit_cardnum_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                
+                android:singleLine="true"
                 android:hint="请填写卡号"
                 android:textSize="20sp"
                 />
@@ -138,7 +138,7 @@
                 android:id="@+id/edit_cardpass_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                
+                android:singleLine="true"
                 android:hint="请填写密码"
                 android:textSize="20sp"
                 />

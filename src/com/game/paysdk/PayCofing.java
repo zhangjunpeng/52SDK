@@ -17,6 +17,11 @@ public class PayCofing {
 	// 卡类充值
 	public static String cardPayUrl = "http://www.zhifuka.net/gateway/zfgateway.asp";
 
+	// 平台币检查手机绑定接口
+	public static String checkBind = "http://m.52game.com/sdkaccount/checkBind";
+	// 平台币查询接口
+	public static String wallet = "http://m.52game.com/sdkaccount/wallet";
+
 	public static String channelPayRate = "";
 	public static String productName = "";
 	public static String productDes = "";

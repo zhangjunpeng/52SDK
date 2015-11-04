@@ -32,7 +32,16 @@
             android:text="充值中心"
             android:textColor="#000"
             android:textSize="20sp" />
-        
+         <TextView
+            android:id="@+id/kefu_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="客服"
+            android:textColor="#FE9226"
+            android:textSize="20sp" />
         
     </RelativeLayout>
 
