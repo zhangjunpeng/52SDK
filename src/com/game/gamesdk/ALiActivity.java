@@ -3,6 +3,7 @@ package com.game.gamesdk;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -35,6 +36,17 @@ public class ALiActivity extends Activity {
 			webView.loadUrl(url);
 		}
 
+	}
+
+	@Override
+	// 设置回退
+	// 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+			webView.goBack(); // goBack()表示返回WebView的上一页面
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private void startAlipay(Bundle bundle) {

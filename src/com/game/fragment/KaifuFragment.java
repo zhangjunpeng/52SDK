@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.game.gamesdk.R;
 import com.game.sdkclass.GameOpen;
 import com.game.tools.ImageDownloadHelper;
-import com.game.tools.MyLog;
 import com.game.tools.ImageDownloadHelper.OnImageDownloadListener;
+import com.game.tools.MyLog;
 
 public class KaifuFragment extends Fragment {
 	private ListView listView;
@@ -83,8 +83,7 @@ public class KaifuFragment extends Fragment {
 				viewHloder = new ViewHloder();
 				viewHloder.imageView = (ImageView) convertView
 						.findViewById(R.id.imageView_item_kaifulist);
-				viewHloder.textView1 = (TextView) convertView
-						.findViewById(R.id.textView1_kf);
+
 				viewHloder.textView2 = (TextView) convertView
 						.findViewById(R.id.textView2_kf);
 				viewHloder.textView3 = (TextView) convertView

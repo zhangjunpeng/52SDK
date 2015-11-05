@@ -165,6 +165,8 @@ public class CardPayFragment extends Fragment {
 		money = bundle.getDouble("paymoney");
 		position = Integer.parseInt(tag);
 		payChannel = PayCofing.list.get(position);
+		MyLog.i(payChannel.getChannel_name() + ":::"
+				+ payChannel.getChannel_name_en());
 		num = payChannel.setPayNum();
 
 		cardValue = Integer.parseInt(num[0]);
@@ -271,7 +273,9 @@ public class CardPayFragment extends Fragment {
 		TextView textView = (TextView) view
 				.findViewById(R.id.payname_table_fragment_card);
 		textView.setTextColor(Color.rgb(254, 146, 38));
+
 		textView.setText(PayCofing.list.get(position).getChannel_name());
+		MyLog.i(PayCofing.list.get(position).getChannel_name());
 		TextView money_text = (TextView) view
 				.findViewById(R.id.paymoney_fragment_card);
 		money_text.setText(money + " 元");

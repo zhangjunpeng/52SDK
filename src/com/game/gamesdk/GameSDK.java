@@ -19,6 +19,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.game.account.AccountWork;
+import com.game.account.LoginFragment;
 import com.game.callback.LoginGameCallback;
 import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
@@ -43,7 +45,7 @@ public class GameSDK {
 	public static boolean isLogin = false;
 	static boolean isshow = true;
 	// debug模式。出版本之前改为false
-	public static boolean isDebug = true;
+	public static boolean isDebug = false;
 
 	static Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -281,6 +283,7 @@ public class GameSDK {
 		// 在登录成功和失败后分别调用loginGameCallback的两个方法
 
 		ShowDialog.loginGamePayCallback = loginGameCallback;
+		LoginFragment.loginGamePayCallback = loginGameCallback;
 		loginGCallback = loginGameCallback;
 
 		ShowDialog.mcontext = scontext;
@@ -291,7 +294,7 @@ public class GameSDK {
 			return;
 		}
 
-		if (ShowDialog.autoLogin) {
+		if (AccountWork.autoLogin) {
 			// 自动登录
 
 			final String name = getInfoFromSP("name");
@@ -300,7 +303,8 @@ public class GameSDK {
 			MyLog.i("sp~~~name====" + name);
 			MyLog.i("sp~~~pwd=====" + pwd);
 			if (TextUtils.isEmpty(name)) {
-				ShowDialog.showLoginDialog(mcontext);
+				// ShowDialog.showLoginDialog(mcontext);
+				AccountWork.showLogin(mcontext);
 				return;
 			}
 
@@ -311,9 +315,11 @@ public class GameSDK {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
+							isLogin = false;
 							isshow = false;
 							dialog.dismiss();
-							ShowDialog.showLoginDialog(mcontext);
+							// ShowDialog.showLoginDialog(mcontext);
+							AccountWork.showLogin(mcontext);
 						}
 					});
 			progressDialog.show();
@@ -322,7 +328,8 @@ public class GameSDK {
 			nameRegister.nameLogin(name, pwd, "1", handler);
 
 		} else {
-			ShowDialog.showLoginDialog(mcontext);
+			// ShowDialog.showLoginDialog(mcontext);
+			AccountWork.showLogin(mcontext);
 
 		}
 	}
@@ -339,6 +346,11 @@ public class GameSDK {
 	}
 
 	public static void stop(Context context) {
+
 		context.stopService(new Intent(context, FxService.class));
+	}
+
+	public static void stopSDK() {
+		GameSDK.isLogin = false;
 	}
 }

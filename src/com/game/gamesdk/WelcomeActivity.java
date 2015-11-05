@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 
 public class WelcomeActivity extends Activity {
 	Handler handler = new Handler() {
@@ -23,6 +24,7 @@ public class WelcomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Configuration mConfiguration = getResources().getConfiguration();
 		int ori = mConfiguration.orientation;
 		if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {

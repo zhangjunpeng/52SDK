@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -29,9 +29,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"
             android:gravity="center"
             android:src="@drawable/gameweb"
-            android:visibility="gone" />
+             />
 
         <TextView
             android:layout_width="1px"
@@ -45,6 +47,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:scaleType="fitCenter"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"
             android:src="@drawable/gamebbs"
              />
 
@@ -58,6 +62,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="2dp"
             android:gravity="center"
             android:src="@drawable/kaifu" />
     </LinearLayout>

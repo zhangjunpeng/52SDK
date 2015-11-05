@@ -105,6 +105,13 @@ public class PayActivity extends FragmentActivity {
 					PayCofing.list = gson.fromJson(msg.obj.toString(),
 							new TypeToken<List<PayChannel>>() {
 							}.getType());
+					// 先删除钱包支付功能
+					for (PayChannel payChannel : PayCofing.list) {
+						if (payChannel.getChannel_name_en().equals("wallet")) {
+							PayCofing.list.remove(payChannel);
+						}
+					}
+
 					initView();
 
 					break;
@@ -177,8 +184,12 @@ public class PayActivity extends FragmentActivity {
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
-			viewHolder.textView.setText(PayCofing.list.get(position)
-					.getChannel_name());
+			PayChannel payChannel = PayCofing.list.get(position);
+			if (payChannel.getChannel_name_en().equals("wallet")) {
+				return null;
+			}
+			viewHolder.textView.setText(payChannel.getChannel_name());
+
 			return convertView;
 		}
 
@@ -207,6 +218,8 @@ public class PayActivity extends FragmentActivity {
 						comitFragment("alipay", money);
 					} else if (payChannel.getChannel_name_en().equals("bank")) {
 						comitFragment("bank", money);
+					} else if (payChannel.getChannel_name_en().equals("")) {
+
 					}
 
 				} else {

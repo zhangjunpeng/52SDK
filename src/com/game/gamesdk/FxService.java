@@ -219,16 +219,15 @@ public class FxService extends Service {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Intent intent1 = new Intent(FxService.this
-								.getBaseContext(), UserInfoActivity.class);
-						intent1.putExtra("tag", 2);
-						intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-						FxService.this.getBaseContext().startActivity(intent1);
-
-						isshow = !isshow;
-						showView();
-						stopSelf();
+						Intent intent2 = new Intent(getBaseContext(),
+								ALiActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("tag", "bbs");
+						bundle.putString("data",
+								"http://m.52game.com/wap/service");
+						intent2.putExtras(bundle);
+						intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getBaseContext().startActivity(intent2);
 					}
 				});
 		mFloatLayout.findViewById(R.id.switch_show).setOnClickListener(
@@ -241,10 +240,15 @@ public class FxService extends Service {
 						// return;
 						// }
 						// GameSDK.isLogin = false;
-						ShowDialog.showLoginDialog(GameSDK.mcontext);
-						isshow = !isshow;
-						showView();
+
 						// stopSelf();
+						Intent intent = new Intent(FxService.this
+								.getBaseContext(), UserInfoActivity.class);
+						intent.putExtra("tag", 3);
+
+						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+						FxService.this.getBaseContext().startActivity(intent);
 					}
 				});
 

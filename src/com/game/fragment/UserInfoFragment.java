@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,8 +18,8 @@ import com.game.gamesdk.UserInfo;
 
 public class UserInfoFragment extends Fragment {
 
-	public static String[] list_name = { "我的钱包", "修改密码" };
-	public int[] id_draw = { R.drawable.wallet, R.drawable.changepwd };
+	public static String[] list_name = { "修改密码" };
+	public int[] id_draw = { R.drawable.changepwd };
 	private ListView listView;
 
 	@Override
@@ -103,16 +104,20 @@ public class UserInfoFragment extends Fragment {
 				viewHolder = new ViewHolder();
 				viewHolder.textView = (TextView) convertView
 						.findViewById(R.id.textView1_item_list_usfrag);
+				viewHolder.imageView = (ImageView) convertView
+						.findViewById(R.id.imageView_item_usfg);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			viewHolder.textView.setText(list_name[position]);
+			viewHolder.imageView.setImageResource(id_draw[position]);
 			return convertView;
 		}
 
 		class ViewHolder {
 			TextView textView;
+			ImageView imageView;
 
 		}
 	}

@@ -19,7 +19,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageView;
 
+import com.game.account.LoginFragment;
 import com.game.fragment.ConnectFragment;
 import com.game.fragment.KaifuFragment;
 import com.game.fragment.UserInfoFragment;
@@ -97,34 +99,39 @@ public class UserInfoActivity extends FragmentActivity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						comitFragment(1);
+						if (GameSDK.isLogin) {
+							comitFragment(1);
+						} else {
+							comitFragment(3);
+						}
+
 					}
 				});
-		findViewById(R.id.textView4_uiac).setOnClickListener(
-				new OnClickListener() {
+		final ImageView im = (ImageView) findViewById(R.id.textView4_uiac);
+		im.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				im.setFocusable(true);
+				ExecutorService single = Executors.newSingleThreadExecutor();
+				single.execute(new Runnable() {
 
 					@Override
-					public void onClick(View v) {
+					public void run() {
 						// TODO Auto-generated method stub
-						ExecutorService single = Executors
-								.newSingleThreadExecutor();
-						single.execute(new Runnable() {
-
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-								NameValuePair nameValuePair1 = new BasicNameValuePair(
-										"appid", GameSDK.AppID);
-								nameValuePairs.add(nameValuePair1);
-								GameHttpClient gameHttpClient = new GameHttpClient(
-										handler);
-								gameHttpClient.startClient(
-										RegisterConfig.getFu, nameValuePairs);
-							}
-						});
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						NameValuePair nameValuePair1 = new BasicNameValuePair(
+								"appid", GameSDK.AppID);
+						nameValuePairs.add(nameValuePair1);
+						GameHttpClient gameHttpClient = new GameHttpClient(
+								handler);
+						gameHttpClient.startClient(RegisterConfig.getFu,
+								nameValuePairs);
 					}
 				});
+			}
+		});
 		findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -135,6 +142,21 @@ public class UserInfoActivity extends FragmentActivity {
 				Bundle bundle = new Bundle();
 				bundle.putString("tag", "bbs");
 				bundle.putString("data", "http://bbs.m.52game.com");
+				intent2.putExtras(bundle);
+				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				getBaseContext().startActivity(intent2);
+			}
+		});
+		findViewById(R.id.textView2).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent2 = new Intent(UserInfoActivity.this,
+						ALiActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("tag", "bbs");
+				bundle.putString("data", "http://m.52game.com");
 				intent2.putExtras(bundle);
 				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				getBaseContext().startActivity(intent2);
@@ -159,6 +181,13 @@ public class UserInfoActivity extends FragmentActivity {
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container_userinfo, connectFragment).commit();
 			break;
+
+		case 3:
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container_userinfo, new LoginFragment())
+					.commit();
+			break;
+
 		default:
 			break;
 		}
