@@ -48,7 +48,7 @@ public class PhoneRegisterFragment extends Fragment {
 	static String token;
 	static boolean pwd_isvisiable = false;
 
-	static Handler handler2 = new Handler() {
+	Handler handler2 = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -87,7 +87,7 @@ public class PhoneRegisterFragment extends Fragment {
 		}
 
 	};
-	static Handler handler3 = new Handler() {
+	Handler handler3 = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
