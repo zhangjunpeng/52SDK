@@ -1,4 +1,4 @@
-package com.game.fragment;
+package com.game.wallet;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +10,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.game.fragment.BindPhoneNumFragment;
+import com.game.fragment.UserInfoFragment;
 import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
@@ -51,10 +55,40 @@ public class MyWalletFragment extends Fragment {
 					String errorCode = jsonObject.getString("errorCode");
 					if ("7005".equals(errorCode)) {
 						// 未绑定
-						getFragmentManager()
-								.beginTransaction()
-								.replace(R.id.container_userinfo,
-										new BindPhoneNumFragment()).commit();
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+								getActivity());
+						builder.setTitle("提示：");
+						builder.setMessage("请绑定手机号");
+
+						builder.setNegativeButton("取消",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+										dialog.dismiss();
+									}
+
+								});
+						builder.setPositiveButton("确定",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+										dialog.dismiss();
+										getFragmentManager()
+												.beginTransaction()
+												.replace(
+														R.id.container_userinfo,
+														new BindPhoneNumFragment())
+												.commit();
+									}
+								});
+
+						builder.show();
 					} else if ("7004".equals(errorCode)) {
 						// 已绑定
 						Intent intent = new Intent(getActivity(),

@@ -15,12 +15,12 @@
 
         <TextView
             android:id="@+id/back_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="返回"
+            android:background="@drawable/back"
             android:textColor="#FE9226"
             android:textSize="20sp" />
 
@@ -59,13 +59,13 @@
             android:dividerHeight="1px" >
         </ListView>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/contioner_pay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal" >
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

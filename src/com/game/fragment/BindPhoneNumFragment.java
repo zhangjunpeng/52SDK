@@ -32,6 +32,7 @@ import com.game.http.GameHttpClient;
 import com.game.paysdk.PayActivity;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.wallet.MyWalletFragment;
 
 public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 
@@ -163,6 +164,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 							"time", time + "");
 					String unsign = "phone=" + phonenum + "&time=" + time + "|"
 							+ GameSDK.Key;
+
 					String sign = MD5Test.getMD5(unsign);
 					NameValuePair nameValuePair3 = new BasicNameValuePair(
 							"sign", sign);
@@ -209,6 +211,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 					String unsign = "user_id=" + UserInfo.userID
 							+ "&mobile_code=" + prove + "&phone=" + phonenum
 							+ "|" + GameSDK.Key;
+
 					String sign = MD5Test.getMD5(unsign);
 					NameValuePair nameValuePair5 = new BasicNameValuePair(
 							"sign", sign);
@@ -217,6 +220,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 					nameValuePairs.add(nameValuePair3);
 					nameValuePairs.add(nameValuePair4);
 					nameValuePairs.add(nameValuePair5);
+					MyLog.i("绑定手机参数：：：" + nameValuePairs.toString());
 					GameHttpClient gameHttpClient = new GameHttpClient(
 							bindHandler);
 					gameHttpClient.startClient(RegisterConfig.bindPhone,

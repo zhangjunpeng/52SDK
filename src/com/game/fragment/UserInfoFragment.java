@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
+import com.game.wallet.MyWalletFragment;
 
 public class UserInfoFragment extends Fragment {
 

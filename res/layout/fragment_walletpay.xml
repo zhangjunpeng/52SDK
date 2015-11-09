@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    
+	    android:orientation="vertical" >
+
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp"
+	        android:gravity="center"
+	        android:text="请选择充值金额或者下方输入金额"
+	        android:textColor="#FE9226"
+	        android:textSize="16dp" />
+
+	    <TableLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="100dp"
+	        android:layout_margin="10dp" >
+
+	        <TableRow
+	            android:id="@+id/tableRow1"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1" >
+
+	            <Button
+	                android:id="@+id/walletpay10"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="10" />
+
+	            <Button
+	                android:id="@+id/walletpay30"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="30" />
+
+	            <Button
+	                android:id="@+id/walletpay50"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="50" />
+
+	            <Button
+	                android:id="@+id/walletpay100"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="100" />
+	        </TableRow>
+
+	        <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="0dp"
+	            android:layout_weight="1" >
+
+	            <Button
+	                android:id="@+id/walletpay300"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="300" />
+
+	            <Button
+	                android:id="@+id/walletpay500"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="500" />
+
+	            <Button
+	                android:id="@+id/walletpay1000"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="1000" />
+
+	            <Button
+	                android:id="@+id/walletpay2000"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="10dp"
+	                android:layout_weight="1"
+	                android:background="@drawable/button_framework"
+	                android:text="2000" />
+	        </TableRow>
+	    </TableLayout>
+
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="10dp"
+	        android:text="请输入自定义金额："
+	        android:textColor="#FE9226" />
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:background="@drawable/button_framework_gra"
+	        android:inputType="numberSigned" >
+
+	        <EditText
+	            android:id="@+id/editText1"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="10dp"
+	            android:hint="  请输入1-100000的整数"
+	            android:inputType="numberSigned" 
+	            android:background="@null"
+	            >
+				
+	            <requestFocus />
+	        </EditText>
+	    </LinearLayout>
+
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="10dp"
+	        android:text="选择左边支付方式后，点击确定"
+	        
+	        android:textColor="#FE9226" />
+
+	    <Button
+	        android:id="@+id/button_ok_mywfg"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#FE9226"
+	        android:layout_gravity="center_horizontal"
+	        android:text="确认信息"
+	        android:textSize="14dp" />
+
+	</LinearLayout>
+
+</RelativeLayout>

@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment {
 	static Activity mContext;
 	public static LoginGameCallback loginGamePayCallback;
 
-	final static Handler handler = new Handler() {
+	final Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub

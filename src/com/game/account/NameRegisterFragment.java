@@ -32,7 +32,7 @@ public class NameRegisterFragment extends Fragment {
 	static ProgressDialog loading;
 	static Activity mcontext;
 
-	final static Handler handler = new Handler() {
+	final Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub

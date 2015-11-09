@@ -10,6 +10,7 @@ public class PayChannel {
 	private String pay_nums;
 	private String channel_name_en;
 	private String return_pay_url;
+	private String notify_wallet_url;
 
 	public String getReturn_pay_url() {
 		return return_pay_url;
@@ -75,5 +76,13 @@ public class PayChannel {
 
 	public void setChannel_name_en(String channel_name_en) {
 		this.channel_name_en = channel_name_en;
+	}
+
+	public String getNotify_wallet_url() {
+		return notify_wallet_url;
+	}
+
+	public void setNotify_wallet_url(String notify_wallet_url) {
+		this.notify_wallet_url = notify_wallet_url;
 	}
 }
