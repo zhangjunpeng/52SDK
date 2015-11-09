@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.game.gamesdk.ALiActivity;
 import com.game.gamesdk.R;
@@ -39,6 +40,8 @@ public class AliPayFragment extends Fragment {
 			switch (msg.what) {
 			case 0:
 
+				Toast.makeText(getActivity(), "订单已提交", Toast.LENGTH_SHORT)
+						.show();
 				String data = msg.obj.toString();
 				MyLog.i("ali~~~getorder==" + data);
 				Intent intent1 = new Intent(getActivity(), ALiActivity.class);
@@ -47,6 +50,7 @@ public class AliPayFragment extends Fragment {
 				bundle1.putString("data", data);
 				intent1.putExtras(bundle1);
 				startActivity(intent1);
+				PaySDK.mcallback.cardPayCallback("0");
 				getActivity().finish();
 				break;
 			case 1:
