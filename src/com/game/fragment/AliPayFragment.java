@@ -47,6 +47,7 @@ public class AliPayFragment extends Fragment {
 				bundle1.putString("data", data);
 				intent1.putExtras(bundle1);
 				startActivity(intent1);
+				getActivity().finish();
 				break;
 			case 1:
 
