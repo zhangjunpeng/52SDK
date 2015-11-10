@@ -1,5 +1,7 @@
 package com.game.paysdk;
 
+import java.util.concurrent.Executors;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,6 +25,7 @@ import com.game.sdkclass.PayChannel;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.tools.StringTools;
+import com.game.wallet.WalletPay;
 import com.ipaynow.plugin.api.IpaynowPlugin;
 import com.xqt.now.paysdk.XqtPay;
 import com.xqt.now.paysdk.XqtPay.XqtPayListener;
@@ -33,6 +36,7 @@ public class TestActivity extends Activity {
 
 	public ProgressDialog progressDialog;
 	int position;
+	String tag = "sdk";
 	static PayChannel payChannel;
 
 	static double money;
@@ -96,14 +100,20 @@ public class TestActivity extends Activity {
 	};
 
 	// 设置支付参数
-	private static void prePayMessage() {
+	private void prePayMessage() {
 		XqtPay.consumerId = MyXQTPay.consumerId;
 		XqtPay.mhtOrderName = PayCofing.productName;
 		int count = (int) (money * 100);
 		XqtPay.mhtOrderAmt = count + "";
 		Log.i("ZJP", "XqtPay.mhtOrderAmt===" + XqtPay.mhtOrderAmt);
 		XqtPay.mhtOrderDetail = PayCofing.productDes;
-		XqtPay.notifyUrl = payChannel.getNotify_pay_url();
+		if (tag.equals("wallet")) {
+			XqtPay.notifyUrl = payChannel.getNotify_wallet_url();
+		}
+		if (tag.equals("sdk")) {
+			XqtPay.notifyUrl = payChannel.getNotify_pay_url();
+		}
+
 		XqtPay.superid = "100000";
 	}
 
@@ -121,11 +131,26 @@ public class TestActivity extends Activity {
 		position = bundle.getInt("position_list");
 		payChannel = PayCofing.list.get(position);
 		money = bundle.getDouble("money");
+		tag = bundle.getString("tag", "sdk");
 		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
-		MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "", PayCofing.serverID,
-				PayCofing.productName, PayCofing.productDes, payChannel,
-				handler);
+		if (tag.equals("sdk")) {
+			MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "",
+					PayCofing.serverID, PayCofing.productName,
+					PayCofing.productDes, payChannel, handler);
+		} else if (tag.equals("wallet")) {
+			MyLog.i("钱包充值：微信支付");
+			Executors.newSingleThreadExecutor().execute(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					WalletPay.getOrderIdPayToWallet(money + "", "", "",
+							payChannel, handler);
+				}
+			});
+
+		}
 
 	}
 
@@ -157,7 +182,7 @@ public class TestActivity extends Activity {
 		MyLog.i("微信支付结果：" + data);
 		String respCode = data.getExtras().getString("respCode");
 		String respMsg = data.getExtras().getString("respMsg");
-		PaySDK.mcallback.wxPayCallback(respCode, respMsg);
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("支付结果通知");
 		StringBuilder temp = new StringBuilder();
@@ -186,5 +211,9 @@ public class TestActivity extends Activity {
 			}
 		});
 		builder.create().show();
+		if (tag.equals("wallet")) {
+			return;
+		}
+		PaySDK.mcallback.wxPayCallback(respCode, respMsg);
 	}
 }

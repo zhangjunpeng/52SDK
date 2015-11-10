@@ -1,4 +1,4 @@
-package com.game.fragment;
+package com.game.wallet;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -35,13 +35,11 @@ import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
 import com.game.paysdk.MyXQTPay;
 import com.game.paysdk.PayCofing;
-import com.game.paysdk.PaySDK;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
 import com.game.tools.StringTools;
 
-public class CardPayFragment extends Fragment {
-
+public class ConfirmCardTWFragment extends Fragment {
 	Spinner spinner;
 	String num[];
 	int position;
@@ -78,7 +76,8 @@ public class CardPayFragment extends Fragment {
 					JSONObject jsonObject2 = jsonObject.getJSONObject("data");
 					String orderID = jsonObject2.getString("order_id");
 					MyXQTPay.cardPay(orderID, 100f, cardName, faceno, card_no,
-							card_key, payChannel.getNotify_pay_url(), handler2);
+							card_key, payChannel.getNotify_wallet_url(),
+							handler2);
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -117,7 +116,7 @@ public class CardPayFragment extends Fragment {
 
 									state = pullParser.getAttributeValue(1);
 									MyLog.i("state==" + state);
-									PaySDK.mcallback.cardPayCallback(state);
+
 								}
 
 							}
@@ -219,12 +218,10 @@ public class CardPayFragment extends Fragment {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							MyXQTPay.cardPayGetOrder(PayCofing.orderid_cp,
-									money + "", PayCofing.serverID,
-									PayCofing.productName,
-									PayCofing.productDes,
-									PayCofing.list.get(position), card_no,
-									card_key, handler);
+
+							WalletPay.getOrderIdPayToWallet(money + "",
+									card_no, card_key,
+									PayCofing.list.get(position), handler);
 						}
 					});
 

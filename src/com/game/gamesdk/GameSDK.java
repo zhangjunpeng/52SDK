@@ -45,7 +45,7 @@ public class GameSDK {
 	public static boolean isLogin = false;
 	static boolean isshow = true;
 	// debug模式。出版本之前改为false
-	public static boolean isDebug = false;
+	public static boolean isDebug = true;
 
 	static Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -315,17 +315,17 @@ public class GameSDK {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							isLogin = false;
+							// isLogin = false;
 							isshow = false;
 							dialog.dismiss();
 							// ShowDialog.showLoginDialog(mcontext);
 							AccountWork.showLogin(mcontext);
 						}
 					});
-			progressDialog.show();
 
 			NameRegLogin nameRegister = new NameRegLogin();
 			nameRegister.nameLogin(name, pwd, "1", handler);
+			progressDialog.show();
 
 		} else {
 			// ShowDialog.showLoginDialog(mcontext);

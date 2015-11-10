@@ -32,7 +32,7 @@ import com.game.gamesdk.R;
 import com.game.http.GameHttpClient;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
-import com.game.wallet.WalletPayFragment;
+import com.game.wallet.ToWalletFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shengpay.smc.HybridClientActivity;
@@ -45,10 +45,11 @@ public class PayActivity extends FragmentActivity {
 	FragmentManager fragmentManager;
 	String mtag = "";
 	String tag;
-	static int selected_po = -1;
+	public static int selected_po = -1;
 
 	double money;
-	private List<PayChannel> channellist;
+	static List<PayChannel> channellist;
+	private ToWalletFragment toWalletFragment = new ToWalletFragment();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +106,7 @@ public class PayActivity extends FragmentActivity {
 		// TODO Auto-generated method stub
 		if (string.equals("wallet")) {
 			fragmentManager.beginTransaction()
-					.replace(R.id.contioner_pay, new WalletPayFragment())
-					.commit();
+					.replace(R.id.contioner_pay, toWalletFragment).commit();
 		}
 
 	}
@@ -238,46 +238,58 @@ public class PayActivity extends FragmentActivity {
 
 	private void initView() {
 		listView = (ListView) findViewById(R.id.listView_pay);
+		if (tag.equals("wallet")) {
+			listView.setAdapter(new Myadapter(channellist));
+		} else if (tag.equals("sdk")) {
+			if (PayCofing.list == null) {
+				return;
+			}
+			listView.setAdapter(new Myadapter(PayCofing.list));
+		}
+		listView.setAdapter(new Myadapter(PayCofing.list));
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				// setexBackground(ex_selected);
 				for (int i = 0; i < listView.getChildCount(); i++) {
 					listView.getChildAt(i).setBackgroundColor(
 							Color.rgb(254, 146, 38));
 				}
 				selected_po = position;
-				setBackground(position);
-
-				if (tag.equals("wallet")) {
-					listView.setAdapter(new Myadapter(channellist));
-					return;
+				view.setBackgroundColor(Color.rgb(255, 186, 117));
+				// setBackground(position);
+				// ex_selected = selected_po;
+				if ("wallet".equals(tag)) {
+					comitFragment("wallet");
 				}
-				PayChannel payChannel = PayCofing.list.get(position);
 
-				if (payChannel.getChannel_name_en().equals("weixin")) {
-					MyLog.i("支付" + payChannel.getChannel_name());
-					comitFragment("weixin", money);
-				} else if (payChannel.getChannel_name_en().equals("alipay")) {
+				if (tag.equals("sdk")) {
 
-					comitFragment("alipay", money);
-				} else if (payChannel.getChannel_name_en().equals("bank")) {
-					MyLog.i("支付" + payChannel.getChannel_name());
-					comitFragment("bank", money);
-				} else if (payChannel.getChannel_name_en().equals("wallet")) {
+					PayChannel payChannel = PayCofing.list.get(position);
 
-				} else {
-					MyLog.i("支付" + payChannel.getChannel_name());
-					comitCardFragment(position + "", money);
+					if (payChannel.getChannel_name_en().equals("weixin")) {
+						MyLog.i("支付" + payChannel.getChannel_name());
+						comitFragment("weixin", money);
+					} else if (payChannel.getChannel_name_en().equals("alipay")) {
+
+						comitFragment("alipay", money);
+					} else if (payChannel.getChannel_name_en().equals("bank")) {
+						MyLog.i("支付" + payChannel.getChannel_name());
+						comitFragment("bank", money);
+					} else if (payChannel.getChannel_name_en().equals("wallet")) {
+
+					} else {
+						MyLog.i("支付" + payChannel.getChannel_name());
+						comitCardFragment(position + "", money);
+					}
 				}
 
 			}
 		});
-		if (PayCofing.list == null) {
-			return;
-		}
+
 		listView.setItemChecked(0, false);
-		listView.setAdapter(new Myadapter(PayCofing.list));
+
 	}
 
 	protected void setBackground(int position) {
@@ -285,8 +297,24 @@ public class PayActivity extends FragmentActivity {
 		if (listView == null) {
 			return;
 		}
-		listView.getChildAt(position).setBackgroundColor(
-				Color.rgb(255, 186, 117));
+		View view = listView.getChildAt(position);
+		if (view == null) {
+			return;
+		}
+		view.setBackgroundColor(Color.rgb(255, 186, 117));
+
+	}
+
+	protected void setexBackground(int position) {
+		// TODO Auto-generated method stub
+		if (listView == null) {
+			return;
+		}
+		View view = listView.getChildAt(position);
+		if (view == null) {
+			return;
+		}
+		view.setBackgroundColor(Color.rgb(254, 146, 38));
 
 	}
 

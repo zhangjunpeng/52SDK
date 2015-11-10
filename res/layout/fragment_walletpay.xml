@@ -130,10 +130,11 @@
 	        android:inputType="numberSigned" >
 
 	        <EditText
-	            android:id="@+id/editText1"
+	            android:id="@+id/editText_towfg"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_margin="10dp"
+	            android:layout_marginBottom="30dp"
 	            android:hint="  请输入1-100000的整数"
 	            android:inputType="numberSigned" 
 	            android:background="@null"
@@ -152,15 +153,18 @@
 	        
 	        android:textColor="#FE9226" />
 
-	    <Button
-	        android:id="@+id/button_ok_mywfg"
+	    
+
+	</LinearLayout>
+	
+	<Button
+	        android:id="@+id/button_confirm_mywfg"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:background="#FE9226"
-	        android:layout_gravity="center_horizontal"
+	        android:layout_centerHorizontal="true"
+	        android:layout_alignParentBottom="true"
 	        android:text="确认信息"
 	        android:textSize="14dp" />
-
-	</LinearLayout>
 
 </RelativeLayout>

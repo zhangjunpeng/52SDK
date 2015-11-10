@@ -245,10 +245,10 @@ public class FxService extends Service {
 						Intent intent = new Intent(FxService.this
 								.getBaseContext(), UserInfoActivity.class);
 						intent.putExtra("tag", 3);
-
 						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
 						FxService.this.getBaseContext().startActivity(intent);
+						isshow = false;
+						showView();
 					}
 				});
 

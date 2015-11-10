@@ -109,6 +109,7 @@ public class PhoneRegisterFragment extends Fragment {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						UserInfo.userName = phoneNum;
 						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
@@ -184,7 +185,7 @@ public class PhoneRegisterFragment extends Fragment {
 									Toast.LENGTH_SHORT).show();
 							return;
 						}
-						UserInfo.userName = phoneNum;
+
 						NameRegLogin nameRegLogin = new NameRegLogin();
 						nameRegLogin.phoneRegister(phoneNum, pwd, prov,
 								handler3);

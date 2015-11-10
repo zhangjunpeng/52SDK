@@ -155,10 +155,10 @@ public final class R {
         public static int back_pay=0x7f0a0001;
         public static int balance_mywallet=0x7f0a0049;
         public static int button_bind_bindphone=0x7f0a0038;
+        public static int button_confirm_mywfg=0x7f0a005b;
         public static int button_getproving_bindphone=0x7f0a0037;
         public static int button_getproving_phoneRegister=0x7f0a0025;
         public static int button_item_kflist=0x7f0a0062;
-        public static int button_ok_mywfg=0x7f0a005b;
         public static int button_qiuckRegister_login=0x7f0a0016;
         public static int changeBili_fragment=0x7f0a0031;
         public static int changeBili_fragment_card=0x7f0a003b;
@@ -167,7 +167,7 @@ public final class R {
         public static int container_userinfo=0x7f0a000a;
         public static int contioner_pay=0x7f0a0004;
         public static int duihuan_mywallet_fg=0x7f0a004b;
-        public static int editText1=0x7f0a005a;
+        public static int editText_towfg=0x7f0a005a;
         public static int edit_cardnum_fragment=0x7f0a003e;
         public static int edit_cardpass_fragment=0x7f0a003f;
         public static int edit_confirmpwd_change=0x7f0a0044;

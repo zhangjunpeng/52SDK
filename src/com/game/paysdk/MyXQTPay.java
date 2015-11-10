@@ -128,7 +128,7 @@ public class MyXQTPay {
 	// return builder.toString();
 	// }
 
-	public static void cardPayGetOrder(final String money,
+	public static void cardPayGetOrder(String orderid_cp, final String money,
 			final String serverId, final String productName,
 			final String productDes, final PayChannel payChannel,
 			String card_no, String card_key, final Handler handler) {
@@ -165,6 +165,8 @@ public class MyXQTPay {
 				card_no);
 		NameValuePair nameValuePair13 = new BasicNameValuePair("card_key",
 				card_key);
+		NameValuePair nameValuePair14 = new BasicNameValuePair("game_pay_id",
+				orderid_cp);
 
 		nameValuePairs.add(nameValuePair1);
 		nameValuePairs.add(nameValuePair2);
@@ -179,6 +181,7 @@ public class MyXQTPay {
 		nameValuePairs.add(nameValuePair11);
 		nameValuePairs.add(nameValuePair12);
 		nameValuePairs.add(nameValuePair13);
+		nameValuePairs.add(nameValuePair14);
 		MyLog.i("XqtCard~~getordernamevalue==" + nameValuePairs.toString());
 		GameHttpClient gameHttpClient = new GameHttpClient(handler);
 		gameHttpClient.startClient(PayCofing.getOrderIdUrl, nameValuePairs);
