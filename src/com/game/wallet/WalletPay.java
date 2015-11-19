@@ -20,6 +20,7 @@ import android.util.Log;
 import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
+import com.game.paysdk.PayCofing;
 import com.game.paysdk.PaySDK;
 import com.game.paysdk.SFTPayConfig;
 import com.game.sdkclass.PayChannel;
@@ -32,6 +33,7 @@ import com.shengpay.smc.vo.OrderInfo;
 public class WalletPay {
 
 	final static String getWalletOrder = "http://m.52game.com/sdkpay/genWalletOrder";
+	final static String walletGamePay = "http://m.52game.com/sdkpay/walletGamePay";
 
 	public static void getOrderIdPayToWallet(String money, String card_no,
 			String card_key, PayChannel payChannel, Handler handler) {
@@ -123,5 +125,47 @@ public class WalletPay {
 		intent.setClass(context, HybridClientActivity.class);
 		((Activity) context).startActivityForResult(intent,
 				HybridClientActivity.SMC_REQUEST_CODE);
+	}
+
+	public static void walletGamePay(double money, String token,
+			String mobole_code, Handler handler) {
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		NameValuePair nameValuePair1 = new BasicNameValuePair("user_id",
+				UserInfo.userID);
+		NameValuePair nameValuePair2 = new BasicNameValuePair("appid",
+				GameSDK.AppID);
+		NameValuePair nameValuePair3 = new BasicNameValuePair("pay_amount",
+				money + "");
+		NameValuePair nameValuePair4 = new BasicNameValuePair("game_pay_id",
+				PayCofing.orderid_cp);
+		NameValuePair nameValuePair5 = new BasicNameValuePair("server_id",
+				PayCofing.serverID);
+		NameValuePair nameValuePair6 = new BasicNameValuePair("game_amount",
+				money + "");
+		Long time = new Date().getTime();
+		NameValuePair nameValuePair7 = new BasicNameValuePair("time", time + "");
+		NameValuePair nameValuePair8 = new BasicNameValuePair("token", token);
+		NameValuePair nameValuePair9 = new BasicNameValuePair("mobile_code",
+				mobole_code);
+		String unsign = "appid=" + GameSDK.AppID + "&user_id="
+				+ UserInfo.userID + "&pay_amount=" + money + "&game_amount="
+				+ money + "&game_pay_id=" + PayCofing.orderid_cp
+				+ "&server_id=" + PayCofing.serverID + "&time=" + time + "|"
+				+ GameSDK.Key;
+		String sign = MD5Test.getMD5(unsign);
+		NameValuePair nameValuePair10 = new BasicNameValuePair("sign", sign);
+		nameValuePairs.add(nameValuePair1);
+		nameValuePairs.add(nameValuePair2);
+		nameValuePairs.add(nameValuePair3);
+		nameValuePairs.add(nameValuePair4);
+		nameValuePairs.add(nameValuePair5);
+		nameValuePairs.add(nameValuePair6);
+		nameValuePairs.add(nameValuePair7);
+		nameValuePairs.add(nameValuePair8);
+		nameValuePairs.add(nameValuePair9);
+		nameValuePairs.add(nameValuePair10);
+		MyLog.i("钱包支付==" + nameValuePairs.toString());
+		GameHttpClient gameHttpClient = new GameHttpClient(handler);
+		gameHttpClient.startClient(walletGamePay, nameValuePairs);
 	}
 }

@@ -1,5 +1,7 @@
 package com.game.gamesdk;
 
+import java.util.concurrent.Executors;
+
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -34,6 +36,7 @@ public class FxService extends Service {
 
 	private static final String TAG = "FxService";
 	private static boolean isClick = false;
+	private boolean isMini = true;
 
 	Handler handler = new Handler() {
 		@Override
@@ -45,6 +48,7 @@ public class FxService extends Service {
 					return;
 				}
 				mFloatView.setBackgroundResource(R.drawable.fx_mini);
+				isMini = true;
 				break;
 
 			default:
@@ -104,8 +108,9 @@ public class FxService extends Service {
 		// 浮动窗口按钮
 		mFloatView = (ImageButton) mFloatLayout.findViewById(R.id.float_id);
 		mFloatView.setBackgroundResource(R.drawable.fx_mini);
-		mFloatView.setScaleX(0.5f);
-		mFloatView.setScaleY(0.5f);
+		isMini = true;
+		mFloatView.setScaleX(0.6f);
+		mFloatView.setScaleY(0.6f);
 		// mFloatView.setScaleType(ScaleType.FIT_START);
 		mFloatView.setPivotX(0);
 		mFloatView.setPivotY(0);
@@ -126,8 +131,6 @@ public class FxService extends Service {
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					isClick = true;
-					mFloatView.setFocusable(true);
-					mFloatView.setBackgroundResource(R.drawable.fx);
 					break;
 
 				case MotionEvent.ACTION_MOVE:
@@ -149,17 +152,23 @@ public class FxService extends Service {
 					// layoutParams.setMargins(0, 0, 1, 1);
 					// mFloatView.setLayoutParams(layoutParams);
 					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
-					showView();
+					// showView();
 					break;
 
 				case MotionEvent.ACTION_UP:
 
+					mFloatView.setFocusable(true);
+					mFloatView.setBackgroundResource(R.drawable.fx);
+					isMini = false;
+					swithFX(isMini);
 					wmParams.x = 0;
 					mWindowManager.updateViewLayout(mFloatLayout, wmParams);
+
 					if (isClick) {
 						isshow = !isshow;
 						showView();
 					}
+					isClick = false;
 					mFloatView.setFocusable(false);
 
 					break;
@@ -262,10 +271,17 @@ public class FxService extends Service {
 			mFloatView.bringToFront();
 		} else {
 			linearLayout.setVisibility(View.GONE);
-			new Thread(new Runnable() {
+			swithFX(isMini);
+		}
+	}
+
+	private void swithFX(boolean isMini) {
+		if (!isMini) {
+			Executors.newSingleThreadExecutor().execute(new Runnable() {
 
 				@Override
 				public void run() {
+					// TODO Auto-generated method stub
 					// TODO Auto-generated method stub
 					try {
 						Thread.sleep(1000);
@@ -275,10 +291,8 @@ public class FxService extends Service {
 						e.printStackTrace();
 					}
 					handler.sendEmptyMessage(1);
-
 				}
-
-			}).start();
+			});
 		}
 	}
 

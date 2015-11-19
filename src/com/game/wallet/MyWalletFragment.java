@@ -10,8 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.game.fragment.BindPhoneNumFragment;
 import com.game.fragment.UserInfoFragment;
@@ -32,6 +31,7 @@ import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
 import com.game.paysdk.PayActivity;
 import com.game.paysdk.PayCofing;
+import com.game.tools.CustomDialog;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 
@@ -41,7 +41,6 @@ public class MyWalletFragment extends Fragment {
 	private Button pay;
 	private TextView textView_wallet;
 	private TextView textView_balance;
-	ProgressDialog progressDialog;
 
 	Handler handler = new Handler() {
 
@@ -55,7 +54,8 @@ public class MyWalletFragment extends Fragment {
 					String errorCode = jsonObject.getString("errorCode");
 					if ("7005".equals(errorCode)) {
 						// 未绑定
-						AlertDialog.Builder builder = new AlertDialog.Builder(
+
+						CustomDialog.Builder builder = new CustomDialog.Builder(
 								getActivity());
 						builder.setTitle("提示：");
 						builder.setMessage("请绑定手机号");
@@ -71,6 +71,7 @@ public class MyWalletFragment extends Fragment {
 									}
 
 								});
+
 						builder.setPositiveButton("确定",
 								new DialogInterface.OnClickListener() {
 
@@ -79,16 +80,20 @@ public class MyWalletFragment extends Fragment {
 											int which) {
 										// TODO Auto-generated method stub
 										dialog.dismiss();
+
+										BindPhoneNumFragment bind = new BindPhoneNumFragment();
+										Bundle bundle = new Bundle();
+										bundle.putString("tag", "mywallet");
+										bind.setArguments(bundle);
 										getFragmentManager()
 												.beginTransaction()
 												.replace(
 														R.id.container_userinfo,
-														new BindPhoneNumFragment())
-												.commit();
+														bind).commit();
 									}
 								});
 
-						builder.show();
+						builder.create().show();
 					} else if ("7004".equals(errorCode)) {
 						// 已绑定
 						Intent intent = new Intent(getActivity(),
@@ -115,7 +120,7 @@ public class MyWalletFragment extends Fragment {
 			case 0:
 				String data = msg.obj.toString();
 				MyLog.i("获取平台币返回：" + data);
-				progressDialog.dismiss();
+
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					String errorCode = jsonObject.getString("errorCode");
@@ -154,10 +159,17 @@ public class MyWalletFragment extends Fragment {
 		pay = (Button) view.findViewById(R.id.pay_mywallet_fg);
 		textView_wallet = (TextView) view.findViewById(R.id.money_mywallet);
 		textView_balance = (TextView) view.findViewById(R.id.balance_mywallet);
-		progressDialog = new ProgressDialog(getActivity());
-		progressDialog.setMessage("正在加载");
-		progressDialog.setCanceledOnTouchOutside(false);
-		progressDialog.show();
+		view.findViewById(R.id.duihuan_mywallet_fg).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Toast.makeText(getActivity(), "暂未开放",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+
 		checkWallet();
 		initView();
 
@@ -166,6 +178,7 @@ public class MyWalletFragment extends Fragment {
 
 	private void checkWallet() {
 		// TODO Auto-generated method stub
+
 		Executors.newSingleThreadExecutor().execute(new Runnable() {
 
 			@Override

@@ -10,7 +10,7 @@
 	    android:layout_height="match_parent"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true"
-	    
+	    android:layout_marginBottom="40dp"
 	    android:orientation="vertical" >
 
 	    <TextView
@@ -25,7 +25,10 @@
 	    <TableLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="100dp"
-	        android:layout_margin="10dp" >
+	        android:layout_marginLeft="10dp" 
+	        android:layout_marginRight="10dp"
+	        android:layout_marginTop="5dp"
+	        >
 
 	        <TableRow
 	            android:id="@+id/tableRow1"
@@ -125,7 +128,9 @@
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_margin="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginTop="5dp"
 	        android:background="@drawable/button_framework_gra"
 	        android:inputType="numberSigned" >
 
@@ -149,6 +154,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="20dp"
 	        android:layout_marginRight="10dp"
+	        android:layout_marginTop="5dp"
 	        android:text="选择左边支付方式后，点击确定"
 	        
 	        android:textColor="#FE9226" />
@@ -159,11 +165,12 @@
 	
 	<Button
 	        android:id="@+id/button_confirm_mywfg"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="80dp"
+	        android:layout_height="40dp"
 	        android:background="#FE9226"
 	        android:layout_centerHorizontal="true"
 	        android:layout_alignParentBottom="true"
+	        android:textColor="#FFF"
 	        android:text="确认信息"
 	        android:textSize="14dp" />
 

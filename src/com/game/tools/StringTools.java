@@ -79,4 +79,15 @@ public class StringTools {
 		return false;
 
 	}
+
+	public static boolean isHaveBlank(String mes) {
+		for (int i = 0; i < mes.length(); i++) {
+			String a = mes.charAt(i) + "";
+			if (a.equals(" ")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

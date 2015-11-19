@@ -68,7 +68,7 @@ public class PhoneRegisterFragment extends Fragment {
 								.show();
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
-						token = jsonObject2.getString("token");
+						ShowDialog.token = jsonObject2.getString("token");
 						MyLog.i("token::" + token);
 
 					}
@@ -145,6 +145,7 @@ public class PhoneRegisterFragment extends Fragment {
 				.findViewById(R.id.edit_pwd_phoneregister);
 		final EditText edit_prov = (EditText) localView
 				.findViewById(R.id.edit_pronum_phoneregister);
+		token = "";
 
 		localView.findViewById(R.id.register_register).setOnClickListener(
 				new View.OnClickListener() {
@@ -185,6 +186,11 @@ public class PhoneRegisterFragment extends Fragment {
 									Toast.LENGTH_SHORT).show();
 							return;
 						}
+						if (StringTools.isHaveBlank(pwd)) {
+							Toast.makeText(mcontext, "密码不能包含空格",
+									Toast.LENGTH_SHORT).show();
+							return;
+						}
 
 						NameRegLogin nameRegLogin = new NameRegLogin();
 						nameRegLogin.phoneRegister(phoneNum, pwd, prov,
@@ -200,7 +206,7 @@ public class PhoneRegisterFragment extends Fragment {
 		getproving.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i("ZJP", "验证码开始");
+				MyLog.i("验证码开始");
 				phoneNum = edit_phonenum.getEditableText().toString();
 				if (phoneNum.length() != 11) {
 					Toast.makeText(mcontext, "手机号格式不正确", Toast.LENGTH_LONG)

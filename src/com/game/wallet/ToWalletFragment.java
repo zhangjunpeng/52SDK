@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +28,7 @@ public class ToWalletFragment extends Fragment {
 
 	private Button confirm_towallet;
 	private EditText editText_money;
-	private int money;
+	private double money;
 	private List<Button> buttons;
 
 	@Override
@@ -61,8 +62,8 @@ public class ToWalletFragment extends Fragment {
 					// TODO Auto-generated method stub
 					initButtonbg();
 					v.setBackgroundResource(R.drawable.button_framework_orange);
-					money = money_selected[position];
-					editText_money.setText(money + "");
+
+					editText_money.setText(money_selected[position] + "");
 				}
 			});
 		}
@@ -72,34 +73,47 @@ public class ToWalletFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String mon = editText_money.getText().toString();
-				money = Integer.parseInt(mon);
-				if (PayActivity.selected_po != -1 && money > 0) {
-					PayChannel payChannel = PayCofing.list
-							.get(PayActivity.selected_po);
-
-					if (payChannel.getChannel_name_en().equals("weixin")) {
-						MyLog.i("支付" + payChannel.getChannel_name());
-						comitFragment("weixin", money);
-					} else if (payChannel.getChannel_name_en().equals("alipay")) {
-
-						comitFragment("alipay", money);
-					} else if (payChannel.getChannel_name_en().equals("bank")) {
-						MyLog.i("支付" + payChannel.getChannel_name());
-						comitFragment("bank", money);
-					} else if (payChannel.getChannel_name_en().equals("wallet")) {
-
-					} else {
-						MyLog.i("支付" + payChannel.getChannel_name());
-						comitCardFragment(PayActivity.selected_po + "", money);
-					}
+				if (TextUtils.isEmpty(mon)) {
+					Toast.makeText(getActivity(), "请选择或输入金额",
+							Toast.LENGTH_SHORT).show();
+					return;
 				}
-				if (PayActivity.selected_po == -1) {
+				try {
+					money = Double.parseDouble(mon);
+				} catch (Exception e) {
+					Toast.makeText(getActivity(), "输入金额错误", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
+				if (PayActivity.selected_po < 0) {
 					Toast.makeText(getActivity(), "请选择左边支付方式",
 							Toast.LENGTH_SHORT).show();
+					return;
 				}
 				if (money <= 0 || money > 100000) {
 					Toast.makeText(getActivity(), "请输入1-100000的整数",
 							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				money = 0.1;
+				PayChannel payChannel = PayCofing.list
+						.get(PayActivity.selected_po);
+
+				if (payChannel.getChannel_name_en().equals("weixin")) {
+					MyLog.i("支付" + payChannel.getChannel_name());
+					comitFragment("weixin", money);
+				} else if (payChannel.getChannel_name_en().equals("alipay")) {
+
+					comitFragment("alipay", money);
+				} else if (payChannel.getChannel_name_en().equals("bank")) {
+					MyLog.i("支付" + payChannel.getChannel_name());
+					comitFragment("bank", money);
+				} else if (payChannel.getChannel_name_en().equals("wallet")) {
+
+				} else {
+					MyLog.i("支付" + payChannel.getChannel_name());
+					comitCardFragment(PayActivity.selected_po + "", money);
 				}
 
 			}

@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.game.account.LoginFragment;
+import com.game.fragment.BindPhoneNumFragment;
 import com.game.fragment.ConnectFragment;
 import com.game.fragment.KaifuFragment;
 import com.game.fragment.UserInfoFragment;
@@ -185,6 +186,15 @@ public class UserInfoActivity extends FragmentActivity {
 		case 3:
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container_userinfo, new LoginFragment())
+					.commit();
+			break;
+		case 4:
+			BindPhoneNumFragment bindPhoneNumFragment = new BindPhoneNumFragment();
+			Bundle bundle = new Bundle();
+			bundle.putString("tag", "walletpay");
+			bindPhoneNumFragment.setArguments(bundle);
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container_userinfo, bindPhoneNumFragment)
 					.commit();
 			break;
 

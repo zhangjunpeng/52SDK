@@ -102,19 +102,23 @@ public class TestActivity extends Activity {
 	// 设置支付参数
 	private void prePayMessage() {
 		XqtPay.consumerId = MyXQTPay.consumerId;
-		XqtPay.mhtOrderName = PayCofing.productName;
+
 		int count = (int) (money * 100);
 		XqtPay.mhtOrderAmt = count + "";
 		Log.i("ZJP", "XqtPay.mhtOrderAmt===" + XqtPay.mhtOrderAmt);
-		XqtPay.mhtOrderDetail = PayCofing.productDes;
+
+		XqtPay.superid = "100000";
 		if (tag.equals("wallet")) {
 			XqtPay.notifyUrl = payChannel.getNotify_wallet_url();
+			XqtPay.mhtOrderName = "钱包余额";
+			XqtPay.mhtOrderDetail = "钱包余额";
 		}
 		if (tag.equals("sdk")) {
+			XqtPay.mhtOrderName = PayCofing.productName;
+			XqtPay.mhtOrderDetail = PayCofing.productDes;
 			XqtPay.notifyUrl = payChannel.getNotify_pay_url();
 		}
 
-		XqtPay.superid = "100000";
 	}
 
 	@Override

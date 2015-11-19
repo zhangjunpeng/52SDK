@@ -721,12 +721,14 @@ public class ShowDialog {
 	}
 
 	public static ProgressDialog showLoadingDialog(Context context, String mes) {
-		ProgressDialog progressDialog = new ProgressDialog(context);
-		progressDialog.setTitle("提示：");
+
+		ProgressDialog progressDialog = new ProgressDialog(context,
+				R.style.switch_progress_dialog);
 		progressDialog.setMessage(mes);
-		progressDialog.setCancelable(false);
+		progressDialog.setCanceledOnTouchOutside(false);
 
 		return progressDialog;
+
 	}
 
 	public static boolean isContianChineseWords(String mes) {

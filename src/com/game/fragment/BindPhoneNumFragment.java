@@ -10,7 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -29,7 +29,6 @@ import com.game.gamesdk.RegisterConfig;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
-import com.game.paysdk.PayActivity;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.wallet.MyWalletFragment;
@@ -44,6 +43,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 	String phonenum;
 	String prove;
 	private String token;
+	String tag = "";
 
 	Handler provHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -92,11 +92,26 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 						Toast.makeText(getActivity(), "绑定手机成功",
 								Toast.LENGTH_SHORT).show();
 
-						Intent intent = new Intent(getActivity(),
-								PayActivity.class);
-						intent.putExtra("tag", "wallet");
-						startActivity(intent);
-						getActivity().finish();
+						// Intent intent = new Intent(getActivity(),
+						// PayActivity.class);
+						// intent.putExtra("tag", "wallet");
+						// startActivity(intent);
+						if ("walletpay".equals(tag)) {
+							getActivity().setResult(Activity.RESULT_OK);
+							getActivity().finish();
+						} else if ("mywallet".equals(tag)) {
+							getFragmentManager()
+									.beginTransaction()
+									.replace(R.id.container_userinfo,
+											new MyWalletFragment()).commit();
+						}
+
+					} else if ("9006".equals(errorCode)) {
+						Toast.makeText(getActivity(), "验证码错误",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(getActivity(), "验证码错误",
+								Toast.LENGTH_SHORT).show();
 					}
 
 				} catch (JSONException e) {
@@ -122,6 +137,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.button_getproving_bindphone);
 		bind = (Button) view.findViewById(R.id.button_bind_bindphone);
 		back = (Button) view.findViewById(R.id.back_frag_bindphone);
+		tag = getArguments().getString("tag", "tag");
 		initView();
 		return view;
 	}
@@ -171,6 +187,7 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 					nameValuePairs.add(nameValuePair1);
 					nameValuePairs.add(nameValuePair2);
 					nameValuePairs.add(nameValuePair3);
+					MyLog.i("getKey参数==" + nameValuePairs);
 					GameHttpClient gameHttpClient = new GameHttpClient(
 							provHandler);
 					gameHttpClient.startClient(RegisterConfig.smsUrl,

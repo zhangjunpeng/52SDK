@@ -19,8 +19,8 @@ import com.game.wallet.MyWalletFragment;
 
 public class UserInfoFragment extends Fragment {
 
-	public static String[] list_name = { "修改密码" };
-	public int[] id_draw = { R.drawable.changepwd };
+	public static String[] list_name = { "我的钱包", "修改密码" };
+	public int[] id_draw = { R.drawable.wallet, R.drawable.changepwd };
 	private ListView listView;
 
 	@Override

@@ -33,6 +33,7 @@ import com.game.http.GameHttpClient;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
 import com.game.wallet.ToWalletFragment;
+import com.game.wallet.WalletPayFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shengpay.smc.HybridClientActivity;
@@ -45,7 +46,7 @@ public class PayActivity extends FragmentActivity {
 	FragmentManager fragmentManager;
 	String mtag = "";
 	String tag;
-	public static int selected_po = -1;
+	public static int selected_po = 0;
 
 	double money;
 	static List<PayChannel> channellist;
@@ -57,14 +58,16 @@ public class PayActivity extends FragmentActivity {
 
 		setContentView(R.layout.activity_pay);
 		instance = this;
+
 		tag = getIntent().getStringExtra("tag");
 		fragmentManager = getSupportFragmentManager();
 		getSDKChannel();
 		if ("wallet".equals(tag)) {
 			comitFragment("wallet");
+			selected_po = -1;
 
 		} else if ("sdk".equals(tag)) {
-
+			selected_po = 0;
 			Intent intent = getIntent();
 			Bundle bundle = intent.getExtras();
 			money = bundle.getDouble("paymoney");
@@ -107,6 +110,14 @@ public class PayActivity extends FragmentActivity {
 		if (string.equals("wallet")) {
 			fragmentManager.beginTransaction()
 					.replace(R.id.contioner_pay, toWalletFragment).commit();
+		} else if (string.equals("walletpay")) {
+
+			WalletPayFragment walletPayFragment = new WalletPayFragment();
+			Bundle bundle = new Bundle();
+			bundle.putString("money", money + "");
+			walletPayFragment.setArguments(bundle);
+			fragmentManager.beginTransaction()
+					.replace(R.id.contioner_pay, walletPayFragment).commit();
 		}
 
 	}
@@ -128,11 +139,7 @@ public class PayActivity extends FragmentActivity {
 					PayCofing.list = gson.fromJson(msg.obj.toString(),
 							new TypeToken<List<PayChannel>>() {
 							}.getType());
-					for (PayChannel payChannel : PayCofing.list) {
-						if (payChannel.getChannel_name_en().equals("wallet")) {
-							PayCofing.list.remove(payChannel);
-						}
-					}
+
 					if ("wallet".equals(tag)) {
 						channellist = PayCofing.list;
 						for (PayChannel payChannel : channellist) {
@@ -278,7 +285,7 @@ public class PayActivity extends FragmentActivity {
 						MyLog.i("支付" + payChannel.getChannel_name());
 						comitFragment("bank", money);
 					} else if (payChannel.getChannel_name_en().equals("wallet")) {
-
+						comitFragment("walletpay");
 					} else {
 						MyLog.i("支付" + payChannel.getChannel_name());
 						comitCardFragment(position + "", money);
@@ -287,8 +294,6 @@ public class PayActivity extends FragmentActivity {
 
 			}
 		});
-
-		listView.setItemChecked(0, false);
 
 	}
 
@@ -333,6 +338,7 @@ public class PayActivity extends FragmentActivity {
 	// 重写Acitivity的onActivityResult方法
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		MyLog.i("绑定手机onActivityResult~~~1");
 		if (requestCode == HybridClientActivity.SMC_REQUEST_CODE
 				&& resultCode == HybridClientActivity.SMC_RESULT_CODE) {
 			String returnValue = data
@@ -342,7 +348,7 @@ public class PayActivity extends FragmentActivity {
 				Toast.makeText(PayActivity.this, "支付成功", Toast.LENGTH_SHORT)
 						.show();
 				PaySDK.mcallback.wxPayCallback("00", "支付成功");
-				finish();
+
 			} else if (TransStatus.isFailed(returnValue)) {
 				Toast.makeText(PayActivity.this, "支付失败", Toast.LENGTH_SHORT)
 						.show();
@@ -352,6 +358,13 @@ public class PayActivity extends FragmentActivity {
 						.show();
 				PaySDK.mcallback.wxPayCallback("02", "支付取消");
 			}
+			finish();
+		}
+		if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+			MyLog.i("绑定手机onActivityResult~~~2");
+			fragmentManager.beginTransaction()
+					.replace(R.id.contioner_pay, new WalletPayFragment())
+					.commit();
 		}
 	}
 

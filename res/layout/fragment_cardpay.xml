@@ -169,10 +169,12 @@
 
     <Button
         android:id="@+id/pay_fragment_ali_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="支付"
+        android:background="#FE9226"
+        android:textColor="#FFF"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="支付" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

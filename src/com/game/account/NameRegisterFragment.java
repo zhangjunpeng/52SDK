@@ -173,23 +173,29 @@ public class NameRegisterFragment extends Fragment {
 				String name = edit_name.getText().toString();
 				String pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
-					Toast.makeText(mcontext, "用户名或密码不能为空", Toast.LENGTH_LONG)
+					Toast.makeText(mcontext, "用户名或密码不能为空", Toast.LENGTH_SHORT)
 							.show();
 					return;
 				}
 				if (StringTools.isHaveChinese(name)
 						|| StringTools.isHaveChinese(pwd)) {
-					Toast.makeText(mcontext, "用户名或密码不能包含中文", Toast.LENGTH_LONG)
+					Toast.makeText(mcontext, "用户名或密码不能包含中文", Toast.LENGTH_SHORT)
 							.show();
 					return;
 				}
 				if (name.length() > 20 || name.length() < 6) {
 					Toast.makeText(mcontext, "用户名长度不能小于6大于20",
-							Toast.LENGTH_LONG).show();
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (pwd.length() < 4 || pwd.length() > 20) {
-					Toast.makeText(mcontext, "密码长度必须4-20位", Toast.LENGTH_LONG)
+					Toast.makeText(mcontext, "密码长度必须4-20位", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+				if (StringTools.isHaveBlank(name)
+						|| StringTools.isHaveBlank(pwd)) {
+					Toast.makeText(mcontext, "用户名或密码不能包含空格", Toast.LENGTH_SHORT)
 							.show();
 					return;
 				}

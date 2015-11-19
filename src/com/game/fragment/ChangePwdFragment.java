@@ -131,6 +131,11 @@ public class ChangePwdFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
+				if (StringTools.isHaveBlank(newpwd)) {
+					Toast.makeText(getActivity(), "密码不能包含空格",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				ExecutorService single = Executors.newSingleThreadExecutor();
 				single.execute(new Runnable() {
 

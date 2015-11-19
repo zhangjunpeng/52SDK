@@ -57,8 +57,8 @@ public class GameSDK {
 					Toast.makeText(mcontext, "用户名或密码错误，请重新登录",
 							Toast.LENGTH_LONG).show();
 					progressDialog.dismiss();
-					ShowDialog.autoLogin = false;
-					ShowDialog.showLoginDialog(mcontext);
+					AccountWork.autoLogin = false;
+					AccountWork.showLogin(mcontext);
 					return;
 				}
 				JSONObject jsonObject3;
@@ -231,7 +231,7 @@ public class GameSDK {
 		if (named != null && named.length > 0) {
 			UserInfo.Name_used = new ArrayList<String>();
 			for (int i = 0; i < named.length; i++) {
-				UserInfo.Name_used.add(named[i]);
+				UserInfo.Name_used.add(0, named[i]);
 			}
 		}
 	}
@@ -290,7 +290,7 @@ public class GameSDK {
 		MyLog.i("autoLogin===" + ShowDialog.autoLogin);
 		if (!NetWorkState.getNetState(mcontext)) {
 			Toast.makeText(mcontext, "网络连接错误，请检查网络", Toast.LENGTH_SHORT).show();
-			ShowDialog.showLoginDialog(mcontext);
+			AccountWork.showLogin(mcontext);
 			return;
 		}
 

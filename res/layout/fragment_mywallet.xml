@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            
             android:text="账户余额："
             android:textColor="#696969"
             android:textSize="18dp" />
@@ -59,7 +59,7 @@
             android:id="@+id/money_mywallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            
             android:layout_marginLeft="5dp"
             android:textColor="#F7A98B"
             android:text="0 元" />
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            
             android:text="平台币："
             android:textColor="#696969"
             android:textSize="18dp" />
@@ -85,7 +85,7 @@
             android:id="@+id/balance_mywallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            
             android:layout_marginLeft="5dp"
             android:textColor="#F7A98B"
             android:text="0 点" />
@@ -96,7 +96,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         >
         <Button 
@@ -133,10 +133,12 @@
     <TextView 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
         android:textColor="#BFBFBF"
         android:singleLine="true"
-        android:text=""      
+        android:text="客服qq：800066814"      
         />
 
 </LinearLayout>
