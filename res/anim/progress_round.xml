@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/fy_d_auto_logo1" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo2" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo3" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo4" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo5" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo6" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo7" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo8" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo9" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo10" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo11" android:duration="150"/>
+    <item android:drawable="@drawable/fy_d_auto_logo12" android:duration="150"/>
+</animation-list>
