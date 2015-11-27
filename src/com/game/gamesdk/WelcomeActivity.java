@@ -1,10 +1,13 @@
 package com.game.gamesdk;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+
+import com.game.tools.ResourceUtil;
 
 public class WelcomeActivity extends Activity {
 	Handler handler = new Handler() {
@@ -19,6 +22,7 @@ public class WelcomeActivity extends Activity {
 			}
 		}
 	};
+	Context mContext = GameSDK.mcontext;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +33,10 @@ public class WelcomeActivity extends Activity {
 		int ori = mConfiguration.orientation;
 		if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
 			// 横屏
-			setContentView(R.layout.activity_welcone);
+			setContentView(ResourceUtil.getLayoutId(mContext,
+					"activity_welcone"));
 		} else {
-			setContentView(R.layout.welcome);
+			setContentView(ResourceUtil.getLayoutId(mContext, "welcome"));
 		}
 
 		new Thread(new Runnable() {

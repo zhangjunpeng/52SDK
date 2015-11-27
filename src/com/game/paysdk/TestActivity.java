@@ -20,10 +20,11 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.ProgressBar;
 
-import com.game.gamesdk.R;
+import com.game.gamesdk.GameSDK;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 import com.game.wallet.WalletPay;
 import com.ipaynow.plugin.api.IpaynowPlugin;
@@ -121,12 +122,14 @@ public class TestActivity extends Activity {
 
 	}
 
+	Context mContext = GameSDK.mcontext;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setFinishOnTouchOutside(false);
-		setContentView(R.layout.activity_test);
+		setContentView(ResourceUtil.getLayoutId(mContext, "activity_test"));
 
 		instance = this;
 		show();
@@ -136,7 +139,8 @@ public class TestActivity extends Activity {
 		payChannel = PayCofing.list.get(position);
 		money = bundle.getDouble("money");
 		tag = bundle.getString("tag", "sdk");
-		ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		ProgressBar progressBar = (ProgressBar) findViewById(ResourceUtil
+				.getId(mContext, "progressBar1"));
 
 		if (tag.equals("sdk")) {
 			MyXQTPay.XQTWXPay(PayCofing.orderid_cp, money + "",

@@ -2,6 +2,7 @@ package com.game.fragment;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,23 +18,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.game.gamesdk.R;
 import com.game.sdkclass.GameOpen;
 import com.game.tools.ImageDownloadHelper;
 import com.game.tools.ImageDownloadHelper.OnImageDownloadListener;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 
 public class KaifuFragment extends Fragment {
 	private ListView listView;
 	private ArrayList<GameOpen> gameList;
 	private ImageDownloadHelper mDownloadHelper;
+	static Context mContext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_kaifu, null);
-		listView = (ListView) view.findViewById(R.id.list_kaifu_fragment);
+		mContext = getActivity();
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "fragment_kaifu"), null);
+		listView = (ListView) view.findViewById(ResourceUtil.getId(mContext,
+				"list_kaifu_fragment"));
 		gameList = (ArrayList<GameOpen>) getArguments().get("gamelist");
 		initView(savedInstanceState);
 		return view;
@@ -78,18 +83,24 @@ public class KaifuFragment extends Fragment {
 			// TODO Auto-generated method stub
 			ViewHloder viewHloder;
 			if (convertView == null) {
-				convertView = getLayoutInflater(bundle).inflate(
-						R.layout.item_listview_kffg, null);
+				convertView = getLayoutInflater(bundle)
+						.inflate(
+								ResourceUtil.getLayoutId(mContext,
+										"item_listview_kffg"), null);
 				viewHloder = new ViewHloder();
 				viewHloder.imageView = (ImageView) convertView
-						.findViewById(R.id.imageView_item_kaifulist);
+						.findViewById(ResourceUtil.getId(mContext,
+								"imageView_item_kaifulist"));
 
 				viewHloder.textView2 = (TextView) convertView
-						.findViewById(R.id.textView2_kf);
+						.findViewById(ResourceUtil.getId(mContext,
+								"textView2_kf"));
 				viewHloder.textView3 = (TextView) convertView
-						.findViewById(R.id.textView3_kf);
+						.findViewById(ResourceUtil.getId(mContext,
+								"textView3_kf"));
 				viewHloder.button_xz = (Button) convertView
-						.findViewById(R.id.button_item_kflist);
+						.findViewById(ResourceUtil.getId(mContext,
+								"button_item_kflist"));
 				convertView.setTag(viewHloder);
 			} else {
 				viewHloder = (ViewHloder) convertView.getTag();

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.game.tools.ResourceUtil;
+
 public class InitListView {
 	MySimpleAdapter mySimpleAdapter;
 
@@ -49,12 +51,15 @@ public class InitListView {
 			ViewHolder viewHolder;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.item_listview_login, null);
+						ResourceUtil.getLayoutId(mContext,
+								"item_listview_login"), null);
 				viewHolder = new ViewHolder();
 				viewHolder.textView = (TextView) convertView
-						.findViewById(R.id.textView_item_list_login);
+						.findViewById(ResourceUtil.getId(mContext,
+								"textView_item_list_login"));
 				viewHolder.imageView = (ImageView) convertView
-						.findViewById(R.id.imageView_item_list_login);
+						.findViewById(ResourceUtil.getId(mContext,
+								"imageView_item_list_login"));
 				convertView.setTag(viewHolder);
 
 			} else {

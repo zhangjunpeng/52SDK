@@ -24,13 +24,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.game.gamesdk.GameSDK;
-import com.game.gamesdk.R;
 import com.game.gamesdk.RegisterConfig;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.game.wallet.MyWalletFragment;
 
 public class BindPhoneNumFragment extends Fragment implements OnClickListener {
@@ -102,7 +102,9 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 						} else if ("mywallet".equals(tag)) {
 							getFragmentManager()
 									.beginTransaction()
-									.replace(R.id.container_userinfo,
+									.replace(
+											ResourceUtil.getId(getActivity(),
+													"container_userinfo"),
 											new MyWalletFragment()).commit();
 						}
 
@@ -128,15 +130,18 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_bindphonenum, null);
-		editText_phone = (EditText) view
-				.findViewById(R.id.edit_phonenum_bindphone);
-		editText_proving = (EditText) view
-				.findViewById(R.id.edit_proving_bindphone);
-		getProving = (Button) view
-				.findViewById(R.id.button_getproving_bindphone);
-		bind = (Button) view.findViewById(R.id.button_bind_bindphone);
-		back = (Button) view.findViewById(R.id.back_frag_bindphone);
+		View view = inflater.inflate(ResourceUtil.getLayoutId(getActivity(),
+				"fragment_bindphonenum"), null);
+		editText_phone = (EditText) view.findViewById(ResourceUtil.getId(
+				getActivity(), "edit_phonenum_bindphone"));
+		editText_proving = (EditText) view.findViewById(ResourceUtil.getId(
+				getActivity(), "edit_proving_bindphone"));
+		getProving = (Button) view.findViewById(ResourceUtil.getId(
+				getActivity(), "button_getproving_bindphone"));
+		bind = (Button) view.findViewById(ResourceUtil.getId(getActivity(),
+				"button_bind_bindphone"));
+		back = (Button) view.findViewById(ResourceUtil.getId(getActivity(),
+				"back_frag_bindphone"));
 		tag = getArguments().getString("tag", "tag");
 		initView();
 		return view;
@@ -246,9 +251,12 @@ public class BindPhoneNumFragment extends Fragment implements OnClickListener {
 			});
 
 		} else if (v == back) {
-			getFragmentManager().beginTransaction()
-					.replace(R.id.container_userinfo, new MyWalletFragment())
-					.commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(
+							ResourceUtil.getId(getActivity(),
+									"container_userinfo"),
+							new MyWalletFragment()).commit();
 		}
 	}
 }

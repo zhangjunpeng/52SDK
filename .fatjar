@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Thu Nov 26 17:40:22 CST 2015
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=C\:\\Users\\Administrator\\Desktop\\GameSDK_fat.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=AndroidManifest.xml
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=

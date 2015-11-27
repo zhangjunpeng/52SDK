@@ -30,15 +30,14 @@ public class PaySDK {
 	public static GamePayCallback mcallback;
 
 	public static void startPay(Context context, String orderid_cp,
-			GamePayCallback callback, double money, String serverID,
-			String productName, String productDes) {
+			double money, String serverID, String productName, String productDes) {
 
 		if (!GameSDK.isLogin) {
 			Toast.makeText(context, "请重新登录。", Toast.LENGTH_LONG).show();
 			return;
 		}
 		// money 付款的总额，单位元
-		mcallback = callback;
+
 		PayCofing.productName = productName;
 		PayCofing.productDes = productDes;
 		PayCofing.serverID = serverID;
@@ -126,6 +125,10 @@ public class PaySDK {
 	public static String intToIp(int i) {
 		return (i & 0xFF) + "." + ((i >> 8) & 0xFF) + "." + ((i >> 16) & 0xFF)
 				+ "." + (i >> 24 & 0xFF);
+	}
+
+	public static void initListener(GamePayCallback gamePayCallback) {
+		mcallback = gamePayCallback;
 	}
 
 }

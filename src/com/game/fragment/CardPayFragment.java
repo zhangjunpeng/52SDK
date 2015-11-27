@@ -31,13 +31,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
 import com.game.paysdk.MyXQTPay;
 import com.game.paysdk.PayCofing;
 import com.game.paysdk.PaySDK;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 
 public class CardPayFragment extends Fragment {
@@ -159,7 +159,9 @@ public class CardPayFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_cardpay, null);
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(getActivity(), "fragment_cardpay"),
+				null);
 		Bundle bundle = getArguments();
 		String tag = bundle.getString("tag");
 		money = bundle.getDouble("paymoney");
@@ -191,11 +193,13 @@ public class CardPayFragment extends Fragment {
 	private void initView(View view) {
 		// TODO Auto-generated method stub
 
-		edit_cardno = (EditText) view.findViewById(R.id.edit_cardnum_fragment);
-		edit_cardkey = (EditText) view
-				.findViewById(R.id.edit_cardpass_fragment);
+		edit_cardno = (EditText) view.findViewById(ResourceUtil.getId(
+				getActivity(), "edit_cardnum_fragment"));
+		edit_cardkey = (EditText) view.findViewById(ResourceUtil.getId(
+				getActivity(), "edit_cardpass_fragment"));
 
-		zhifu = (Button) view.findViewById(R.id.pay_fragment_ali_card);
+		zhifu = (Button) view.findViewById(ResourceUtil.getId(getActivity(),
+				"pay_fragment_ali_card"));
 
 		zhifu.setOnClickListener(new OnClickListener() {
 
@@ -250,7 +254,8 @@ public class CardPayFragment extends Fragment {
 
 			}
 		});
-		spinner = (Spinner) view.findViewById(R.id.spinner_cardpay_fragment);
+		spinner = (Spinner) view.findViewById(ResourceUtil.getId(getActivity(),
+				"spinner_cardpay_fragment"));
 		spinner.setAdapter(new MyAdapter());
 		spinner.setSelection(0);
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -271,19 +276,19 @@ public class CardPayFragment extends Fragment {
 
 			}
 		});
-		TextView textView = (TextView) view
-				.findViewById(R.id.payname_table_fragment_card);
+		TextView textView = (TextView) view.findViewById(ResourceUtil.getId(
+				getActivity(), "payname_table_fragment_card"));
 		textView.setTextColor(Color.rgb(254, 146, 38));
 
 		textView.setText(PayCofing.list.get(position).getChannel_name());
 		MyLog.i(PayCofing.list.get(position).getChannel_name());
-		TextView money_text = (TextView) view
-				.findViewById(R.id.paymoney_fragment_card);
+		TextView money_text = (TextView) view.findViewById(ResourceUtil.getId(
+				getActivity(), "paymoney_fragment_card"));
 		money_text.setText(money + " 元");
 
 		// 显示用户名
-		TextView name_text = (TextView) view
-				.findViewById(R.id.username_fragment_card);
+		TextView name_text = (TextView) view.findViewById(ResourceUtil.getId(
+				getActivity(), "username_fragment_card"));
 
 		name_text.setText(UserInfo.userName);
 
@@ -315,11 +320,14 @@ public class CardPayFragment extends Fragment {
 
 			ViewHolder viewHolder;
 			if (convertView == null) {
-				convertView = LayoutInflater.from(getActivity()).inflate(
-						R.layout.item_spinner, null);
+				convertView = LayoutInflater.from(getActivity())
+						.inflate(
+								ResourceUtil.getLayoutId(getActivity(),
+										"item_spinner"), null);
 				viewHolder = new ViewHolder();
 				viewHolder.textView = (TextView) convertView
-						.findViewById(R.id.textView_item_spinner);
+						.findViewById(ResourceUtil.getId(getActivity(),
+								"textView_item_spinner"));
 				convertView.setTag(viewHolder);
 
 			} else {

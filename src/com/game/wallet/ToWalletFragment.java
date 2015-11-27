@@ -3,6 +3,7 @@ package com.game.wallet;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -14,16 +15,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.game.gamesdk.R;
+import com.game.gamesdk.GameSDK;
 import com.game.paysdk.PayActivity;
 import com.game.paysdk.PayCofing;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 
 public class ToWalletFragment extends Fragment {
-	private int buton_id[] = { R.id.walletpay10, R.id.walletpay30,
-			R.id.walletpay50, R.id.walletpay100, R.id.walletpay300,
-			R.id.walletpay500, R.id.walletpay1000, R.id.walletpay2000 };
+
+	Context mContext = GameSDK.mcontext;
+	private int buton_id[] = { ResourceUtil.getId(mContext, "walletpay10"),
+			ResourceUtil.getId(mContext, "walletpay30"),
+			ResourceUtil.getId(mContext, "walletpay50"),
+			ResourceUtil.getId(mContext, "walletpay100"),
+			ResourceUtil.getId(mContext, "walletpay300"),
+			ResourceUtil.getId(mContext, "walletpay500"),
+			ResourceUtil.getId(mContext, "walletpay1000"),
+			ResourceUtil.getId(mContext, "walletpay2000") };
 	private int[] money_selected = { 10, 30, 50, 100, 300, 500, 1000, 2000 };
 
 	private Button confirm_towallet;
@@ -35,9 +44,11 @@ public class ToWalletFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_walletpay, null);
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "fragment_walletpay"), null);
 
-		editText_money = (EditText) view.findViewById(R.id.editText_towfg);
+		editText_money = (EditText) view.findViewById(ResourceUtil.getId(
+				mContext, "editText_towfg"));
 		buttons = new ArrayList<Button>();
 
 		for (int i = 0; i < buton_id.length; i++) {
@@ -45,8 +56,8 @@ public class ToWalletFragment extends Fragment {
 
 			buttons.add(button);
 		}
-		confirm_towallet = (Button) view
-				.findViewById(R.id.button_confirm_mywfg);
+		confirm_towallet = (Button) view.findViewById(ResourceUtil.getId(
+				mContext, "button_confirm_mywfg"));
 		initView();
 		return view;
 	}
@@ -61,7 +72,8 @@ public class ToWalletFragment extends Fragment {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					initButtonbg();
-					v.setBackgroundResource(R.drawable.button_framework_orange);
+					v.setBackgroundResource(ResourceUtil.getDrawableId(
+							mContext, "button_framework_orange"));
 
 					editText_money.setText(money_selected[position] + "");
 				}
@@ -96,7 +108,7 @@ public class ToWalletFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				money = 0.1;
+
 				PayChannel payChannel = PayCofing.list
 						.get(PayActivity.selected_po);
 
@@ -129,8 +141,10 @@ public class ToWalletFragment extends Fragment {
 
 		aliPayFragment.setArguments(bundle);
 		// fragmentManager.beginTransaction().add(R.id.contioner_pay,aliPayFragment).commit();
-		getFragmentManager().beginTransaction()
-				.replace(R.id.contioner_pay, aliPayFragment).commit();
+		getFragmentManager()
+				.beginTransaction()
+				.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+						aliPayFragment).commit();
 
 	}
 
@@ -140,15 +154,18 @@ public class ToWalletFragment extends Fragment {
 		bundle.putString("tag", tag);
 		bundle.putDouble("paymoney", money2);
 		fragment.setArguments(bundle);
-		getFragmentManager().beginTransaction()
-				.replace(R.id.contioner_pay, fragment).commit();
+		getFragmentManager()
+				.beginTransaction()
+				.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+						fragment).commit();
 
 	}
 
 	private void initButtonbg() {
 		for (int i = 0; i < buttons.size(); i++) {
 			buttons.get(i).setBackgroundResource(
-					R.drawable.button_framework_gra);
+					ResourceUtil
+							.getDrawableId(mContext, "button_framework_gra"));
 		}
 	}
 }

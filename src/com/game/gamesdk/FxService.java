@@ -3,6 +3,7 @@ package com.game.gamesdk;
 import java.util.concurrent.Executors;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.game.tools.ResourceUtil;
+
 public class FxService extends Service {
 
 	// 定义浮动窗口布局
@@ -37,6 +40,7 @@ public class FxService extends Service {
 	private static final String TAG = "FxService";
 	private static boolean isClick = false;
 	private boolean isMini = true;
+	Context mContext = GameSDK.mcontext;
 
 	Handler handler = new Handler() {
 		@Override
@@ -47,7 +51,8 @@ public class FxService extends Service {
 				if (isshow) {
 					return;
 				}
-				mFloatView.setBackgroundResource(R.drawable.fx_mini);
+				mFloatView.setBackgroundResource(ResourceUtil.getDrawableId(
+						mContext, "fx_mini"));
 				isMini = true;
 				break;
 
@@ -99,15 +104,18 @@ public class FxService extends Service {
 
 		LayoutInflater inflater = LayoutInflater.from(getApplication());
 		// 获取浮动窗口视图所在布局
-		mFloatLayout = (LinearLayout) inflater.inflate(R.layout.float_layout,
-				null);
-		linearLayout = (LinearLayout) mFloatLayout.findViewById(R.id.show_fx);
+		mFloatLayout = (LinearLayout) inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "float_layout"), null);
+		linearLayout = (LinearLayout) mFloatLayout.findViewById(ResourceUtil
+				.getId(mContext, "show_fx"));
 		initLinearout();
 		// 添加mFloatLayout
 		mWindowManager.addView(mFloatLayout, wmParams);
 		// 浮动窗口按钮
-		mFloatView = (ImageButton) mFloatLayout.findViewById(R.id.float_id);
-		mFloatView.setBackgroundResource(R.drawable.fx_mini);
+		mFloatView = (ImageButton) mFloatLayout.findViewById(ResourceUtil
+				.getId(mContext, "float_id"));
+		mFloatView.setBackgroundResource(ResourceUtil.getDrawableId(mContext,
+				"fx_mini"));
 		isMini = true;
 		mFloatView.setScaleX(0.6f);
 		mFloatView.setScaleY(0.6f);
@@ -158,7 +166,8 @@ public class FxService extends Service {
 				case MotionEvent.ACTION_UP:
 
 					mFloatView.setFocusable(true);
-					mFloatView.setBackgroundResource(R.drawable.fx);
+					mFloatView.setBackgroundResource(ResourceUtil
+							.getDrawableId(mContext, "fx"));
 					isMini = false;
 					swithFX(isMini);
 					wmParams.x = 0;
@@ -183,8 +192,8 @@ public class FxService extends Service {
 
 	private void initLinearout() {
 		// TODO Auto-generated method stub
-		mFloatLayout.findViewById(R.id.geren_show).setOnClickListener(
-				new OnClickListener() {
+		mFloatLayout.findViewById(ResourceUtil.getId(mContext, "geren_show"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -206,8 +215,8 @@ public class FxService extends Service {
 						stopSelf();
 					}
 				});
-		mFloatLayout.findViewById(R.id.gamebbs_show).setOnClickListener(
-				new OnClickListener() {
+		mFloatLayout.findViewById(ResourceUtil.getId(mContext, "gamebbs_show"))
+				.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -222,8 +231,8 @@ public class FxService extends Service {
 
 					}
 				});
-		mFloatLayout.findViewById(R.id.connect_show).setOnClickListener(
-				new OnClickListener() {
+		mFloatLayout.findViewById(ResourceUtil.getId(mContext, "connect_show"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -239,8 +248,8 @@ public class FxService extends Service {
 						getBaseContext().startActivity(intent2);
 					}
 				});
-		mFloatLayout.findViewById(R.id.switch_show).setOnClickListener(
-				new OnClickListener() {
+		mFloatLayout.findViewById(ResourceUtil.getId(mContext, "switch_show"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {

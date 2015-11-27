@@ -1,5 +1,6 @@
 package com.game.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,27 +14,34 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.game.gamesdk.R;
+import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.UserInfo;
+import com.game.tools.ResourceUtil;
 import com.game.wallet.MyWalletFragment;
 
 public class UserInfoFragment extends Fragment {
 
 	public static String[] list_name = { "我的钱包", "修改密码" };
-	public int[] id_draw = { R.drawable.wallet, R.drawable.changepwd };
+
 	private ListView listView;
+	static Context mContext = GameSDK.mcontext;
+	public int[] id_draw = { ResourceUtil.getDrawableId(mContext, "wallet"),
+			ResourceUtil.getDrawableId(mContext, "changepwd") };
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_userinfo, null);
-		TextView textView = (TextView) view
-				.findViewById(R.id.zhanghao_userfrag);
+
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "fragment_userinfo"), null);
+		TextView textView = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "zhanghao_userfrag"));
 		textView.setText(UserInfo.userName);
-		listView = (ListView) view.findViewById(R.id.list_usfrag);
-		view.findViewById(R.id.back_frag_userinfo).setOnClickListener(
-				new OnClickListener() {
+		listView = (ListView) view.findViewById(ResourceUtil.getId(mContext,
+				"list_usfrag"));
+		view.findViewById(ResourceUtil.getId(mContext, "back_frag_userinfo"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -59,16 +67,21 @@ public class UserInfoFragment extends Fragment {
 
 					ChangePwdFragment changePwd = new ChangePwdFragment();
 
-					UserInfoFragment.this.getFragmentManager()
+					UserInfoFragment.this
+							.getFragmentManager()
 							.beginTransaction()
-							.replace(R.id.container_userinfo, changePwd)
+							.replace(
+									ResourceUtil.getId(mContext,
+											"container_userinfo"), changePwd)
 							.commit();
 
 				} else if (list_name[position].equals("我的钱包")) {
 					UserInfoFragment.this
 							.getFragmentManager()
 							.beginTransaction()
-							.replace(R.id.container_userinfo,
+							.replace(
+									ResourceUtil.getId(mContext,
+											"container_userinfo"),
 									new MyWalletFragment()).commit();
 				}
 			}
@@ -101,12 +114,15 @@ public class UserInfoFragment extends Fragment {
 			ViewHolder viewHolder;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getActivity()).inflate(
-						R.layout.item_list_usfrag, null);
+						ResourceUtil.getLayoutId(mContext, "item_list_usfrag"),
+						null);
 				viewHolder = new ViewHolder();
 				viewHolder.textView = (TextView) convertView
-						.findViewById(R.id.textView1_item_list_usfrag);
+						.findViewById(ResourceUtil.getId(mContext,
+								"textView1_item_list_usfrag"));
 				viewHolder.imageView = (ImageView) convertView
-						.findViewById(R.id.imageView_item_usfg);
+						.findViewById(ResourceUtil.getId(mContext,
+								"imageView_item_usfg"));
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();

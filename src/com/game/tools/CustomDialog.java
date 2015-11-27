@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.game.gamesdk.R;
-
 public class CustomDialog extends Dialog {
 
 	public CustomDialog(Context context) {
@@ -121,18 +119,22 @@ public class CustomDialog extends Dialog {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			// instantiate the dialog with the custom Theme
 			final CustomDialog dialog = new CustomDialog(context,
-					R.style.dialog);
-			View layout = inflater.inflate(R.layout.dialog_normal_layout, null);
+					ResourceUtil.getStyleId(context, "dialog"));
+			View layout = inflater.inflate(
+					ResourceUtil.getLayoutId(context, "dialog_normal_layout"),
+					null);
 			dialog.addContentView(layout, new LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 			// set the dialog title
-			((TextView) layout.findViewById(R.id.title)).setText(title);
+			((TextView) layout.findViewById(ResourceUtil
+					.getId(context, "title"))).setText(title);
 			// set the confirm button
 			if (positiveButtonText != null) {
-				((Button) layout.findViewById(R.id.positiveButton))
-						.setText(positiveButtonText);
+				((Button) layout.findViewById(ResourceUtil.getId(context,
+						"positiveButton"))).setText(positiveButtonText);
 				if (positiveButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.positiveButton))
+					((Button) layout.findViewById(ResourceUtil.getId(context,
+							"positiveButton")))
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									positiveButtonClickListener.onClick(dialog,
@@ -142,15 +144,17 @@ public class CustomDialog extends Dialog {
 				}
 			} else {
 				// if no confirm button just set the visibility to GONE
-				layout.findViewById(R.id.positiveButton).setVisibility(
-						View.GONE);
+				layout.findViewById(
+						ResourceUtil.getId(context, "positiveButton"))
+						.setVisibility(View.GONE);
 			}
 			// set the cancel button
 			if (negativeButtonText != null) {
-				((Button) layout.findViewById(R.id.negativeButton))
-						.setText(negativeButtonText);
+				((Button) layout.findViewById(ResourceUtil.getId(context,
+						"negativeButton"))).setText(negativeButtonText);
 				if (negativeButtonClickListener != null) {
-					((Button) layout.findViewById(R.id.negativeButton))
+					((Button) layout.findViewById(ResourceUtil.getId(context,
+							"negativeButton")))
 							.setOnClickListener(new View.OnClickListener() {
 								public void onClick(View v) {
 									negativeButtonClickListener.onClick(dialog,
@@ -160,20 +164,22 @@ public class CustomDialog extends Dialog {
 				}
 			} else {
 				// if no confirm button just set the visibility to GONE
-				layout.findViewById(R.id.negativeButton).setVisibility(
-						View.GONE);
+				layout.findViewById(
+						ResourceUtil.getId(context, "negativeButton"))
+						.setVisibility(View.GONE);
 			}
 			// set the content message
 			if (message != null) {
-				((TextView) layout.findViewById(R.id.message)).setText(message);
+				((TextView) layout.findViewById(ResourceUtil.getId(context,
+						"message"))).setText(message);
 			} else if (contentView != null) {
 				// if no message set
 				// add the contentView to the dialog body
-				((LinearLayout) layout.findViewById(R.id.content))
-						.removeAllViews();
-				((LinearLayout) layout.findViewById(R.id.content)).addView(
-						contentView, new LayoutParams(LayoutParams.FILL_PARENT,
-								LayoutParams.FILL_PARENT));
+				((LinearLayout) layout.findViewById(ResourceUtil.getId(context,
+						"content"))).removeAllViews();
+				((LinearLayout) layout.findViewById(ResourceUtil.getId(context,
+						"content"))).addView(contentView, new LayoutParams(
+						LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 			}
 			dialog.setContentView(layout);
 			return dialog;

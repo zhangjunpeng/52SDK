@@ -46,6 +46,10 @@ public class GameSDK {
 	static boolean isshow = true;
 	// debug模式。出版本之前改为false
 	public static boolean isDebug = true;
+	public static boolean Cancel = false;
+
+	static String name;
+	static String pwd;
 
 	static Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -69,46 +73,17 @@ public class GameSDK {
 						Toast.makeText(mcontext, "自动登录失败", Toast.LENGTH_LONG)
 								.show();
 						return;
+					} else {
+						Toast.makeText(mcontext, "自动登录成功", Toast.LENGTH_LONG)
+								.show();
 					}
 				} catch (JSONException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 
+				progressDialog.dismiss();
 				// 自动登录成功：
-
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						try {
-
-							Thread.sleep(1500);
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						progressDialog.dismiss();
-						Activity activity = (Activity) mcontext;
-						if (!isshow) {
-							return;
-						}
-						activity.runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Toast.makeText(mcontext, "自动登录成功",
-										Toast.LENGTH_LONG).show();
-								// Intent intent = new Intent(mcontext,
-								// FxService.class);
-								// mcontext.startService(intent);
-							}
-						});
-
-					}
-				}).start();
 
 				if (data1.contains("200")) {
 					isLogin = true;
@@ -165,6 +140,23 @@ public class GameSDK {
 
 			default:
 				break;
+			}
+		}
+	};
+	static Handler handler3 = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				if (Cancel) {
+					Cancel = false;
+					MyLog.i("取消自动登录");
+					return;
+				}
+				NameRegLogin nameRegister = new NameRegLogin();
+				nameRegister.nameLogin(name, pwd, "1", handler);
+
+				break;
+
 			}
 		}
 	};
@@ -296,9 +288,8 @@ public class GameSDK {
 
 		if (AccountWork.autoLogin) {
 			// 自动登录
-
-			final String name = getInfoFromSP("name");
-			final String pwd = getInfoFromSP("pwd");
+			name = getInfoFromSP("name");
+			pwd = getInfoFromSP("pwd");
 
 			MyLog.i("sp~~~name====" + name);
 			MyLog.i("sp~~~pwd=====" + pwd);
@@ -319,13 +310,26 @@ public class GameSDK {
 							isshow = false;
 							dialog.dismiss();
 							// ShowDialog.showLoginDialog(mcontext);
+							GameSDK.isLogin = false;
+							Cancel = true;
 							AccountWork.showLogin(mcontext);
 						}
 					});
-
-			NameRegLogin nameRegister = new NameRegLogin();
-			nameRegister.nameLogin(name, pwd, "1", handler);
 			progressDialog.show();
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(1500);
+						handler3.sendEmptyMessage(0);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}).start();
 
 		} else {
 			// ShowDialog.showLoginDialog(mcontext);

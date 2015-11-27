@@ -20,17 +20,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.gamesdk.GameSDK;
-import com.game.gamesdk.R;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
 import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
 import com.game.tools.NetWorkState;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 
 public class NameRegisterFragment extends Fragment {
 	static ProgressDialog loading;
 	static Activity mcontext;
+	String name;
 
 	final Handler handler = new Handler() {
 		@Override
@@ -88,7 +89,7 @@ public class NameRegisterFragment extends Fragment {
 					String errorCode = jsonObject.getString("errorCode");
 					if (errorCode.equals("200")) {
 						GameSDK.isLogin = true;
-
+						UserInfo.userName = name;
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
@@ -134,27 +135,34 @@ public class NameRegisterFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		mcontext = getActivity();
-		View localView = inflater.inflate(R.layout.dialog_nameregister, null);
+		View localView = inflater
+				.inflate(ResourceUtil.getLayoutId(mcontext,
+						"dialog_nameregister"), null);
 		final EditText edit_name = (EditText) localView
-				.findViewById(R.id.edit_username_nameregister);
+				.findViewById(ResourceUtil.getId(mcontext,
+						"edit_username_nameregister"));
 		final EditText edit_pwd = (EditText) localView
-				.findViewById(R.id.edit_pwd_nameregister);
+				.findViewById(ResourceUtil.getId(mcontext,
+						"edit_pwd_nameregister"));
 
-		Button login = (Button) localView
-				.findViewById(R.id.register_nameregister);
+		Button login = (Button) localView.findViewById(ResourceUtil.getId(
+				mcontext, "register_nameregister"));
 
-		TextView haveAcount = (TextView) localView
-				.findViewById(R.id.haveAcount_nameregister);
+		TextView haveAcount = (TextView) localView.findViewById(ResourceUtil
+				.getId(mcontext, "haveAcount_nameregister"));
 
-		localView.findViewById(R.id.phone_nameregister).setOnClickListener(
-				new OnClickListener() {
+		localView.findViewById(
+				ResourceUtil.getId(mcontext, "phone_nameregister"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// 手机注册
 						getFragmentManager()
 								.beginTransaction()
-								.replace(R.id.container_userinfo,
+								.replace(
+										ResourceUtil.getId(mcontext,
+												"container_userinfo"),
 										new PhoneRegisterFragment()).commit();
 					}
 				});
@@ -170,11 +178,16 @@ public class NameRegisterFragment extends Fragment {
 							.show();
 					return;
 				}
-				String name = edit_name.getText().toString();
+				name = edit_name.getText().toString();
 				String pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
 					Toast.makeText(mcontext, "用户名或密码不能为空", Toast.LENGTH_SHORT)
 							.show();
+					return;
+				}
+				if (!StringTools.matches(name)) {
+					Toast.makeText(mcontext, "用户名只能由字母和数字组成",
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (StringTools.isHaveChinese(name)
@@ -199,7 +212,7 @@ public class NameRegisterFragment extends Fragment {
 							.show();
 					return;
 				}
-				UserInfo.userName = name;
+
 				GameSDK.saveInfo("name", name);
 				GameSDK.saveInfo("pwd", pwd);
 				NameRegLogin nameRegister = new NameRegLogin();
@@ -213,9 +226,12 @@ public class NameRegisterFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// 返回登录
-				getFragmentManager().beginTransaction()
-						.replace(R.id.container_userinfo, new LoginFragment())
-						.commit();
+				getFragmentManager()
+						.beginTransaction()
+						.replace(
+								ResourceUtil.getId(mcontext,
+										"container_userinfo"),
+								new LoginFragment()).commit();
 
 			}
 		});

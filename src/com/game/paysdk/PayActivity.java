@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import org.apache.http.NameValuePair;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,10 +29,11 @@ import android.widget.Toast;
 import com.game.fragment.AliPayFragment;
 import com.game.fragment.CardPayFragment;
 import com.game.gamesdk.ALiActivity;
-import com.game.gamesdk.R;
+import com.game.gamesdk.GameSDK;
 import com.game.http.GameHttpClient;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.game.wallet.ToWalletFragment;
 import com.game.wallet.WalletPayFragment;
 import com.google.gson.Gson;
@@ -47,6 +49,7 @@ public class PayActivity extends FragmentActivity {
 	String mtag = "";
 	String tag;
 	public static int selected_po = 0;
+	Context mContext = GameSDK.mcontext;
 
 	double money;
 	static List<PayChannel> channellist;
@@ -56,7 +59,7 @@ public class PayActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_pay);
+		setContentView(ResourceUtil.getLayoutId(mContext, "activity_pay"));
 		instance = this;
 
 		tag = getIntent().getStringExtra("tag");
@@ -75,28 +78,32 @@ public class PayActivity extends FragmentActivity {
 			comitFragment("weixin", money);
 		}
 
-		findViewById(R.id.back_pay).setOnClickListener(new OnClickListener() {
+		findViewById(ResourceUtil.getId(mContext, "back_pay"))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				finish();
-			}
-		});
-		findViewById(R.id.kefu_pay).setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						finish();
+					}
+				});
+		findViewById(ResourceUtil.getId(mContext, "kefu_pay"))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent2 = new Intent(PayActivity.this, ALiActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("tag", "bbs");
-				bundle.putString("data", "http://m.52game.com/wap/service");
-				intent2.putExtras(bundle);
-				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				getBaseContext().startActivity(intent2);
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent2 = new Intent(PayActivity.this,
+								ALiActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("tag", "bbs");
+						bundle.putString("data",
+								"http://m.52game.com/wap/service");
+						intent2.putExtras(bundle);
+						intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getBaseContext().startActivity(intent2);
+					}
+				});
 
 	}
 
@@ -108,16 +115,20 @@ public class PayActivity extends FragmentActivity {
 	private void comitFragment(String string) {
 		// TODO Auto-generated method stub
 		if (string.equals("wallet")) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.contioner_pay, toWalletFragment).commit();
+			fragmentManager
+					.beginTransaction()
+					.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+							toWalletFragment).commit();
 		} else if (string.equals("walletpay")) {
 
 			WalletPayFragment walletPayFragment = new WalletPayFragment();
 			Bundle bundle = new Bundle();
 			bundle.putString("money", money + "");
 			walletPayFragment.setArguments(bundle);
-			fragmentManager.beginTransaction()
-					.replace(R.id.contioner_pay, walletPayFragment).commit();
+			fragmentManager
+					.beginTransaction()
+					.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+							walletPayFragment).commit();
 		}
 
 	}
@@ -182,8 +193,10 @@ public class PayActivity extends FragmentActivity {
 		mtag = tag;
 		aliPayFragment.setArguments(bundle);
 		// fragmentManager.beginTransaction().add(R.id.contioner_pay,aliPayFragment).commit();
-		fragmentManager.beginTransaction()
-				.replace(R.id.contioner_pay, aliPayFragment).commit();
+		fragmentManager
+				.beginTransaction()
+				.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+						aliPayFragment).commit();
 
 	}
 
@@ -216,10 +229,13 @@ public class PayActivity extends FragmentActivity {
 			ViewHolder viewHolder;
 			if (convertView == null) {
 				viewHolder = new ViewHolder();
-				convertView = getLayoutInflater().inflate(
-						R.layout.item_listview_pay, null);
+				convertView = getLayoutInflater()
+						.inflate(
+								ResourceUtil.getLayoutId(mContext,
+										"item_listview_pay"), null);
 				viewHolder.textView = (TextView) convertView
-						.findViewById(R.id.textView_itemList_pay);
+						.findViewById(ResourceUtil.getId(mContext,
+								"textView_itemList_pay"));
 
 				convertView.setTag(viewHolder);
 
@@ -244,7 +260,8 @@ public class PayActivity extends FragmentActivity {
 	}
 
 	private void initView() {
-		listView = (ListView) findViewById(R.id.listView_pay);
+		listView = (ListView) findViewById(ResourceUtil.getId(mContext,
+				"listView_pay"));
 		if (tag.equals("wallet")) {
 			listView.setAdapter(new Myadapter(channellist));
 		} else if (tag.equals("sdk")) {
@@ -329,8 +346,10 @@ public class PayActivity extends FragmentActivity {
 		bundle.putString("tag", tag);
 		bundle.putDouble("paymoney", money2);
 		fragment.setArguments(bundle);
-		fragmentManager.beginTransaction()
-				.replace(R.id.contioner_pay, fragment).commit();
+		fragmentManager
+				.beginTransaction()
+				.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+						fragment).commit();
 
 	}
 
@@ -362,9 +381,10 @@ public class PayActivity extends FragmentActivity {
 		}
 		if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
 			MyLog.i("绑定手机onActivityResult~~~2");
-			fragmentManager.beginTransaction()
-					.replace(R.id.contioner_pay, new WalletPayFragment())
-					.commit();
+			fragmentManager
+					.beginTransaction()
+					.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+							new WalletPayFragment()).commit();
 		}
 	}
 

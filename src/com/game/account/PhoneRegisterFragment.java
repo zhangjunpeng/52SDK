@@ -29,7 +29,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.game.gamesdk.GameSDK;
-import com.game.gamesdk.R;
 import com.game.gamesdk.RegisterConfig;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
@@ -38,6 +37,7 @@ import com.game.http.NameRegLogin;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.tools.NetWorkState;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 
 public class PhoneRegisterFragment extends Fragment {
@@ -137,18 +137,23 @@ public class PhoneRegisterFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		mcontext = getActivity();
-		View localView = inflater
-				.inflate(R.layout.dialog_showmobleregist, null);
+		View localView = inflater.inflate(
+				ResourceUtil.getLayoutId(mcontext, "dialog_showmobleregist"),
+				null);
 		final EditText edit_phonenum = (EditText) localView
-				.findViewById(R.id.edit_phonenum_phoneregister);
+				.findViewById(ResourceUtil.getId(mcontext,
+						"edit_phonenum_phoneregister"));
 		final EditText edit_pwd = (EditText) localView
-				.findViewById(R.id.edit_pwd_phoneregister);
+				.findViewById(ResourceUtil.getId(mcontext,
+						"edit_pwd_phoneregister"));
 		final EditText edit_prov = (EditText) localView
-				.findViewById(R.id.edit_pronum_phoneregister);
+				.findViewById(ResourceUtil.getId(mcontext,
+						"edit_pronum_phoneregister"));
 		token = "";
 
-		localView.findViewById(R.id.register_register).setOnClickListener(
-				new View.OnClickListener() {
+		localView.findViewById(
+				ResourceUtil.getId(mcontext, "register_register"))
+				.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						if (!NetWorkState.getNetState(mcontext)) {
@@ -201,8 +206,8 @@ public class PhoneRegisterFragment extends Fragment {
 
 					}
 				});
-		getproving = (Button) localView
-				.findViewById(R.id.button_getproving_phoneRegister);
+		getproving = (Button) localView.findViewById(ResourceUtil.getId(
+				mcontext, "button_getproving_phoneRegister"));
 		getproving.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -247,34 +252,40 @@ public class PhoneRegisterFragment extends Fragment {
 				ShowDialog.setButton(getproving);
 			}
 		});
-		localView.findViewById(R.id.login_phoneregister).setOnClickListener(
-				new OnClickListener() {
+		localView.findViewById(
+				ResourceUtil.getId(mcontext, "login_phoneregister"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						getFragmentManager()
 								.beginTransaction()
-								.replace(R.id.container_userinfo,
+								.replace(
+										ResourceUtil.getId(mcontext,
+												"container_userinfo"),
 										new LoginFragment()).commit();
 
 					}
 				});
 
-		localView.findViewById(R.id.namereg_phoneregister).setOnClickListener(
-				new OnClickListener() {
+		localView.findViewById(
+				ResourceUtil.getId(mcontext, "namereg_phoneregister"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						getFragmentManager()
 								.beginTransaction()
-								.replace(R.id.container_userinfo,
+								.replace(
+										ResourceUtil.getId(mcontext,
+												"container_userinfo"),
 										new NameRegisterFragment()).commit();
 					}
 				});
 		final ImageButton eye = (ImageButton) localView
-				.findViewById(R.id.eye_phoneregister);
+				.findViewById(ResourceUtil.getId(mcontext, "eye_phoneregister"));
 		eye.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -282,12 +293,14 @@ public class PhoneRegisterFragment extends Fragment {
 				// TODO Auto-generated method stub
 				if (pwd_isvisiable) {
 					pwd_isvisiable = false;
-					eye.setImageResource(R.drawable.eye_close);
+					eye.setImageResource(ResourceUtil.getDrawableId(mcontext,
+							"eye_close"));
 					edit_pwd.setTransformationMethod(PasswordTransformationMethod
 							.getInstance());
 				} else {
 					pwd_isvisiable = true;
-					eye.setImageResource(R.drawable.eye_open);
+					eye.setImageResource(ResourceUtil.getDrawableId(mcontext,
+							"eye_open"));
 					edit_pwd.setTransformationMethod(HideReturnsTransformationMethod
 							.getInstance());
 				}

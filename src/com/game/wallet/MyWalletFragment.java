@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import android.widget.Toast;
 import com.game.fragment.BindPhoneNumFragment;
 import com.game.fragment.UserInfoFragment;
 import com.game.gamesdk.GameSDK;
-import com.game.gamesdk.R;
 import com.game.gamesdk.UserInfo;
 import com.game.http.GameHttpClient;
 import com.game.paysdk.PayActivity;
@@ -34,6 +34,7 @@ import com.game.paysdk.PayCofing;
 import com.game.tools.CustomDialog;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 
 public class MyWalletFragment extends Fragment {
 
@@ -88,7 +89,9 @@ public class MyWalletFragment extends Fragment {
 										getFragmentManager()
 												.beginTransaction()
 												.replace(
-														R.id.container_userinfo,
+														ResourceUtil
+																.getId(mContext,
+																		"container_userinfo"),
 														bind).commit();
 									}
 								});
@@ -100,6 +103,7 @@ public class MyWalletFragment extends Fragment {
 								PayActivity.class);
 						intent.putExtra("tag", "wallet");
 						startActivity(intent);
+
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -149,18 +153,26 @@ public class MyWalletFragment extends Fragment {
 			}
 		}
 	};
+	Context mContext = GameSDK.mcontext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_mywallet, null);
-		back = (Button) view.findViewById(R.id.back_frag_mywallet);
-		pay = (Button) view.findViewById(R.id.pay_mywallet_fg);
-		textView_wallet = (TextView) view.findViewById(R.id.money_mywallet);
-		textView_balance = (TextView) view.findViewById(R.id.balance_mywallet);
-		view.findViewById(R.id.duihuan_mywallet_fg).setOnClickListener(
-				new OnClickListener() {
+
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(getActivity(), "fragment_mywallet"),
+				null);
+		back = (Button) view.findViewById(ResourceUtil.getId(mContext,
+				"back_frag_mywallet"));
+		pay = (Button) view.findViewById(ResourceUtil.getId(mContext,
+				"pay_mywallet_fg"));
+		textView_wallet = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "money_mywallet"));
+		textView_balance = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "balance_mywallet"));
+		view.findViewById(ResourceUtil.getId(mContext, "duihuan_mywallet_fg"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -215,7 +227,9 @@ public class MyWalletFragment extends Fragment {
 				// TODO Auto-generated method stub
 				getFragmentManager()
 						.beginTransaction()
-						.replace(R.id.container_userinfo,
+						.replace(
+								ResourceUtil.getId(mContext,
+										"container_userinfo"),
 								new UserInfoFragment()).commit();
 			}
 		});

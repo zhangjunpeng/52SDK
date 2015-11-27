@@ -31,12 +31,12 @@ import android.widget.Toast;
 import com.game.callback.LoginGameCallback;
 import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.InitListView;
-import com.game.gamesdk.R;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
 import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
 import com.game.tools.NetWorkState;
+import com.game.tools.ResourceUtil;
 
 public class LoginFragment extends Fragment {
 
@@ -44,6 +44,7 @@ public class LoginFragment extends Fragment {
 	static ProgressDialog loading;
 	static Activity mContext;
 	public static LoginGameCallback loginGamePayCallback;
+	String name;
 
 	final Handler handler = new Handler() {
 		@Override
@@ -60,8 +61,10 @@ public class LoginFragment extends Fragment {
 					JSONObject jsonObject = new JSONObject(data1);
 					String errorCode = jsonObject.getString("errorCode");
 					if (errorCode.equals("200")) {
+
 						GameSDK.isLogin = true;
 
+						UserInfo.userName = name;
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
@@ -107,23 +110,29 @@ public class LoginFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		mContext = getActivity();
-		View localView = inflater.inflate(R.layout.dialog_login, null);
+
+		View localView = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "dialog_login"), null);
 
 		final EditText edit_name = (EditText) localView
-				.findViewById(R.id.edit_username_login);
+				.findViewById(ResourceUtil.getId(getActivity(),
+						"edit_username_login"));
 		final EditText edit_pwd = (EditText) localView
-				.findViewById(R.id.edit_pwd_login);
+				.findViewById(ResourceUtil.getId(getActivity(),
+						"edit_pwd_login"));
 		final ImageButton button_pwd_isvisible = (ImageButton) localView
-				.findViewById(R.id.pwd_isvisiable_login);
+				.findViewById(ResourceUtil.getId(getActivity(),
+						"pwd_isvisiable_login"));
 
-		Button quickRegisiter = (Button) localView
-				.findViewById(R.id.button_qiuckRegister_login);
-		Button login = (Button) localView.findViewById(R.id.login_login);
-		CheckBox checkBox = (CheckBox) localView
-				.findViewById(R.id.checkBox_login);
+		Button quickRegisiter = (Button) localView.findViewById(ResourceUtil
+				.getId(getActivity(), "button_qiuckRegister_login"));
+		Button login = (Button) localView.findViewById(ResourceUtil.getId(
+				getActivity(), "login_login"));
+		CheckBox checkBox = (CheckBox) localView.findViewById(ResourceUtil
+				.getId(getActivity(), "checkBox_login"));
 		MyLog.i((checkBox == null) + "");
-		TextView findbackpwd = (TextView) localView
-				.findViewById(R.id.find_pwd_login);
+		TextView findbackpwd = (TextView) localView.findViewById(ResourceUtil
+				.getId(getActivity(), "find_pwd_login"));
 
 		checkBox.setChecked(AccountWork.autoLogin);
 		// 每次改变自动登录的选中状态，系统都会记录
@@ -144,12 +153,14 @@ public class LoginFragment extends Fragment {
 				// TODO Auto-generated method stub
 				if (pwd_isvisiable) {
 					pwd_isvisiable = false;
-					button_pwd_isvisible.setImageResource(R.drawable.eye_close);
+					button_pwd_isvisible.setImageResource(ResourceUtil
+							.getDrawableId(getActivity(), "eye_close"));
 					edit_pwd.setTransformationMethod(PasswordTransformationMethod
 							.getInstance());
 				} else {
 					pwd_isvisiable = true;
-					button_pwd_isvisible.setImageResource(R.drawable.eye_open);
+					button_pwd_isvisible.setImageResource(ResourceUtil
+							.getDrawableId(getActivity(), "eye_open"));
 					edit_pwd.setTransformationMethod(HideReturnsTransformationMethod
 							.getInstance());
 				}
@@ -163,7 +174,9 @@ public class LoginFragment extends Fragment {
 				// 跳转到注册
 				getFragmentManager()
 						.beginTransaction()
-						.replace(R.id.container_userinfo,
+						.replace(
+								ResourceUtil.getId(mContext,
+										"container_userinfo"),
 								new NameRegisterFragment()).commit();
 
 			}
@@ -179,8 +192,8 @@ public class LoginFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				String name = edit_name.getText().toString();
-				UserInfo.userName = name;
+				name = edit_name.getText().toString();
+
 				String pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
 					Toast.makeText(getActivity(), "用户名或密码不能为空",
@@ -207,9 +220,11 @@ public class LoginFragment extends Fragment {
 		});
 		// 点击向下箭头，显示输入过用户名
 		ImageButton imageButton = (ImageButton) localView
-				.findViewById(R.id.more_name_login);
+				.findViewById(ResourceUtil.getId(getActivity(),
+						"more_name_login"));
 		final ListView listView = (ListView) localView
-				.findViewById(R.id.listview_login);
+				.findViewById(ResourceUtil.getId(getActivity(),
+						"listview_login"));
 
 		GameSDK.getUsedName();
 

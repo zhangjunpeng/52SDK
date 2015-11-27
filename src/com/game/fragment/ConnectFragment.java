@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.game.gamesdk.R;
+import com.game.tools.ResourceUtil;
 
 public class ConnectFragment extends Fragment {
 
@@ -14,7 +14,9 @@ public class ConnectFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_connect, null);
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(getActivity(), "fragment_connect"),
+				null);
 		return view;
 	}
 }

@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.game.tools.ResourceUtil;
+
 public class ALiActivity extends Activity {
 
 	WebView webView;
@@ -14,9 +16,9 @@ public class ALiActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_ali);
+		setContentView(ResourceUtil.getLayoutId(this, "activity_ali"));
 
-		webView = (WebView) findViewById(R.id.webView1);
+		webView = (WebView) findViewById(ResourceUtil.getId(this, "webView1"));
 		webView.getSettings().setJavaScriptEnabled(true);
 
 		Intent intent = getIntent();

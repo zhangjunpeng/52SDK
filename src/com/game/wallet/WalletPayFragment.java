@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.gamesdk.GameSDK;
-import com.game.gamesdk.R;
 import com.game.gamesdk.RegisterConfig;
 import com.game.gamesdk.ShowDialog;
 import com.game.gamesdk.UserInfo;
@@ -37,6 +37,7 @@ import com.game.http.GameHttpClient;
 import com.game.paysdk.PayCofing;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 
 public class WalletPayFragment extends Fragment {
 	private TextView username_wt_fragment;
@@ -212,6 +213,7 @@ public class WalletPayFragment extends Fragment {
 			}
 		}
 	};
+	Context mContext = GameSDK.mcontext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -221,22 +223,29 @@ public class WalletPayFragment extends Fragment {
 		if (!TextUtils.isEmpty(mon)) {
 			money = Double.parseDouble(mon);
 		}
-		View view = inflater.inflate(R.layout.fragment_wallettopay, null);
-		username_wt_fragment = (TextView) view
-				.findViewById(R.id.username_wt_fragment);
-		paymoney_wt_fragment = (TextView) view
-				.findViewById(R.id.paymoney_wt_fragment);
-		mywallet_wt_fragment = (TextView) view
-				.findViewById(R.id.mywallet_wt_fragment);
-		payname_wt_fg = (TextView) view.findViewById(R.id.payname_wt_fg);
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "fragment_wallettopay"),
+				null);
+		username_wt_fragment = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "username_wt_fragment"));
+		paymoney_wt_fragment = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "paymoney_wt_fragment"));
+		mywallet_wt_fragment = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "mywallet_wt_fragment"));
+		payname_wt_fg = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "payname_wt_fg"));
 
-		linearLayout = (LinearLayout) view
-				.findViewById(R.id.yanzheng_linearlayout_wtfg);
-		phonenum_textView = (TextView) view.findViewById(R.id.phonenum_wtfg);
-		proving_edit = (EditText) view.findViewById(R.id.edit_proving);
-		getproving = (Button) view.findViewById(R.id.getproving_wtfg);
+		linearLayout = (LinearLayout) view.findViewById(ResourceUtil.getId(
+				mContext, "yanzheng_linearlayout_wtfg"));
+		phonenum_textView = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "phonenum_wtfg"));
+		proving_edit = (EditText) view.findViewById(ResourceUtil.getId(
+				mContext, "edit_proving"));
+		getproving = (Button) view.findViewById(ResourceUtil.getId(mContext,
+				"getproving_wtfg"));
 
-		pay_button = (Button) view.findViewById(R.id.pay_wt_fg);
+		pay_button = (Button) view.findViewById(ResourceUtil.getId(mContext,
+				"pay_wt_fg"));
 
 		initView();
 		getIsbind();
@@ -364,8 +373,10 @@ public class WalletPayFragment extends Fragment {
 			Bundle bundle = new Bundle();
 			bundle.putString("money", money + "");
 			walletPayFragment.setArguments(bundle);
-			getFragmentManager().beginTransaction()
-					.replace(R.id.contioner_pay, walletPayFragment).commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(ResourceUtil.getId(mContext, "contioner_pay"),
+							walletPayFragment).commit();
 		}
 	}
 

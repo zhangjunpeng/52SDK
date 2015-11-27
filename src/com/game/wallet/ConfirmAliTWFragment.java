@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,13 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.gamesdk.ALiActivity;
-import com.game.gamesdk.R;
+import com.game.gamesdk.GameSDK;
 import com.game.gamesdk.UserInfo;
 import com.game.paysdk.PayCofing;
 import com.game.paysdk.PaySDK;
 import com.game.paysdk.TestActivity;
 import com.game.sdkclass.PayChannel;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 
 public class ConfirmAliTWFragment extends Fragment {
 	private double money;
@@ -92,17 +94,19 @@ public class ConfirmAliTWFragment extends Fragment {
 			}
 		}
 	};
+	Context mContext = GameSDK.mcontext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_alipay, null);
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mContext, "fragment_alipay"), null);
 
 		Bundle bundle = getArguments();
 		String mes = bundle.getString("type");
 		money = bundle.getDouble("paymoney");
-		TextView textView1 = (TextView) view
-				.findViewById(R.id.payname_table_fragment);
+		TextView textView1 = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "payname_table_fragment"));
 		textView1.setTextColor(Color.rgb(254, 146, 38));
 		if ("alipay".equals(mes)) {
 			textView1.setText("支付宝快捷支付");
@@ -118,18 +122,18 @@ public class ConfirmAliTWFragment extends Fragment {
 			tag = 3;
 			textView1.setText("网银支付");
 		}
-		TextView money_text = (TextView) view
-				.findViewById(R.id.paymoney_fragment);
+		TextView money_text = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "paymoney_fragment"));
 		money_text.setText(money + " 元");
 
 		// 显示用户名
-		TextView name_text = (TextView) view
-				.findViewById(R.id.username_fragment);
+		TextView name_text = (TextView) view.findViewById(ResourceUtil.getId(
+				mContext, "username_fragment"));
 
 		name_text.setText(UserInfo.userName);
 
-		view.findViewById(R.id.pay_fragment_ali).setOnClickListener(
-				new OnClickListener() {
+		view.findViewById(ResourceUtil.getId(mContext, "pay_fragment_ali"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -185,6 +189,7 @@ public class ConfirmAliTWFragment extends Fragment {
 								PayChannel channel = PayCofing.list.get(i);
 								if (channel.getChannel_name_en().equals("bank")) {
 									position3 = i;
+									payChannel = channel;
 								}
 							}
 							single.execute(new Runnable() {

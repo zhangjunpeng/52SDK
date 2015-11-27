@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,12 +30,14 @@ import com.game.fragment.UserInfoFragment;
 import com.game.http.GameHttpClient;
 import com.game.sdkclass.GameOpen;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class UserInfoActivity extends FragmentActivity {
 
 	private ArrayList<GameOpen> gamelist;
+	Context mContext = GameSDK.mcontext;
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -76,8 +79,10 @@ public class UserInfoActivity extends FragmentActivity {
 		bundle.putSerializable("gamelist", gamelist);
 		Fragment kaifuFragment = new KaifuFragment();
 		kaifuFragment.setArguments(bundle);
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container_userinfo, kaifuFragment).commit();
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(ResourceUtil.getId(this, "container_userinfo"),
+						kaifuFragment).commit();
 
 	}
 
@@ -86,7 +91,7 @@ public class UserInfoActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setFinishOnTouchOutside(false);
-		setContentView(R.layout.activity_user_info);
+		setContentView(ResourceUtil.getLayoutId(mContext, "activity_user_info"));
 		int tag = getIntent().getIntExtra("tag", 1);
 		comitFragment(tag);
 		initView();
@@ -94,8 +99,8 @@ public class UserInfoActivity extends FragmentActivity {
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		findViewById(R.id.ImageView1_acinfo).setOnClickListener(
-				new OnClickListener() {
+		findViewById(ResourceUtil.getId(mContext, "ImageView1_acinfo"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -108,7 +113,8 @@ public class UserInfoActivity extends FragmentActivity {
 
 					}
 				});
-		final ImageView im = (ImageView) findViewById(R.id.textView4_uiac);
+		final ImageView im = (ImageView) findViewById(ResourceUtil.getId(
+				mContext, "textView4_uiac"));
 		im.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -133,36 +139,38 @@ public class UserInfoActivity extends FragmentActivity {
 				});
 			}
 		});
-		findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
+		findViewById(ResourceUtil.getId(mContext, "textView3"))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent2 = new Intent(UserInfoActivity.this,
-						ALiActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("tag", "bbs");
-				bundle.putString("data", "http://bbs.m.52game.com");
-				intent2.putExtras(bundle);
-				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				getBaseContext().startActivity(intent2);
-			}
-		});
-		findViewById(R.id.textView2).setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent2 = new Intent(UserInfoActivity.this,
+								ALiActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("tag", "bbs");
+						bundle.putString("data", "http://bbs.m.52game.com");
+						intent2.putExtras(bundle);
+						intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getBaseContext().startActivity(intent2);
+					}
+				});
+		findViewById(ResourceUtil.getId(mContext, "textView2"))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent2 = new Intent(UserInfoActivity.this,
-						ALiActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("tag", "bbs");
-				bundle.putString("data", "http://m.52game.com");
-				intent2.putExtras(bundle);
-				intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				getBaseContext().startActivity(intent2);
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent2 = new Intent(UserInfoActivity.this,
+								ALiActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString("tag", "bbs");
+						bundle.putString("data", "http://m.52game.com");
+						intent2.putExtras(bundle);
+						intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						getBaseContext().startActivity(intent2);
+					}
+				});
 	}
 
 	private void comitFragment(int tag) {
@@ -172,30 +180,39 @@ public class UserInfoActivity extends FragmentActivity {
 			UserInfoFragment userInfoFragment = new UserInfoFragment();
 
 			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.container_userinfo, userInfoFragment)
-					.commit();
+			fragmentManager
+					.beginTransaction()
+					.replace(
+							ResourceUtil.getId(mContext, "container_userinfo"),
+							userInfoFragment).commit();
 			break;
 
 		case 2:
 			ConnectFragment connectFragment = new ConnectFragment();
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container_userinfo, connectFragment).commit();
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(
+							ResourceUtil.getId(mContext, "container_userinfo"),
+							connectFragment).commit();
 			break;
 
 		case 3:
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container_userinfo, new LoginFragment())
-					.commit();
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(
+							ResourceUtil.getId(mContext, "container_userinfo"),
+							new LoginFragment()).commit();
 			break;
 		case 4:
 			BindPhoneNumFragment bindPhoneNumFragment = new BindPhoneNumFragment();
 			Bundle bundle = new Bundle();
 			bundle.putString("tag", "walletpay");
 			bindPhoneNumFragment.setArguments(bundle);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container_userinfo, bindPhoneNumFragment)
-					.commit();
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(
+							ResourceUtil.getId(mContext, "container_userinfo"),
+							bindPhoneNumFragment).commit();
 			break;
 
 		default:

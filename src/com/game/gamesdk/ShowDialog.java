@@ -42,6 +42,7 @@ import com.game.http.NameRegLogin;
 import com.game.tools.MD5Test;
 import com.game.tools.MyLog;
 import com.game.tools.NetWorkState;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 
 /**
@@ -263,7 +264,8 @@ public class ShowDialog {
 
 				case 1:
 					button.setClickable(true);
-					button.setText(R.string.getproving);
+					button.setText(ResourceUtil.getStringId(mcontext,
+							"getproving"));
 					break;
 				}
 			}
@@ -723,7 +725,8 @@ public class ShowDialog {
 	public static ProgressDialog showLoadingDialog(Context context, String mes) {
 
 		ProgressDialog progressDialog = new ProgressDialog(context,
-				R.style.switch_progress_dialog);
+				ResourceUtil.getStyleId(GameSDK.mcontext,
+						"switch_progress_dialog"));
 		progressDialog.setMessage(mes);
 		progressDialog.setCanceledOnTouchOutside(false);
 

@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,9 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.game.gamesdk.R;
 import com.game.http.NameRegLogin;
 import com.game.tools.MyLog;
+import com.game.tools.ResourceUtil;
 import com.game.tools.StringTools;
 
 public class ChangePwdFragment extends Fragment {
@@ -66,19 +67,25 @@ public class ChangePwdFragment extends Fragment {
 			}
 		}
 	};
+	static Context mcontext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_changepwd, null);
-		editText_old = (EditText) view.findViewById(R.id.edit_oldpwd_change);
-		editText_new = (EditText) view.findViewById(R.id.edit_newpwd_change);
-		editText_cofirm = (EditText) view
-				.findViewById(R.id.edit_confirmpwd_change);
-		submit = (Button) view.findViewById(R.id.submit_changepwd);
-		view.findViewById(R.id.back_frag_change).setOnClickListener(
-				new OnClickListener() {
+		mcontext = getActivity();
+		View view = inflater.inflate(
+				ResourceUtil.getLayoutId(mcontext, "fragment_changepwd"), null);
+		editText_old = (EditText) view.findViewById(ResourceUtil.getId(
+				mcontext, "edit_oldpwd_change"));
+		editText_new = (EditText) view.findViewById(ResourceUtil.getId(
+				mcontext, "edit_newpwd_change"));
+		editText_cofirm = (EditText) view.findViewById(ResourceUtil.getId(
+				mcontext, "edit_confirmpwd_change"));
+		submit = (Button) view.findViewById(ResourceUtil.getId(mcontext,
+				"submit_changepwd"));
+		view.findViewById(ResourceUtil.getId(mcontext, "back_frag_change"))
+				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -86,7 +93,9 @@ public class ChangePwdFragment extends Fragment {
 						getActivity()
 								.getSupportFragmentManager()
 								.beginTransaction()
-								.replace(R.id.container_userinfo,
+								.replace(
+										ResourceUtil.getId(mcontext,
+												"container_userinfo"),
 										new UserInfoFragment()).commit();
 					}
 				});

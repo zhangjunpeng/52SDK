@@ -90,4 +90,8 @@ public class StringTools {
 		return false;
 	}
 
+	public static boolean matches(String mes) {
+		String regex = "^[0-9A-Za-z]$";
+		return mes.matches(regex);
+	}
 }
