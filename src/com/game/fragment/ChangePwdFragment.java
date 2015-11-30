@@ -135,6 +135,12 @@ public class ChangePwdFragment extends Fragment {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
+				if (StringTools.isHaveChinese(newpwd)) {
+					Toast.makeText(getActivity(), "密码不能有中文", Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
 				if (newpwd.length() < 4 || newpwd.length() > 20) {
 					Toast.makeText(getActivity(), "新密码长度必须大于3小于21",
 							Toast.LENGTH_SHORT).show();

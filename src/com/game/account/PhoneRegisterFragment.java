@@ -45,6 +45,7 @@ public class PhoneRegisterFragment extends Fragment {
 	static Activity mcontext;
 	static Button getproving;
 	static String phoneNum;
+	String pwd;
 	static String token;
 	static boolean pwd_isvisiable = false;
 
@@ -110,6 +111,9 @@ public class PhoneRegisterFragment extends Fragment {
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
 						UserInfo.userName = phoneNum;
+						GameSDK.saveInfo("name", phoneNum);
+						GameSDK.saveInfo("pwd", pwd);
+						GameSDK.isLogin = true;
 						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
@@ -162,7 +166,7 @@ public class PhoneRegisterFragment extends Fragment {
 							return;
 						}
 
-						String pwd = edit_pwd.getText().toString();
+						pwd = edit_pwd.getText().toString();
 						String prov = edit_prov.getText().toString();
 						String phone = edit_phonenum.getEditableText()
 								.toString();

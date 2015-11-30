@@ -91,7 +91,7 @@ public class StringTools {
 	}
 
 	public static boolean matches(String mes) {
-		String regex = "^[0-9A-Za-z]$";
+		String regex = "^[0-9A-Za-z]{4,30}$";
 		return mes.matches(regex);
 	}
 }

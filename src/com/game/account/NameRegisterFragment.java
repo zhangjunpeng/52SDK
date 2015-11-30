@@ -32,6 +32,7 @@ public class NameRegisterFragment extends Fragment {
 	static ProgressDialog loading;
 	static Activity mcontext;
 	String name;
+	String pwd;
 
 	final Handler handler = new Handler() {
 		@Override
@@ -54,6 +55,9 @@ public class NameRegisterFragment extends Fragment {
 						JSONObject jsonObject2 = jsonObject
 								.getJSONObject("data");
 						UserInfo.userID = jsonObject2.getString("uid");
+						UserInfo.userName = name;
+						GameSDK.saveInfo("name", name);
+						GameSDK.saveInfo("pwd", pwd);
 						String sid = jsonObject2.getString("sid");
 						Toast.makeText(mcontext, "注册成功", Toast.LENGTH_LONG)
 								.show();
@@ -179,7 +183,7 @@ public class NameRegisterFragment extends Fragment {
 					return;
 				}
 				name = edit_name.getText().toString();
-				String pwd = edit_pwd.getText().toString();
+				pwd = edit_pwd.getText().toString();
 				if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {
 					Toast.makeText(mcontext, "用户名或密码不能为空", Toast.LENGTH_SHORT)
 							.show();
